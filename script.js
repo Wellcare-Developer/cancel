@@ -236,7 +236,7 @@ function formatCurrency(value) {
 
 // Setup premium input validation and formatting
 function setupPremiumInput() {
-    const premiumInput = document.getElementById('annual-premium');
+        const premiumInput = document.getElementById('annual-premium');
     
     premiumInput.addEventListener('input', function(e) {
         // 移除非数字字符（保留小数点）
