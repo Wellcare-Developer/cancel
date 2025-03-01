@@ -1,6 +1,12 @@
 /* Base Styles */
 :root {
-    --primary-color: #3b82f6;
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --background-color: #f5f6fa;
+    --text-color: #2c3e50;
+    --border-color: #dcdde1;
+    --success-color: #27ae60;
     --primary-light: #eff6ff;
     --primary-dark: #1e40af;
     --primary-hover: #60a5fa;
@@ -22,10 +28,10 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f8fafc;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -33,17 +39,16 @@ body {
 
 /* Container Styles */
 header {
+    background-color: var(--primary-color);
+    color: white;
     text-align: center;
-    padding: 2rem 1rem;
-    background-color: white;
-    border-bottom: 1px solid var(--grey-200);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
 }
 
 header h1 {
-    font-size: 1.75rem;
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
-    color: var(--primary-dark);
 }
 
 header p {
@@ -70,11 +75,9 @@ footer {
 
 /* Page Layout */
 .page-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 1800px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 0 1rem;
 }
 
 @media (min-width: 1024px) {
@@ -118,12 +121,13 @@ footer {
 /* Calculator Container */
 .calculator-container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    background-color: white;
-    border-radius: 1rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
 }
 
 @media (min-width: 1200px) {
@@ -133,44 +137,9 @@ footer {
 }
 
 /* Input Section Styles */
-.calculator-inputs, .calculator-results {
-    background-color: white;
-    border: 1px solid var(--grey-200);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-}
-
-.tips-container {
-    background-color: var(--primary-light);
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    font-size: 0.875rem;
-    border-left: 4px solid var(--primary-color);
-}
-
-.tips-title {
-    color: var(--primary-color);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-}
-
-.tips-list {
-    margin-left: 0.5rem;
-    color: var(--grey-600);
-}
-
-.tips-list li {
-    margin-bottom: 0.5rem;
-    list-style-type: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.tips-list li i {
-    color: var(--green-500);
+.calculator-inputs {
+    border-right: 1px solid var(--border-color);
+    padding-right: 2rem;
 }
 
 .input-section {
@@ -181,65 +150,56 @@ footer {
 
 /* Step Styling */
 .step-container {
-    background-color: var(--grey-50);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    border: 1px solid var(--grey-200);
-    transition: all 0.3s ease;
-}
-
-.step-container:hover, 
-.step-container:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    margin-bottom: 1.5rem;
 }
 
 .step-indicator {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
     align-items: flex-start;
+    margin-bottom: 1rem;
 }
 
 .step-number {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: white;
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 0.875rem;
+    margin-right: 1rem;
     flex-shrink: 0;
 }
 
-.step-content {
-    flex-grow: 1;
-}
-
-.input-group h5 {
-    font-size: 1rem;
-    font-weight: 600;
+.step-content h5 {
     margin-bottom: 0.25rem;
-    color: var(--grey-600);
+    color: var(--primary-color);
 }
 
 .hint-text {
-    font-size: 0.75rem;
-    color: var(--grey-500);
-    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
 }
 
 /* Form Elements */
 .highlighted-input {
-    border: 2px solid var(--grey-300) !important;
-    padding: 0.75rem 35px 0.75rem 0.75rem !important;
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
     font-size: 1rem;
-    background-position: right 10px center;
-    background-size: 20px;
-    background-repeat: no-repeat;
+    transition: border-color 0.3s;
+}
+
+.highlighted-input:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+}
+
+textarea.highlighted-input {
+    resize: vertical;
+    min-height: 100px;
 }
 
 /* Ensure consistent form element styling */
@@ -385,26 +345,26 @@ button {
 }
 
 .action-button {
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 600;
+    background-color: var(--secondary-color);
     color: white;
-    background-color: var(--primary-color);
     border: none;
-    border-radius: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.15);
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.action-button i {
+    margin-right: 0.5rem;
 }
 
 .action-button:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 7px 10px rgba(59, 130, 246, 0.2);
+    background-color: #2980b9;
 }
 
 .action-button:active {
@@ -412,23 +372,25 @@ button {
     box-shadow: 0 3px 6px rgba(59, 130, 246, 0.2);
 }
 
-.action-button i {
-    font-size: 1.125rem;
-}
-
-button:hover {
-    background-color: var(--grey-100);
-}
-
 #copy-btn {
+    background-color: transparent;
+    border: 2px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0.5rem 0.75rem;
-    width: auto;
-    font-size: 0.875rem;
-    border-radius: 0.5rem;
+    transition: all 0.3s;
+}
+
+#copy-btn i {
+    margin-right: 0.5rem;
+}
+
+#copy-btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
 }
 
 /* Results Section Styles */
@@ -437,35 +399,18 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
-    border-bottom: 2px solid var(--grey-200);
-    padding-bottom: 1rem;
-}
-
-.results-header h4 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--grey-600);
 }
 
 .empty-state {
-    background-color: var(--grey-50);
-    border: 1px solid var(--grey-200);
-    border-radius: 0.75rem;
-    padding: 2rem;
-    color: var(--grey-500);
-    font-size: 1rem;
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    min-height: 300px;
+    color: #666;
+    padding: 3rem 0;
 }
 
 .empty-state i {
     font-size: 2rem;
-    color: var(--grey-400);
+    margin-bottom: 1rem;
+    color: var(--border-color);
 }
 
 .results-content {
@@ -573,7 +518,7 @@ button:hover {
 
 /* Utility Classes */
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /* Datepicker Custom Styles */
@@ -584,6 +529,12 @@ button:hover {
     background-position: right 10px center;
     background-size: 20px;
     padding-right: 35px !important;
+    width: 100%;
+    min-width: 250px;
+}
+
+.date-input-group {
+    width: 100%;
 }
 
 /* Flatpickr Custom Styles */
@@ -629,4 +580,446 @@ button:hover {
     font-size: 0.875rem;
     margin-right: 0.25rem;
     flex-shrink: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-inputs {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-right: 0;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .calculator-results {
+        padding-left: 0;
+    }
+}
+
+/* 添加取消表单样式 */
+.cancellation-form {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.form-logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-logo h2 {
+    color: #e74c3c;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.field-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.field-value {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    color: #555;
+}
+
+/* 修改信件预览样式 */
+.letter-preview {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .form-field {
+        font-size: 14px;
+    }
+}
+
+/* 添加打印按钮和下载选项样式 */
+.download-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+.secondary-button {
+    background-color: white;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    min-width: 150px;
+}
+
+.secondary-button i {
+    margin-right: 0.5rem;
+}
+
+.secondary-button:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+/* Logo 样式 */
+.logo-image {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+}
+
+/* 电子签名样式 - 优化 */
+.signature-field {
+    margin-top: 50px;
+}
+
+.signature-container {
+    margin-top: 30px;
+    padding: 20px 25px;
+    border-top: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.signature-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.signature-note {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.signature {
+    margin-bottom: 15px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.signature-date {
+    font-size: 14px;
+    color: #555;
+    align-self: flex-start;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.signature-style {
+    padding: 5px 0;
+    display: inline-block;
+}
+
+/* 新的手写签名样式 */
+.handwritten {
+    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+    font-size: 26px;
+    color: #000;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+    line-height: 1.2;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.handwritten::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0,0,0,0.3);
+    transform: scaleX(0.95) rotate(-0.5deg);
+}
+
+/* 保留旧的签名样式以兼容性 */
+.cursive {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 24px;
+    color: #000;
+    transform: rotate(-2deg);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.initials-underline {
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #000;
+    letter-spacing: 2px;
+}
+
+.full-name-flourish {
+    font-family: 'Times New Roman', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+}
+
+/* Insurance Company Input Styles */
+#insurer {
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 1fr;
+    }
+
+    .calculator-inputs {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-right: 0;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .calculator-results {
+        padding-left: 0;
+    }
+}
+
+/* Cancellation Form Styles */
+.cancellation-form {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.form-logo {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.form-logo h2 {
+    color: #e74c3c;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.field-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.field-value {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    color: #555;
+}
+
+/* Letter Preview Styles */
+.letter-preview {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+/* Print Button and Download Options Styles */
+.download-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px;
+}
+
+/* Logo Styles */
+.logo-image {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-text {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    position: relative;
+}
+
+/* Electronic Signature Styles - Optimized */
+.signature-field {
+    margin-top: 50px;
+}
+
+.signature-container {
+    margin-top: 30px;
+    padding: 20px 25px;
+    border-top: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.signature-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.signature-note {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.signature {
+    margin-bottom: 15px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.signature-date {
+    font-size: 14px;
+    color: #555;
+    align-self: flex-start;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.signature-style {
+    padding: 5px 0;
+    display: inline-block;
+}
+
+/* New Handwritten Signature Style */
+.handwritten {
+    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+    font-size: 26px;
+    color: #000;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+    line-height: 1.2;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.handwritten::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0,0,0,0.3);
+    transform: scaleX(0.95) rotate(-0.5deg);
+}
+
+/* Retain Old Signature Styles for Compatibility */
+.cursive {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 24px;
+    color: #000;
+    transform: rotate(-2deg);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.initials-underline {
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #000;
+    letter-spacing: 2px;
+}
+
+.full-name-flourish {
+    font-family: 'Times New Roman', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+}
+
+/* Datepicker Custom Styles */
+.date-picker {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7280' width='18px' height='18px'%3E%3Cpath d='M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    padding-right: 35px !important;
+    width: 100%;
+    min-width: 250px;
 } 
