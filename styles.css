@@ -133,7 +133,7 @@ footer {
     width: 100%;
 }
 
-/* 确保底部广告横幅占据整行 */
+/* Ensure bottom ad banner spans the entire row */
 .ad-banner {
     grid-column: 1 / -1;
     width: 100%;
@@ -611,7 +611,7 @@ button {
     flex-shrink: 0;
 }
 
-/* 响应式设计 */
+/* Responsive design */
 @media (max-width: 768px) {
     .calculator-container {
         grid-template-columns: 1fr;
@@ -630,7 +630,7 @@ button {
     }
 }
 
-/* 添加取消表单样式 */
+/* Cancellation form styles */
 .cancellation-form {
     font-family: Arial, sans-serif;
     max-width: 800px;
@@ -677,7 +677,7 @@ button {
     color: #555;
 }
 
-/* 修改信件预览样式 */
+/* Letter preview styles */
 .letter-preview {
     font-family: Arial, sans-serif;
     line-height: 1.5;
@@ -687,14 +687,232 @@ button {
     border-radius: 8px;
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .form-field {
-        font-size: 14px;
+/* Privacy Policy page special handling */
+.calculator-container.privacy-container {
+    grid-template-columns: 1fr; /* Privacy policy page uses single column layout */
+    padding: 2.5rem;
+}
+
+/* Homepage Specific Styles */
+.home-content {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.tools-section h2, 
+.featured-article h2 {
+    color: var(--primary-color);
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--grey-200);
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .tools-grid {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-/* 添加打印按钮和下载选项样式 */
+.tool-card {
+    background-color: var(--grey-50);
+    border: 1px solid var(--grey-200);
+    border-radius: 10px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--secondary-color);
+}
+
+.tool-icon {
+    background-color: var(--primary-light);
+    color: var(--secondary-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.tool-icon i {
+    font-size: 1.5rem;
+}
+
+.tool-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+.tool-card p {
+    color: var(--grey-600);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.tool-button {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.tool-button:hover {
+    background-color: #2980b9;
+}
+
+/* Featured Article Styles */
+.article-content {
+    line-height: 1.7;
+}
+
+.article-content h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.article-content h4 {
+    color: var(--secondary-color);
+    font-size: 1.25rem;
+    margin: 1.5rem 0 0.75rem;
+}
+
+.article-content p {
+    margin-bottom: 1rem;
+    color: var(--grey-600);
+}
+
+.article-content ul {
+    margin: 1rem 0 1rem 1.5rem;
+}
+
+.article-content li {
+    margin-bottom: 0.5rem;
+    color: var(--grey-600);
+}
+
+.article-callout {
+    background-color: var(--primary-light);
+    border-left: 4px solid var(--secondary-color);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 0 6px 6px 0;
+}
+
+.article-callout p {
+    margin: 0;
+}
+
+.article-callout a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.article-callout a:hover {
+    text-decoration: underline;
+}
+
+/* Site Navigation */
+.site-nav {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.nav-link i {
+    font-size: 1rem;
+}
+
+/* Tool Introduction */
+.tool-intro {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.tool-intro h2 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    margin-right: 1rem;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.tool-intro p {
+    color: var(--grey-600);
+    margin-bottom: 0;
+    line-height: 1.4;
+    font-size: 0.9rem;
+    display: inline;
+}
+
+@media (max-width: 768px) {
+    .tool-intro {
+        padding: 0.75rem 1rem;
+    }
+    
+    .tool-intro h2 {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .tool-intro p {
+        display: block;
+    }
+}
+
+/* Print button and download options styles */
 .download-options {
     display: flex;
     justify-content: center;
@@ -726,7 +944,7 @@ button {
     color: white;
 }
 
-/* Logo 样式 */
+/* Logo styles */
 .logo-image {
     margin-bottom: 15px;
     display: flex;
@@ -741,7 +959,7 @@ button {
     position: relative;
 }
 
-/* 电子签名样式 - 优化 */
+/* Electronic signature styles - optimized */
 .signature-field {
     margin-top: 50px;
 }
@@ -788,7 +1006,7 @@ button {
     display: inline-block;
 }
 
-/* 新的手写签名样式 */
+/* New handwritten signature styles */
 .handwritten {
     font-family: 'Brush Script MT', 'Dancing Script', cursive;
     font-size: 26px;
@@ -812,7 +1030,7 @@ button {
     transform: scaleX(0.95) rotate(-0.5deg);
 }
 
-/* 保留旧的签名样式以兼容性 */
+/* Keeping old signature styles for compatibility */
 .cursive {
     font-family: 'Brush Script MT', cursive;
     font-size: 24px;
@@ -848,7 +1066,7 @@ button {
 .privacy-content {
     line-height: 1.6;
     color: var(--text-color);
-    max-width: 100%; /* 确保内容不会溢出 */
+    max-width: 100%; /* Ensure content doesn't overflow */
 }
 
 .privacy-content h2 {
@@ -873,7 +1091,7 @@ button {
 
 .privacy-content p {
     margin-bottom: 1rem;
-    max-width: 100%; /* 确保段落不会溢出 */
+    max-width: 100%; /* Ensure paragraphs don't overflow */
 }
 
 .privacy-content ul {
@@ -996,8 +1214,8 @@ footer a:hover {
     }
 }
 
-/* 隐私政策页面特殊处理 */
+/* Privacy Policy page special handling */
 .calculator-container.privacy-container {
-    grid-template-columns: 1fr; /* 隐私政策页面使用单列布局 */
+    grid-template-columns: 1fr; /* Privacy policy page uses single column layout */
     padding: 2.5rem;
 } 
