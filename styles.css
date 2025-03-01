@@ -787,55 +787,78 @@ button {
 }
 
 /* Featured Article Styles */
+.featured-article {
+    margin-top: 3rem;
+}
+
+.featured-article h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
 .article-content {
-    line-height: 1.7;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
 }
 
 .article-content h3 {
-    color: var(--primary-color);
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
     font-size: 1.5rem;
-    margin-bottom: 1rem;
 }
 
 .article-content h4 {
-    color: var(--secondary-color);
-    font-size: 1.25rem;
-    margin: 1.5rem 0 0.75rem;
+    color: #1a5276;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
 }
 
 .article-content p {
-    margin-bottom: 1rem;
-    color: var(--grey-600);
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
 }
 
 .article-content ul {
-    margin: 1rem 0 1rem 1.5rem;
-}
-
-.article-content li {
-    margin-bottom: 0.5rem;
-    color: var(--grey-600);
-}
-
-.article-callout {
-    background-color: var(--primary-light);
-    border-left: 4px solid var(--secondary-color);
-    padding: 1rem;
     margin: 1.5rem 0;
-    border-radius: 0 6px 6px 0;
+    padding-left: 1.5rem;
+}
+
+.article-content ul li {
+    margin-bottom: 0.8rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Article Callout Styles */
+.article-callout {
+    background-color: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .article-callout p {
     margin: 0;
+    color: #2c3e50;
 }
 
 .article-callout a {
-    color: var(--secondary-color);
+    color: #3498db;
+    font-weight: 600;
     text-decoration: none;
-    font-weight: 500;
+    transition: color 0.2s ease;
 }
 
 .article-callout a:hover {
+    color: #2980b9;
     text-decoration: underline;
 }
 
@@ -1218,4 +1241,196 @@ footer a:hover {
 .calculator-container.privacy-container {
     grid-template-columns: 1fr; /* Privacy policy page uses single column layout */
     padding: 2.5rem;
+}
+
+/* FAQ Section Styles */
+.faq-section {
+    margin-top: 2rem;
+}
+
+.faq-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item h5 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    margin-top: 0.5rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.article-content h4 {
+    color: #1a5276;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.article-content strong {
+    color: #2c3e50;
+}
+
+.article-content em {
+    font-style: italic;
+}
+
+/* Tool Cards Styles */
+.tools-section {
+    margin-bottom: 3rem;
+}
+
+.tools-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.tool-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.tool-icon {
+    background-color: #3498db;
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.tool-icon i {
+    font-size: 1.5rem;
+}
+
+.tool-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.tool-card p {
+    color: #555;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.tool-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+.tool-features li {
+    margin-bottom: 0.5rem;
+    color: #555;
+    display: flex;
+    align-items: center;
+}
+
+.tool-features li i {
+    color: #27ae60;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.tool-button {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.tool-button:hover {
+    background-color: #2980b9;
+}
+
+.tool-button i {
+    margin-left: 0.5rem;
+}
+
+/* Home Content Styles */
+.home-content {
+    grid-column: 2 / 3;
+    width: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .ad-sidebar {
+        display: none;
+    }
+    
+    .home-content {
+        grid-column: 1 / 2;
+        padding: 0 1rem;
+    }
+    
+    .article-content {
+        padding: 1.5rem;
+    }
+    
+    .tool-card {
+        padding: 1.5rem;
+    }
+    
+    .featured-article h2, .tools-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .article-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .article-content h4 {
+        font-size: 1.2rem;
+    }
 } 
