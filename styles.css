@@ -58,7 +58,7 @@ header p {
 main {
     flex: 1;
     padding: 2rem 1rem;
-    max-width: 1800px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
 }
@@ -75,15 +75,27 @@ footer {
 
 /* Page Layout */
 .page-layout {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
 }
 
 @media (min-width: 1024px) {
     .page-layout {
-        grid-template-columns: 200px 1fr 200px;
+        display: grid;
+        grid-template-columns: 250px minmax(600px, 3fr) 250px;
         padding: 0 2rem;
+        gap: 2rem;
+    }
+}
+
+@media (min-width: 1600px) {
+    .page-layout {
+        max-width: 90%;
+        grid-template-columns: 300px minmax(800px, 4fr) 300px;
     }
 }
 
@@ -98,6 +110,7 @@ footer {
         position: sticky;
         top: 2rem;
         height: calc(100vh - 4rem);
+        width: 100%;
     }
 }
 
@@ -111,28 +124,44 @@ footer {
     justify-content: center;
     color: var(--grey-500);
     font-size: 0.875rem;
+    width: 100%;
 }
 
 .ad-placeholder.banner {
     height: 90px;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+/* 确保底部广告横幅占据整行 */
+.ad-banner {
+    grid-column: 1 / -1;
+    width: 100%;
     margin-top: 2rem;
 }
 
 /* Calculator Container */
 .calculator-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 2rem;
     background: white;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     padding: 2rem;
     margin-bottom: 2rem;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .calculator-container {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 @media (min-width: 1200px) {
     .calculator-container {
-        grid-template-columns: 1fr 1fr;
+        padding: 2.5rem;
     }
 }
 
@@ -815,211 +844,160 @@ button {
     margin-top: 10px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .calculator-container {
-        grid-template-columns: 1fr;
-    }
-
-    .calculator-inputs {
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-        padding-right: 0;
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-    }
-
-    .calculator-results {
-        padding-left: 0;
-    }
+/* Privacy Policy Styles */
+.privacy-content {
+    line-height: 1.6;
+    color: var(--text-color);
+    max-width: 100%; /* 确保内容不会溢出 */
 }
 
-/* Cancellation Form Styles */
-.cancellation-form {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 5px;
+.privacy-content h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
 }
 
-.form-logo {
-    text-align: center;
-    margin-bottom: 40px;
+.privacy-content h3 {
+    color: var(--secondary-color);
+    margin: 1.5rem 0 1rem;
+    font-size: 1.25rem;
+    border-bottom: 1px solid var(--grey-200);
+    padding-bottom: 0.5rem;
 }
 
-.form-logo h2 {
-    color: #e74c3c;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 1px;
+.privacy-content h4 {
+    color: var(--primary-color);
+    margin: 1.25rem 0 0.75rem;
+    font-size: 1.1rem;
 }
 
-.form-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.privacy-content p {
+    margin-bottom: 1rem;
+    max-width: 100%; /* 确保段落不会溢出 */
 }
 
-.form-field {
-    display: flex;
-    flex-direction: column;
-    font-size: 16px;
-    line-height: 1.5;
+.privacy-content ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.field-label {
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+.privacy-content li {
+    margin-bottom: 0.5rem;
 }
 
-.field-value {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
-    color: #555;
+.privacy-content section {
+    margin-bottom: 2rem;
 }
 
-/* Letter Preview Styles */
-.letter-preview {
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-    padding: 2rem;
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+.privacy-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
 }
 
-/* Print Button and Download Options Styles */
-.download-options {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    gap: 15px;
-}
-
-/* Logo Styles */
-.logo-image {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo-text {
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    position: relative;
-}
-
-/* Electronic Signature Styles - Optimized */
-.signature-field {
-    margin-top: 50px;
-}
-
-.signature-container {
-    margin-top: 30px;
-    padding: 20px 25px;
-    border-top: 1px dashed #ccc;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.signature-column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.signature-note {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 8px;
-    font-style: italic;
-}
-
-.signature {
-    margin-bottom: 15px;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-}
-
-.signature-date {
-    font-size: 14px;
-    color: #555;
-    align-self: flex-start;
-    font-style: italic;
-    margin-left: 10px;
-}
-
-.signature-style {
-    padding: 5px 0;
-    display: inline-block;
-}
-
-/* New Handwritten Signature Style */
-.handwritten {
-    font-family: 'Brush Script MT', 'Dancing Script', cursive;
-    font-size: 26px;
-    color: #000;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
-    line-height: 1.2;
-    letter-spacing: 1px;
-    position: relative;
-    display: inline-block;
-    padding: 0 5px;
-}
-
-.handwritten::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(0,0,0,0.3);
-    transform: scaleX(0.95) rotate(-0.5deg);
-}
-
-/* Retain Old Signature Styles for Compatibility */
-.cursive {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 24px;
-    color: #000;
-    transform: rotate(-2deg);
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-}
-
-.initials-underline {
-    font-family: 'Arial', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
+.privacy-content a:hover {
     text-decoration: underline;
-    color: #000;
-    letter-spacing: 2px;
 }
 
-.full-name-flourish {
-    font-family: 'Times New Roman', serif;
-    font-size: 20px;
-    font-style: italic;
-    color: #000;
-    border-bottom: 1px solid #000;
-    padding-bottom: 3px;
+.website-url {
+    font-weight: 500;
 }
 
-/* Datepicker Custom Styles */
-.date-picker {
+footer a {
+    color: var(--grey-500);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Cookie Consent Banner Styles */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(44, 62, 80, 0.95);
+    color: white;
+    padding: 1rem;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease;
+}
+
+.cookie-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.cookie-content p {
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.cookie-content a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.cookie-button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 500;
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236b7280' width='18px' height='18px'%3E%3Cpath d='M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 002 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 20px;
-    padding-right: 35px !important;
-    width: 100%;
-    min-width: 250px;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.cookie-button.accept {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.cookie-button.accept:hover {
+    background-color: #2980b9;
+}
+
+.cookie-button.decline {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.cookie-button.decline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+@media (min-width: 768px) {
+    .cookie-content {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+    
+    .cookie-content p {
+        margin-bottom: 0;
+        margin-right: 1rem;
+    }
+}
+
+/* 隐私政策页面特殊处理 */
+.calculator-container.privacy-container {
+    grid-template-columns: 1fr; /* 隐私政策页面使用单列布局 */
+    padding: 2.5rem;
 } 

@@ -22,6 +22,13 @@
 
     <main>
         <div class="page-layout">
+            <!-- Left sidebar for ads -->
+            <div class="ad-sidebar ad-left">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+
             <!-- Main content area -->
             <div class="calculator-container">
                 <div class="calculator-inputs">
@@ -144,11 +151,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Right sidebar for ads -->
+            <div class="ad-sidebar ad-right">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+            
+            <!-- Bottom ad banner -->
+            <div class="ad-banner">
+                <div class="ad-placeholder banner">
+                    <p>Advertisement Banner</p>
+                </div>
+            </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; <span id="current-year"></span> Insurance Tools. All rights reserved.</p>
+        <p>&copy; <span id="current-year"></span> Insurance Short Rate Calculator. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a></p>
     </footer>
 
     <script>
@@ -159,9 +180,9 @@
             altInput: true,
             altFormat: "F j, Y",
             disableMobile: true,
-            minDate: "today",
             position: 'auto',
-            static: true
+            static: true,
+            appendTo: document.body // 避免影响布局
         };
 
         // Initialize date picker
@@ -177,5 +198,6 @@
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
     <script src="cancellation-letter.js"></script>
+    <script src="cookie-consent.js"></script>
 </body>
 </html> 
