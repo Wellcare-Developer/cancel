@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insurance Short Rate Calculator - Calculate earned and return premiums for policy cancellations using standard industry short rate tables.">
+    <meta name="keywords" content="insurance calculator, short rate calculator, policy cancellation, premium calculator, insurance tools">
+    <meta name="author" content="Insurance Tools">
+    <title>Insurance Short Rate Calculator | Premium Refund Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flatpickr - Date Picker Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <header>
+        <h1>Insurance Short Rate Calculator</h1>
+        <p>Calculate earned and return premiums for policy cancellations</p>
+        <nav class="site-nav">
+            <a href="insurance-cancellation-penalty-short-rate-calculator.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="insurance-cancellation-letter-generator.html" class="nav-link"><i class="fas fa-file-alt"></i> Cancellation Letter</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-layout">
+            <!-- Left sidebar for ads -->
+            <div class="ad-sidebar ad-left">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="calculator-container">
+                <div class="calculator-inputs">
+                    <!-- Input form -->
+                    <div class="input-section">
+                        <!-- Step 1: Insurance Company Selection -->
+                        <div class="input-group step-container">
+                            <div class="step-indicator">
+                                <span class="step-number">1</span>
+                                <div class="step-content">
+                                    <h5>Select Insurance Company</h5>
+                                    <p class="hint-text">Different companies may use different short rate tables</p>
+                                </div>
+                            </div>
+                            <select id="insurance-company" class="highlighted-input">
+                                <option value="" disabled selected>Please select an insurance company...</option>
+                                <option value="desjardins">Desjardins Insurance</option>
+                                <option value="aviva">Aviva Insurance</option>
+                                <option value="wawanesa">Wawanesa Insurance</option>
+                                <option value="intact">Intact Insurance</option>
+                                <option value="pafco">Pafco Insurance</option>
+                                <option value="caa">CAA Insurance</option>
+                                <option value="other">Other Company</option>
+                            </select>
+                        </div>
+
+                        <!-- Step 2: Annual Premium Input -->
+                        <div class="input-group step-container">
+                            <div class="step-indicator">
+                                <span class="step-number">2</span>
+                                <div class="step-content">
+                                    <h5>Enter Annual Premium</h5>
+                                    <p class="hint-text">Enter the full annual premium amount before cancellation</p>
+                                </div>
+                            </div>
+                            <div class="premium-input">
+                                <input type="number" id="annual-premium" class="highlighted-input" min="0" step="0.01" placeholder="Enter premium amount">
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Date Inputs -->
+                        <div class="input-group step-container">
+                            <div class="step-indicator">
+                                <span class="step-number">3</span>
+                                <div class="step-content">
+                                    <h5>Select Policy Dates</h5>
+                                    <p class="hint-text">Enter the policy start date and cancellation date</p>
+                                </div>
+                            </div>
+                            <div class="date-inputs">
+                                <div class="date-input-group">
+                                    <label for="start-date">Start Date</label>
+                                    <input type="text" id="start-date" class="highlighted-input date-picker" placeholder="Select start date">
+                                    <p class="input-guide">Click to select policy start date from calendar</p>
+                                </div>
+                                <div class="date-input-group">
+                                    <label for="cancel-date">Cancellation Date</label>
+                                    <input type="text" id="cancel-date" class="highlighted-input date-picker" placeholder="Select cancellation date">
+                                    <p class="input-guide">Click to select cancellation date from calendar</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Calculate Button -->
+                        <button id="calculate-btn" class="action-button">
+                            <i class="fas fa-calculator"></i> Calculate Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Display Section -->
+                <div class="calculator-results">
+                    <div class="results-header">
+                        <h4>Calculation Results</h4>
+                        <button id="copy-btn" class="hidden">
+                            <i class="fa-regular fa-copy"></i>
+                            <span>Copy Summary</span>
+                        </button>
+                    </div>
+
+                    <!-- Empty state message -->
+                    <div id="empty-state" class="empty-state">
+                        <i class="fas fa-arrow-left"></i>
+                        <p>Complete the steps on the left and click "Calculate Now" to see your results here.</p>
+                    </div>
+
+                    <!-- Results content (initially hidden) -->
+                    <div id="results-content" class="results-content hidden">
+                        <!-- Basic results -->
+                        <div class="result-summary">
+                            <div class="result-row">
+                                <span>Annual Premium:</span>
+                                <span id="result-annual-premium" class="result-value"></span>
+                            </div>
+                            <div class="result-row">
+                                <span>Days Insured:</span>
+                                <span id="result-days-insured" class="result-value"></span>
+                            </div>
+                            <div class="result-row">
+                                <span>Short Rate Factor:</span>
+                                <span id="result-short-rate" class="result-value"></span>
+                            </div>
+                            <div class="result-row">
+                                <span>Pro-rata Premium:</span>
+                                <span id="result-pro-rata" class="result-value"></span>
+                            </div>
+                            <div class="result-row penalty">
+                                <span>Cancellation Penalty:</span>
+                                <span id="result-penalty" class="result-value"></span>
+                            </div>
+                            <div class="result-row">
+                                <span>Earned Premium:</span>
+                                <span id="result-earned" class="result-value"></span>
+                            </div>
+                            <div class="result-row total">
+                                <span>Return Premium:</span>
+                                <span id="result-return" class="result-value"></span>
+                            </div>
+                        </div>
+
+                        <!-- Detailed explanation -->
+                        <div class="result-details">
+                            <h5>Calculation Details</h5>
+                            <div class="detail-content">
+                                <div class="detail-points">
+                                    <p>• Policy Period: <span id="detail-days"></span> days out of 365 days</p>
+                                    <p>• Pro-rata Factor: <span id="detail-pro-rata-factor"></span>%</p>
+                                    <p>• Short Rate Factor: <span id="detail-short-rate-factor"></span>%</p>
+                                    <p class="penalty">• Penalty Amount: $<span id="detail-penalty"></span></p>
+                                </div>
+
+                                <div class="detail-notes">
+                                    <p class="notes-title">Note:</p>
+                                    <ul class="notes-list">
+                                        <li>Pro-rata premium is calculated based on the actual number of days insured</li>
+                                        <li>Short rate premium includes a penalty for early cancellation</li>
+                                        <li>The penalty is the difference between short rate and pro-rata premium</li>
+                                        <li>All amounts are in Canadian Dollars (CAD)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rate Table Reference -->
+                        <div class="rate-reference">
+                            <h5>Short Rate Table Reference</h5>
+                            <div class="reference-content">
+                                <p id="reference-text"></p>
+                                <p id="reference-company" class="reference-company"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right sidebar for ads -->
+            <div class="ad-sidebar ad-right">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+            
+            <!-- Bottom ad banner -->
+            <div class="ad-banner">
+                <div class="ad-placeholder banner">
+                    <p>Advertisement Banner</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Insurance Short Rate Calculator. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="cookie-consent.js"></script>
+    <script>
+        const datePickerConfig = {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            disableMobile: true,
+            position: 'auto',
+            static: true,
+            appendTo: document.body // 避免影响布局
+        };
+    </script>
+</body>
+</html> 
