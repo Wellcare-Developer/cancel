@@ -324,8 +324,8 @@ function setupCalculateButton() {
     calculateBtn.addEventListener('click', function() {
         // 获取输入值
         const annualPremium = parseFloat(document.getElementById('annual-premium').value);
-        const startDate = document.getElementById('policy-start-date').value;
-        const cancelDate = document.getElementById('policy-cancel-date').value;
+        const startDate = document.getElementById('start-date').value;
+        const cancelDate = document.getElementById('cancel-date').value;
         const company = document.getElementById('insurance-company').value;
         
         // 获取其他公司名称（如果选择了"other"）
@@ -387,9 +387,11 @@ function setupCalculateButton() {
         const penaltyAmount = (shortRatePremium - proRataPremium).toFixed(2);
         
         // 显示结果
-        document.getElementById('result-days').textContent = daysInsured;
+        document.getElementById('result-annual-premium').textContent = formatCurrency(annualPremium);
+        document.getElementById('result-days-insured').textContent = daysInsured + " days";
+        document.getElementById('result-short-rate').textContent = shortRateFactor + "%";
         document.getElementById('result-pro-rata').textContent = formatCurrency(proRataPremium);
-        document.getElementById('result-short-rate').textContent = formatCurrency(shortRatePremium);
+        document.getElementById('result-penalty').textContent = formatCurrency(penaltyAmount);
         document.getElementById('result-earned').textContent = formatCurrency(shortRatePremium);
         document.getElementById('result-return').textContent = formatCurrency(returnPremium);
         
@@ -406,8 +408,9 @@ function setupCalculateButton() {
             `Based on ${companyName} short rate cancellation guidelines.`;
         
         // 显示结果部分
-        document.querySelector('.results-content').classList.remove('hidden');
-        document.querySelector('.empty-state').classList.add('hidden');
+        document.getElementById('results-content').classList.remove('hidden');
+        document.getElementById('empty-state').classList.add('hidden');
+        document.getElementById('copy-btn').classList.remove('hidden');
     });
 }
 
