@@ -1442,4 +1442,65 @@ footer a:hover {
     background: #fff;
     border: 1px solid var(--border-color);
     border-radius: 8px;
+}
+
+/* 月付计算器并排布局样式 */
+.calculator-flex-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.calculator-input-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.calculator-results-section {
+    flex: 1;
+    min-width: 300px;
+}
+
+.calculator-results {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.additional-info {
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.additional-info h6 {
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.additional-info ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.additional-info li {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .calculator-flex-container {
+        flex-direction: column;
+    }
+    
+    .calculator-input-section,
+    .calculator-results-section {
+        width: 100%;
+    }
 } 

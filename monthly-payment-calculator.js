@@ -5,6 +5,7 @@ const autoAnnualInput = document.getElementById('auto-annual');
 const homeAnnualInput = document.getElementById('home-annual');
 const emptyState = document.getElementById('empty-state');
 const resultsContent = document.getElementById('results-content');
+const additionalInfo = document.getElementById('additional-info');
 
 // Result Elements
 const resultAutoMonthly = document.getElementById('result-auto-monthly');
@@ -79,7 +80,7 @@ function setupCalculateButton() {
 
         // 验证输入
         if (autoAnnual === 0 && homeAnnual === 0) {
-            alert('Please enter at least one premium amount.');
+            alert('请至少输入一个保费金额。');
             return;
         }
 
@@ -127,10 +128,11 @@ function setupCalculateButton() {
         detailHomeTax.textContent = formatCurrency(homeMonthlyTax);
         detailHomeInterest.textContent = formatCurrency(homeMonthlyInterest);
         
-        // 显示结果部分
+        // 显示结果部分和附加信息
         resultsContent.classList.remove('hidden');
         emptyState.classList.add('hidden');
         copyBtn.classList.remove('hidden');
+        additionalInfo.classList.remove('hidden');
     });
 }
 
@@ -143,16 +145,16 @@ function setupCopyButton() {
         const totalMonthly = resultTotalMonthly.textContent;
         
         const summaryText = 
-            `Monthly Insurance Payment Summary:\n` +
-            `Auto per month: ${autoMonthly}\n` +
-            `Home per month: ${homeMonthly}\n` +
-            `Total per month: ${totalMonthly}`;
+            `保险月付计算结果摘要:\n` +
+            `汽车保险月付: ${autoMonthly}\n` +
+            `房屋保险月付: ${homeMonthly}\n` +
+            `每月总付款: ${totalMonthly}`;
         
         // Copy to clipboard
         navigator.clipboard.writeText(summaryText).then(function() {
             // Update button text
             const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> 已复制';
             
             // Reset after 2 seconds
             clearTimeout(copyTimeout);
@@ -160,7 +162,7 @@ function setupCopyButton() {
                 copyBtn.innerHTML = originalHTML;
             }, 2000);
         }).catch(function(err) {
-            console.error('Failed to copy text:', err);
+            console.error('复制文本失败:', err);
         });
     });
 }
