@@ -318,73 +318,96 @@ function initDatePickers() {
 
 // Calculate the short rate
 function setupCalculateButton() {
+    const calculateBtn = document.getElementById('calculate-btn');
+    if (!calculateBtn) return;
+
     calculateBtn.addEventListener('click', function() {
-        const selectedCompany = companySelect.value;
-        const annualPremium = annualPremiumInput.value;
+        // 获取输入值
+        const annualPremium = parseFloat(document.getElementById('annual-premium').value);
+        const startDate = document.getElementById('policy-start-date').value;
+        const cancelDate = document.getElementById('policy-cancel-date').value;
+        const company = document.getElementById('insurance-company').value;
         
-        // Get dates from flatpickr instances
-        const startDate = startDatePicker.selectedDates[0];
-        const cancelDate = cancelDatePicker.selectedDates[0];
-        
-        // Basic validation
-        if (!selectedCompany || !annualPremium || !startDate || !cancelDate) {
-            alert("Please fill in all required fields");
+        // 获取其他公司名称（如果选择了"other"）
+        let companyName = "";
+        if (company === "other") {
+            companyName = document.getElementById('other-company').value.trim() || "Other Company";
+        } else {
+            // 根据选择的值获取显示名称
+            const companySelect = document.getElementById('insurance-company');
+            const selectedOption = companySelect.options[companySelect.selectedIndex];
+            companyName = selectedOption.textContent;
+        }
+
+        // 验证输入
+        if (!annualPremium || isNaN(annualPremium) || annualPremium <= 0) {
+            alert('Please enter a valid annual premium amount.');
             return;
         }
-        
-        if (cancelDate < startDate) {
-            alert("Cancellation date must be after the start date");
+
+        if (!startDate) {
+            alert('Please select a policy start date.');
             return;
         }
+
+        if (!cancelDate) {
+            alert('Please select a cancellation date.');
+            return;
+        }
+
+        if (!company) {
+            alert('Please select an insurance company.');
+            return;
+        }
+
+        // 计算日期差异
+        const start = new Date(startDate);
+        const cancel = new Date(cancelDate);
         
-        // Calculate days insured
-        const daysDiff = Math.floor((cancelDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-        const premium = parseFloat(annualPremium);
+        // 验证日期
+        if (cancel < start) {
+            alert('Cancellation date cannot be before the policy start date.');
+            return;
+        }
+
+        // 计算保单持续的天数
+        const timeDiff = cancel.getTime() - start.getTime();
+        const daysInsured = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // 包括开始和结束日
         
-        // Get short rate percentage
-        const shortRatePercent = getShortRatePercent(daysDiff, selectedCompany);
-        const shortRateFactor = shortRatePercent / 100;
+        // 计算按比例的因子（天数/365）
+        const proRataFactor = (daysInsured / 365) * 100;
         
-        // Calculate pro-rata premium (without penalty)
-        const proRataFactor = daysDiff / 365;
-        const proRataPremium = premium * proRataFactor;
+        // 获取短期费率因子
+        const shortRateFactor = getShortRatePercent(daysInsured, company);
         
-        // Calculate earned premium (with penalty)
-        const earnedPremium = premium * shortRateFactor;
+        // 计算保费
+        const proRataPremium = (annualPremium * proRataFactor / 100).toFixed(2);
+        const shortRatePremium = (annualPremium * shortRateFactor / 100).toFixed(2);
+        const returnPremium = (annualPremium - shortRatePremium).toFixed(2);
+        const penaltyAmount = (shortRatePremium - proRataPremium).toFixed(2);
         
-        // Calculate penalty (difference between short rate and pro-rata)
-        const penalty = earnedPremium - proRataPremium;
+        // 显示结果
+        document.getElementById('result-days').textContent = daysInsured;
+        document.getElementById('result-pro-rata').textContent = formatCurrency(proRataPremium);
+        document.getElementById('result-short-rate').textContent = formatCurrency(shortRatePremium);
+        document.getElementById('result-earned').textContent = formatCurrency(shortRatePremium);
+        document.getElementById('result-return').textContent = formatCurrency(returnPremium);
         
-        // Calculate return premium
-        const returnPremium = premium - earnedPremium;
+        // 显示详细信息
+        document.getElementById('detail-days').textContent = daysInsured;
+        document.getElementById('detail-pro-rata-factor').textContent = proRataFactor.toFixed(2);
+        document.getElementById('detail-short-rate-factor').textContent = shortRateFactor.toFixed(2);
+        document.getElementById('detail-penalty').textContent = penaltyAmount;
         
-        // Update results UI
-        resultAnnualPremium.textContent = formatCurrency(premium);
-        resultDaysInsured.textContent = `${daysDiff} days`;
-        resultShortRate.textContent = `${shortRatePercent.toFixed(1)}%`;
-        resultProRata.textContent = formatCurrency(proRataPremium);
-        resultPenalty.textContent = formatCurrency(penalty);
-        resultEarned.textContent = formatCurrency(earnedPremium);
-        resultReturn.textContent = formatCurrency(returnPremium);
+        // 显示参考信息
+        document.getElementById('reference-text').textContent = 
+            `This calculation uses the standard short rate table for ${daysInsured} days, resulting in a ${shortRateFactor}% earned premium.`;
+        document.getElementById('reference-company').textContent = 
+            `Based on ${companyName} short rate cancellation guidelines.`;
         
-        // Update details
-        detailDays.textContent = daysDiff;
-        detailProRataFactor.textContent = (proRataFactor * 100).toFixed(1);
-        detailShortRateFactor.textContent = shortRatePercent.toFixed(1);
-        detailPenalty.textContent = penalty.toFixed(2);
-        
-        // Update reference
-        referenceText.textContent = `For ${daysDiff} days of coverage, the short rate factor is ${shortRatePercent.toFixed(1)}%`;
-        
-        const companyName = selectedCompany === "desjardins" ? "Desjardins" : 
-                            selectedCompany === "aviva" ? "Aviva" : 
-                            selectedCompany === "other" ? "Other" : "Standard";
-        referenceCompany.textContent = `Based on ${companyName} Short Rate Cancellation Table`;
-        
-        // Show results and hide empty state
-        emptyState.classList.add('hidden');
-        resultsContent.classList.remove('hidden');
-        copyBtn.classList.remove('hidden');
+        // 显示结果部分
+        document.querySelector('.results-content').classList.remove('hidden');
+        document.querySelector('.empty-state').classList.add('hidden');
     });
 }
 
@@ -441,4 +464,19 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup event listeners
     setupCalculateButton();
     setupCopyButton();
+    
+    // 处理保险公司选择
+    const insuranceCompanySelect = document.getElementById('insurance-company');
+    const otherCompanyInput = document.getElementById('other-company');
+    
+    if (insuranceCompanySelect && otherCompanyInput) {
+        insuranceCompanySelect.addEventListener('change', function() {
+            if (this.value === 'other') {
+                otherCompanyInput.classList.remove('hidden');
+                otherCompanyInput.focus();
+            } else {
+                otherCompanyInput.classList.add('hidden');
+            }
+        });
+    }
 });
