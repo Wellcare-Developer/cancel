@@ -35,126 +35,213 @@
             </div>
 
             <!-- Main content area -->
-            <div class="calculator-container">
-                <div class="calculator-inputs">
-                    <!-- Input form -->
-                    <div class="input-section">
-                        <!-- Step 1: Named Insured -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">1</span>
-                                <div class="step-content">
-                                    <h5>Named Insured</h5>
-                                    <p class="hint-text">Enter the full name of the insured person</p>
+            <div class="home-content">
+                <div class="calculator-container">
+                    <div class="calculator-inputs">
+                        <!-- Input form -->
+                        <div class="input-section">
+                            <!-- Step 1: Named Insured -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <h5>Named Insured</h5>
+                                        <p class="hint-text">Enter the full name of the insured person</p>
+                                    </div>
                                 </div>
+                                <input type="text" id="named-insured" class="highlighted-input" placeholder="Enter insured name">
                             </div>
-                            <input type="text" id="named-insured" class="highlighted-input" placeholder="Enter insured name">
-                        </div>
 
-                        <!-- Step 2: Insurance Company -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">2</span>
-                                <div class="step-content">
-                                    <h5>Insurance Company</h5>
-                                    <p class="hint-text">Select or enter insurance company name</p>
+                            <!-- Step 2: Insurance Company -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <h5>Insurance Company</h5>
+                                        <p class="hint-text">Select or enter insurance company name</p>
+                                    </div>
                                 </div>
+                                <select id="insurer-select" class="highlighted-input">
+                                    <option value="" disabled selected>Please select insurance company...</option>
+                                    <option value="allstate">Allstate Insurance</option>
+                                    <option value="aviva">Aviva Insurance</option>
+                                    <option value="caa">CAA Insurance</option>
+                                    <option value="cooperators">Co-operators Insurance</option>
+                                    <option value="desjardins">Desjardins Insurance</option>
+                                    <option value="intact">Intact Insurance</option>
+                                    <option value="pafco">Pafco Insurance</option>
+                                    <option value="wawanesa">Wawanesa Insurance</option>
+                                    <option value="other">Other Insurance Company...</option>
+                                </select>
+                                <input type="text" id="insurer" class="highlighted-input hidden" placeholder="Enter insurance company name">
                             </div>
-                            <select id="insurer-select" class="highlighted-input">
-                                <option value="" disabled selected>Please select insurance company...</option>
-                                <option value="allstate">Allstate Insurance</option>
-                                <option value="aviva">Aviva Insurance</option>
-                                <option value="caa">CAA Insurance</option>
-                                <option value="cooperators">Co-operators Insurance</option>
-                                <option value="desjardins">Desjardins Insurance</option>
-                                <option value="intact">Intact Insurance</option>
-                                <option value="pafco">Pafco Insurance</option>
-                                <option value="wawanesa">Wawanesa Insurance</option>
-                                <option value="other">Other Insurance Company...</option>
-                            </select>
-                            <input type="text" id="insurer" class="highlighted-input hidden" placeholder="Enter insurance company name">
-                        </div>
 
-                        <!-- Step 3: Policy Number -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">3</span>
-                                <div class="step-content">
-                                    <h5>Policy Number</h5>
-                                    <p class="hint-text">Enter your policy number</p>
+                            <!-- Step 3: Policy Number -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">3</span>
+                                    <div class="step-content">
+                                        <h5>Policy Number</h5>
+                                        <p class="hint-text">Enter your policy number</p>
+                                    </div>
                                 </div>
+                                <input type="text" id="policy-number" class="highlighted-input" placeholder="Enter policy number">
                             </div>
-                            <input type="text" id="policy-number" class="highlighted-input" placeholder="Enter policy number">
-                        </div>
 
-                        <!-- Step 4: Cancellation Date -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">4</span>
-                                <div class="step-content">
-                                    <h5>Cancellation Date</h5>
-                                    <p class="hint-text">Select your desired policy cancellation date</p>
+                            <!-- Step 4: Cancellation Date -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">4</span>
+                                    <div class="step-content">
+                                        <h5>Cancellation Date</h5>
+                                        <p class="hint-text">Select your desired policy cancellation date</p>
+                                    </div>
                                 </div>
+                                <input type="text" id="cancel-date" class="highlighted-input date-picker" placeholder="Select cancellation date">
                             </div>
-                            <input type="text" id="cancel-date" class="highlighted-input date-picker" placeholder="Select cancellation date">
-                        </div>
 
-                        <!-- Step 5: Cancellation Reason -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">5</span>
-                                <div class="step-content">
-                                    <h5>Cancellation Reason</h5>
-                                    <p class="hint-text">Select or enter the reason for cancellation</p>
+                            <!-- Step 5: Cancellation Reason -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">5</span>
+                                    <div class="step-content">
+                                        <h5>Cancellation Reason</h5>
+                                        <p class="hint-text">Select or enter the reason for cancellation</p>
+                                    </div>
                                 </div>
+                                <select id="cancel-reason" class="highlighted-input">
+                                    <option value="" disabled selected>Please select cancellation reason...</option>
+                                    <option value="sold">Property Sold</option>
+                                    <option value="replaced">Changed Insurance Company</option>
+                                    <option value="moved">Relocated to Different Area</option>
+                                    <option value="cost">Premium Too High</option>
+                                    <option value="other">Other Reason</option>
+                                </select>
+                                <textarea id="other-reason" class="highlighted-input hidden" placeholder="Please explain other reason..." rows="3"></textarea>
                             </div>
-                            <select id="cancel-reason" class="highlighted-input">
-                                <option value="" disabled selected>Please select cancellation reason...</option>
-                                <option value="sold">Property Sold</option>
-                                <option value="replaced">Changed Insurance Company</option>
-                                <option value="moved">Relocated to Different Area</option>
-                                <option value="cost">Premium Too High</option>
-                                <option value="other">Other Reason</option>
-                            </select>
-                            <textarea id="other-reason" class="highlighted-input hidden" placeholder="Please explain other reason..." rows="3"></textarea>
-                        </div>
 
-                        <!-- Generate Button -->
-                        <button id="generate-btn" class="action-button">
-                            <i class="fas fa-file-alt"></i> Generate Cancellation Form
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Results Display Section -->
-                <div class="calculator-results">
-                    <div class="results-header">
-                        <h4>Generated Cancellation Form</h4>
-                    </div>
-
-                    <!-- Empty state message -->
-                    <div id="empty-state" class="empty-state">
-                        <i class="fas fa-arrow-left"></i>
-                        <p>Complete all information on the left and click "Generate Cancellation Form" to see your form.</p>
-                    </div>
-
-                    <!-- Generated letter content (initially hidden) -->
-                    <div id="letter-content" class="results-content hidden">
-                        <div class="letter-preview">
-                            <!-- Letter will be generated here -->
-                        </div>
-                        <div class="download-options">
-                            <button id="print-btn" class="secondary-button">
-                                <i class="fas fa-print"></i>
-                                <span>Print Form</span>
-                            </button>
-                            <button id="copy-btn" class="secondary-button">
-                                <i class="fa-regular fa-copy"></i>
-                                <span>Copy Content</span>
+                            <!-- Generate Button -->
+                            <button id="generate-btn" class="action-button">
+                                <i class="fas fa-file-alt"></i> Generate Cancellation Form
                             </button>
                         </div>
                     </div>
+
+                    <!-- Results Display Section -->
+                    <div class="calculator-results">
+                        <div class="results-header">
+                            <h4>Generated Cancellation Form</h4>
+                        </div>
+
+                        <!-- Empty state message -->
+                        <div id="empty-state" class="empty-state">
+                            <i class="fas fa-arrow-left"></i>
+                            <p>Complete all information on the left and click "Generate Cancellation Form" to see your form.</p>
+                        </div>
+
+                        <!-- Generated letter content (initially hidden) -->
+                        <div id="letter-content" class="results-content hidden">
+                            <div class="letter-preview">
+                                <!-- Letter will be generated here -->
+                            </div>
+                            <div class="download-options">
+                                <button id="print-btn" class="secondary-button">
+                                    <i class="fas fa-print"></i>
+                                    <span>Print Form</span>
+                                </button>
+                                <button id="copy-btn" class="secondary-button">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Copy Content</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- SEO Content Section -->
+                <section class="featured-article">
+                    <h2>How to Properly Cancel Your Insurance Policy</h2>
+                    <article class="article-content">
+                        <h3>The Importance of a Professional Insurance Cancellation Letter</h3>
+                        
+                        <p>Cancelling an insurance policy requires more than just a phone call. While you can initiate the process verbally, most insurance companies require written confirmation of your cancellation request. A properly formatted cancellation letter serves as official documentation and helps ensure your request is processed correctly and promptly.</p>
+                        
+                        <h4>Benefits of Using a Formal Cancellation Letter</h4>
+                        
+                        <p>There are several important reasons to send a formal cancellation letter when terminating your insurance policy:</p>
+                        
+                        <ul>
+                            <li><strong>Written proof:</strong> A cancellation letter provides documented evidence of your request, including the date you submitted it.</li>
+                            <li><strong>Clear instructions:</strong> It allows you to specify exactly when you want the policy to end and how you want any refund to be processed.</li>
+                            <li><strong>Legal protection:</strong> Having written documentation helps protect you if there are any disputes about when you requested cancellation.</li>
+                            <li><strong>Professionalism:</strong> A well-written letter demonstrates professionalism and may help ensure your request is taken seriously.</li>
+                        </ul>
+                        
+                        <p>Our cancellation letter generator creates a professionally formatted letter that includes all the necessary information insurance companies require to process your cancellation.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Want to know your refund amount?</strong> Use our <a href="insurance-short-rate-calculator.html">Short Rate Calculator</a> to estimate how much you'll get back after cancellation penalties.</p>
+                        </div>
+                        
+                        <h4>Essential Elements of an Insurance Cancellation Letter</h4>
+                        
+                        <p>An effective insurance cancellation letter should include the following key elements:</p>
+                        
+                        <ul>
+                            <li><strong>Your personal information:</strong> Full name, address, and contact details</li>
+                            <li><strong>Policy details:</strong> Policy number, type of insurance, and effective dates</li>
+                            <li><strong>Insurance company information:</strong> Company name and address</li>
+                            <li><strong>Clear cancellation request:</strong> Explicit statement that you are requesting cancellation</li>
+                            <li><strong>Desired cancellation date:</strong> Specific date when you want coverage to end</li>
+                            <li><strong>Reason for cancellation:</strong> Brief explanation of why you're cancelling (optional but often helpful)</li>
+                            <li><strong>Refund instructions:</strong> How you would like any premium refund to be processed</li>
+                            <li><strong>Request for confirmation:</strong> Ask for written confirmation of the cancellation</li>
+                            <li><strong>Your signature:</strong> Sign the letter to authenticate your request</li>
+                        </ul>
+                        
+                        <p>Our generator automatically includes all these elements in a professionally formatted letter based on the information you provide.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Paying monthly for your insurance?</strong> Use our <a href="insurance-monthly-payment-calculator.html">Monthly Payment Calculator</a> to understand the true cost including interest and taxes.</p>
+                        </div>
+                        
+                        <h4>Frequently Asked Questions About Insurance Cancellation Letters</h4>
+                        
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <h5>Do I need to send a cancellation letter if I already called my insurance company?</h5>
+                                <p>Yes, it's highly recommended. While you can initiate cancellation by phone, most insurance companies require written confirmation. A formal letter provides documentation of your request and helps prevent misunderstandings about your cancellation date or other details.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>How should I deliver my cancellation letter?</h5>
+                                <p>You have several options for delivering your cancellation letter:
+                                <ul>
+                                    <li>Email: Send it to your agent or the company's customer service email (fastest method)</li>
+                                    <li>Fax: Send it to your insurance company's fax number</li>
+                                    <li>Certified mail: For important documentation of receipt</li>
+                                    <li>Regular mail: Allow extra time for processing</li>
+                                </ul>
+                                If time is critical, consider using multiple methods to ensure your request is received promptly.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>When should I send my cancellation letter?</h5>
+                                <p>It's best to send your cancellation letter at least 2-3 weeks before your desired cancellation date. This gives the insurance company adequate time to process your request. If you need to cancel immediately, send the letter right away and follow up with a phone call to confirm receipt.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>Will I get a refund when I cancel my insurance policy?</h5>
+                                <p>If you've paid your premium in advance and cancel before the end of the policy term, you're typically entitled to a refund of the unused portion of your premium. However, most insurance companies apply a "short rate" calculation that includes a cancellation penalty. Use our <a href="insurance-short-rate-calculator.html">Short Rate Calculator</a> to estimate your refund amount.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>Can I cancel my insurance policy at any time?</h5>
+                                <p>Yes, you can generally cancel your insurance policy at any time. However, cancelling before your policy's expiration date usually results in a cancellation penalty. If possible, timing your cancellation to coincide with your policy renewal date can help you avoid these penalties.</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
             </div>
 
             <!-- Right sidebar for ads -->

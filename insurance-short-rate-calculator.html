@@ -35,161 +35,241 @@
             </div>
 
             <!-- Main content area -->
-            <div class="calculator-container">
-                <div class="calculator-inputs">
-                    <!-- Input form -->
-                    <div class="input-section">
-                        <!-- Step 1: Insurance Company Selection -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">1</span>
-                                <div class="step-content">
-                                    <h5>Select Insurance Company</h5>
-                                    <p class="hint-text">Different companies may use different short rate tables</p>
+            <div class="home-content">
+                <div class="calculator-container">
+                    <div class="calculator-inputs">
+                        <!-- Input form -->
+                        <div class="input-section">
+                            <!-- Step 1: Insurance Company Selection -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">1</span>
+                                    <div class="step-content">
+                                        <h5>Select Insurance Company</h5>
+                                        <p class="hint-text">Different companies may use different short rate tables</p>
+                                    </div>
+                                </div>
+                                <select id="insurance-company" class="highlighted-input">
+                                    <option value="" disabled selected>Please select an insurance company...</option>
+                                    <option value="allstate">Allstate Insurance</option>
+                                    <option value="aviva">Aviva Insurance</option>
+                                    <option value="caa">CAA Insurance</option>
+                                    <option value="cooperators">Co-operators Insurance</option>
+                                    <option value="desjardins">Desjardins Insurance</option>
+                                    <option value="intact">Intact Insurance</option>
+                                    <option value="pafco">Pafco Insurance</option>
+                                    <option value="wawanesa">Wawanesa Insurance</option>
+                                    <option value="other">Other Company</option>
+                                </select>
+                                <input type="text" id="other-company" class="highlighted-input hidden" placeholder="Enter insurance company name">
+                            </div>
+
+                            <!-- Step 2: Annual Premium Input -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">2</span>
+                                    <div class="step-content">
+                                        <h5>Enter Annual Premium</h5>
+                                        <p class="hint-text">Enter the full annual premium amount before cancellation</p>
+                                    </div>
+                                </div>
+                                <div class="premium-input">
+                                    <input type="number" id="annual-premium" class="highlighted-input" min="0" step="0.01" placeholder="Enter premium amount">
                                 </div>
                             </div>
-                            <select id="insurance-company" class="highlighted-input">
-                                <option value="" disabled selected>Please select an insurance company...</option>
-                                <option value="allstate">Allstate Insurance</option>
-                                <option value="aviva">Aviva Insurance</option>
-                                <option value="caa">CAA Insurance</option>
-                                <option value="cooperators">Co-operators Insurance</option>
-                                <option value="desjardins">Desjardins Insurance</option>
-                                <option value="intact">Intact Insurance</option>
-                                <option value="pafco">Pafco Insurance</option>
-                                <option value="wawanesa">Wawanesa Insurance</option>
-                                <option value="other">Other Company</option>
-                            </select>
-                            <input type="text" id="other-company" class="highlighted-input hidden" placeholder="Enter insurance company name">
+
+                            <!-- Step 3: Date Inputs -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">3</span>
+                                    <div class="step-content">
+                                        <h5>Select Policy Dates</h5>
+                                        <p class="hint-text">Enter the policy start date and cancellation date</p>
+                                    </div>
+                                </div>
+                                <div class="date-inputs">
+                                    <div class="date-input-group">
+                                        <label for="start-date">Start Date</label>
+                                        <input type="text" id="start-date" class="highlighted-input date-picker" placeholder="Select start date">
+                                        <p class="input-guide">Click to select policy start date from calendar</p>
+                                    </div>
+                                    <div class="date-input-group">
+                                        <label for="cancel-date">Cancellation Date</label>
+                                        <input type="text" id="cancel-date" class="highlighted-input date-picker" placeholder="Select cancellation date">
+                                        <p class="input-guide">Click to select cancellation date from calendar</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Calculate Button -->
+                            <button id="calculate-btn" class="action-button">
+                                <i class="fas fa-calculator"></i> Calculate Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Display Section -->
+                    <div class="calculator-results">
+                        <div class="results-header">
+                            <h4>Calculation Results</h4>
+                            <button id="copy-btn" class="hidden">
+                                <i class="fa-regular fa-copy"></i>
+                                <span>Copy Summary</span>
+                            </button>
                         </div>
 
-                        <!-- Step 2: Annual Premium Input -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">2</span>
-                                <div class="step-content">
-                                    <h5>Enter Annual Premium</h5>
-                                    <p class="hint-text">Enter the full annual premium amount before cancellation</p>
-                                </div>
-                            </div>
-                            <div class="premium-input">
-                                <input type="number" id="annual-premium" class="highlighted-input" min="0" step="0.01" placeholder="Enter premium amount">
-                            </div>
+                        <!-- Empty state message -->
+                        <div id="empty-state" class="empty-state">
+                            <i class="fas fa-arrow-left"></i>
+                            <p>Complete the steps on the left and click "Calculate Now" to see your results here.</p>
                         </div>
 
-                        <!-- Step 3: Date Inputs -->
-                        <div class="input-group step-container">
-                            <div class="step-indicator">
-                                <span class="step-number">3</span>
-                                <div class="step-content">
-                                    <h5>Select Policy Dates</h5>
-                                    <p class="hint-text">Enter the policy start date and cancellation date</p>
+                        <!-- Results content (initially hidden) -->
+                        <div id="results-content" class="results-content hidden">
+                            <!-- Basic results -->
+                            <div class="result-summary">
+                                <div class="result-row">
+                                    <span>Annual Premium:</span>
+                                    <span id="result-annual-premium" class="result-value"></span>
+                                </div>
+                                <div class="result-row">
+                                    <span>Days Insured:</span>
+                                    <span id="result-days-insured" class="result-value"></span>
+                                </div>
+                                <div class="result-row">
+                                    <span>Short Rate Factor:</span>
+                                    <span id="result-short-rate" class="result-value"></span>
+                                </div>
+                                <div class="result-row">
+                                    <span>Pro-rata Premium:</span>
+                                    <span id="result-pro-rata" class="result-value"></span>
+                                </div>
+                                <div class="result-row penalty">
+                                    <span>Cancellation Penalty:</span>
+                                    <span id="result-penalty" class="result-value"></span>
+                                </div>
+                                <div class="result-row">
+                                    <span>Earned Premium:</span>
+                                    <span id="result-earned" class="result-value"></span>
+                                </div>
+                                <div class="result-row total">
+                                    <span>Return Premium:</span>
+                                    <span id="result-return" class="result-value"></span>
                                 </div>
                             </div>
-                            <div class="date-inputs">
-                                <div class="date-input-group">
-                                    <label for="start-date">Start Date</label>
-                                    <input type="text" id="start-date" class="highlighted-input date-picker" placeholder="Select start date">
-                                    <p class="input-guide">Click to select policy start date from calendar</p>
+
+                            <!-- Detailed explanation -->
+                            <div class="result-details">
+                                <h5>Calculation Details</h5>
+                                <div class="detail-content">
+                                    <div class="detail-points">
+                                        <p>• Policy Period: <span id="detail-days"></span> days out of 365 days</p>
+                                        <p>• Pro-rata Factor: <span id="detail-pro-rata-factor"></span>%</p>
+                                        <p>• Short Rate Factor: <span id="detail-short-rate-factor"></span>%</p>
+                                        <p class="penalty">• Penalty Amount: $<span id="detail-penalty"></span></p>
+                                    </div>
+
+                                    <div class="detail-notes">
+                                        <p class="notes-title">Note:</p>
+                                        <ul class="notes-list">
+                                            <li>Pro-rata premium is calculated based on the actual number of days insured</li>
+                                            <li>Short rate premium includes a penalty for early cancellation</li>
+                                            <li>The penalty is the difference between short rate and pro-rata premium</li>
+                                            <li>All amounts are in Canadian Dollars (CAD)</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="date-input-group">
-                                    <label for="cancel-date">Cancellation Date</label>
-                                    <input type="text" id="cancel-date" class="highlighted-input date-picker" placeholder="Select cancellation date">
-                                    <p class="input-guide">Click to select cancellation date from calendar</p>
+                            </div>
+
+                            <!-- Rate Table Reference -->
+                            <div class="rate-reference">
+                                <h5>Short Rate Table Reference</h5>
+                                <div class="reference-content">
+                                    <p id="reference-text"></p>
+                                    <p id="reference-company" class="reference-company"></p>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Calculate Button -->
-                        <button id="calculate-btn" class="action-button">
-                            <i class="fas fa-calculator"></i> Calculate Now
-                        </button>
                     </div>
                 </div>
-
-                <!-- Results Display Section -->
-                <div class="calculator-results">
-                    <div class="results-header">
-                        <h4>Calculation Results</h4>
-                        <button id="copy-btn" class="hidden">
-                            <i class="fa-regular fa-copy"></i>
-                            <span>Copy Summary</span>
-                        </button>
-                    </div>
-
-                    <!-- Empty state message -->
-                    <div id="empty-state" class="empty-state">
-                        <i class="fas fa-arrow-left"></i>
-                        <p>Complete the steps on the left and click "Calculate Now" to see your results here.</p>
-                    </div>
-
-                    <!-- Results content (initially hidden) -->
-                    <div id="results-content" class="results-content hidden">
-                        <!-- Basic results -->
-                        <div class="result-summary">
-                            <div class="result-row">
-                                <span>Annual Premium:</span>
-                                <span id="result-annual-premium" class="result-value"></span>
+                
+                <!-- SEO Content Section -->
+                <section class="featured-article">
+                    <h2>Understanding Insurance Short Rate Calculations</h2>
+                    <article class="article-content">
+                        <h3>How Insurance Short Rate Calculations Work</h3>
+                        
+                        <p>When you cancel your insurance policy before its expiration date, insurance companies typically apply what's known as a "short rate" calculation to determine your refund. This calculation method accounts for the administrative costs and higher risk the insurer took on during the initial period of your policy.</p>
+                        
+                        <h4>Short Rate vs. Pro Rata: Understanding the Difference</h4>
+                        
+                        <p>There are two primary methods insurance companies use to calculate refunds when a policy is cancelled:</p>
+                        
+                        <ul>
+                            <li><strong>Short Rate Cancellation:</strong> Applied when <em>you</em> initiate the cancellation. This method includes a penalty to cover the insurer's upfront costs and results in a smaller refund.</li>
+                            <li><strong>Pro Rata Cancellation:</strong> Applied when the <em>insurance company</em> initiates the cancellation. This is a straightforward day-by-day calculation with no penalty.</li>
+                        </ul>
+                        
+                        <p>Our calculator uses industry-standard short rate tables to accurately determine your refund amount based on how long your policy was in effect.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Need to cancel your policy?</strong> Use our <a href="insurance-cancellation-letter-generator.html">Cancellation Letter Generator</a> to create a professional cancellation request letter.</p>
+                        </div>
+                        
+                        <h4>How Short Rate Tables Work</h4>
+                        
+                        <p>Short rate tables provide a percentage of the annual premium that the insurance company will keep based on how long your policy was active. These percentages are not linear - the earlier you cancel, the higher the percentage of premium the insurer keeps relative to the time insured.</p>
+                        
+                        <p>For example, if you cancel after just one month (about 8% of a year), the insurer might keep 15-20% of your annual premium. This higher percentage in the early months reflects the insurer's upfront costs in issuing your policy.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Paying monthly for your insurance?</strong> Use our <a href="insurance-monthly-payment-calculator.html">Monthly Payment Calculator</a> to understand the true cost including interest and taxes.</p>
+                        </div>
+                        
+                        <h4>Frequently Asked Questions About Short Rate Calculations</h4>
+                        
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <h5>Why do insurance companies use short rate calculations?</h5>
+                                <p>Insurance companies use short rate calculations to recover their upfront costs when you cancel early. These costs include policy setup, underwriting, commission payments, and administrative expenses that were based on a full policy term.</p>
                             </div>
-                            <div class="result-row">
-                                <span>Days Insured:</span>
-                                <span id="result-days-insured" class="result-value"></span>
+                            
+                            <div class="faq-item">
+                                <h5>Do all insurance companies use the same short rate table?</h5>
+                                <p>No, short rate tables can vary between insurance companies, though most follow similar patterns. Our calculator includes tables for major insurance providers to give you the most accurate estimate possible for your specific insurer.</p>
                             </div>
-                            <div class="result-row">
-                                <span>Short Rate Factor:</span>
-                                <span id="result-short-rate" class="result-value"></span>
+                            
+                            <div class="faq-item">
+                                <h5>Can I avoid short rate penalties?</h5>
+                                <p>In some circumstances, you might be able to avoid short rate penalties. These situations often include:
+                                <ul>
+                                    <li>The vehicle or property being insured was sold</li>
+                                    <li>You're transferring coverage to a new policy with the same company</li>
+                                    <li>The insured item was declared a total loss</li>
+                                    <li>You're moving to an area where your current insurer doesn't provide coverage</li>
+                                </ul>
+                                Always ask your insurance provider about their specific policies.</p>
                             </div>
-                            <div class="result-row">
-                                <span>Pro-rata Premium:</span>
-                                <span id="result-pro-rata" class="result-value"></span>
+                            
+                            <div class="faq-item">
+                                <h5>How accurate is this short rate calculator?</h5>
+                                <p>Our calculator uses industry-standard short rate tables and formulas to provide highly accurate estimates. However, your actual refund may vary slightly based on your specific policy terms, taxes, and fees. For the most precise figure, contact your insurance provider directly.</p>
                             </div>
-                            <div class="result-row penalty">
-                                <span>Cancellation Penalty:</span>
-                                <span id="result-penalty" class="result-value"></span>
-                            </div>
-                            <div class="result-row">
-                                <span>Earned Premium:</span>
-                                <span id="result-earned" class="result-value"></span>
-                            </div>
-                            <div class="result-row total">
-                                <span>Return Premium:</span>
-                                <span id="result-return" class="result-value"></span>
+                            
+                            <div class="faq-item">
+                                <h5>What information do I need to calculate my refund?</h5>
+                                <p>To calculate your insurance refund, you'll need:
+                                <ul>
+                                    <li>Your annual premium amount</li>
+                                    <li>Your policy start date</li>
+                                    <li>Your desired cancellation date</li>
+                                    <li>Your insurance company name (to apply the correct short rate table)</li>
+                                </ul>
+                                With this information, our calculator can provide a detailed breakdown of your expected refund.</p>
                             </div>
                         </div>
-
-                        <!-- Detailed explanation -->
-                        <div class="result-details">
-                            <h5>Calculation Details</h5>
-                            <div class="detail-content">
-                                <div class="detail-points">
-                                    <p>• Policy Period: <span id="detail-days"></span> days out of 365 days</p>
-                                    <p>• Pro-rata Factor: <span id="detail-pro-rata-factor"></span>%</p>
-                                    <p>• Short Rate Factor: <span id="detail-short-rate-factor"></span>%</p>
-                                    <p class="penalty">• Penalty Amount: $<span id="detail-penalty"></span></p>
-                                </div>
-
-                                <div class="detail-notes">
-                                    <p class="notes-title">Note:</p>
-                                    <ul class="notes-list">
-                                        <li>Pro-rata premium is calculated based on the actual number of days insured</li>
-                                        <li>Short rate premium includes a penalty for early cancellation</li>
-                                        <li>The penalty is the difference between short rate and pro-rata premium</li>
-                                        <li>All amounts are in Canadian Dollars (CAD)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Rate Table Reference -->
-                        <div class="rate-reference">
-                            <h5>Short Rate Table Reference</h5>
-                            <div class="reference-content">
-                                <p id="reference-text"></p>
-                                <p id="reference-company" class="reference-company"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </article>
+                </section>
             </div>
 
             <!-- Right sidebar for ads -->
@@ -225,6 +305,9 @@
             static: true,
             appendTo: document.body // 避免影响布局
         };
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html> 
