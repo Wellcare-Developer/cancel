@@ -1457,6 +1457,38 @@ footer a:hover {
     min-width: 300px;
 }
 
+.calculator-input-section .info-box {
+    margin-bottom: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.calculator-input-section .info-box h4 {
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.calculator-input-section .info-box h4 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+.calculator-input-section .info-box ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
+.calculator-input-section .info-box li {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
 .calculator-results-section {
     flex: 1;
     min-width: 300px;
@@ -1466,6 +1498,19 @@ footer a:hover {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.calculator-results .results-header {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calculator-results .results-header h4 {
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin: 0;
 }
 
 .additional-info {
@@ -1502,5 +1547,9 @@ footer a:hover {
     .calculator-input-section,
     .calculator-results-section {
         width: 100%;
+    }
+    
+    .calculator-results-section {
+        margin-top: 2rem;
     }
 } 
