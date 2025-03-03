@@ -68,18 +68,34 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Format dates
+        // Format current date
         const formattedDate = new Date().toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
         });
 
-        const formattedCancelDate = new Date(cancelDate).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        // 修复日期处理问题 - 使用UTC时间避免时区问题
+        let formattedCancelDate;
+        if (/^\d{4}-\d{2}-\d{2}$/.test(cancelDate)) {
+            // 如果日期格式是YYYY-MM-DD (flatpickr的内部格式)
+            const [year, month, day] = cancelDate.split('-').map(Number);
+            // 创建日期时使用UTC时间，避免时区问题
+            const date = new Date(Date.UTC(year, month - 1, day));
+            formattedCancelDate = date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                timeZone: 'UTC' // 关键是使用UTC时区
+            });
+        } else {
+            // 如果不是预期格式，使用原始处理方式
+            formattedCancelDate = new Date(cancelDate).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
 
         // Get cancellation reason text
         let reasonText = '';
