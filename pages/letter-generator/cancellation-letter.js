@@ -126,19 +126,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h1 style="text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 40px; text-transform: uppercase; color: #e74c3c; letter-spacing: 1px;">CANCELLATION REQUEST</h1>
                 
                 <div class="form-fields" style="margin-bottom: 30px;">
-                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                    <div class="form-field" style="margin-bottom: 25px; text-align: left;">
                         <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Insurance Company:</div>
-                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${insurer}</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 350px; padding-bottom: 2px; text-align: left;">${insurer}</div>
                     </div>
                     
-                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                    <div class="form-field" style="margin-bottom: 25px; text-align: left;">
                         <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Insured:</div>
-                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${namedInsured}</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 350px; padding-bottom: 2px; text-align: left;">${namedInsured}</div>
                     </div>
                     
-                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                    <div class="form-field" style="margin-bottom: 25px; text-align: left;">
                         <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Policy Number:</div>
-                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${policyNumber}</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 350px; padding-bottom: 2px; text-align: left;">${policyNumber}</div>
                     </div>
                 </div>
                 
@@ -146,7 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p>To Whom It May Concern,</p>
                     
                     <p style="margin-top: 20px;">Please be advised that the undersigned insured(s) would like to cancel the above captioned policy effective 
-                    <span style="color: #e74c3c; font-weight: bold;">${formattedCancelDate}</span> 12:01 a.m.</p>
+                    <span style="color: #e74c3c; font-weight: bold;">${formattedCancelDate}</span> 12:01 a.m. 
+                    ${reasonText ? `The reason for cancellation is: <span style="font-weight: 500;">${reasonText}</span>.` : ''}</p>
                     
                     <p style="margin-top: 20px;">Please kindly return the unearned premium, if any, to the above address.</p>
                     
@@ -244,31 +245,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                         .form-field {
                             margin-bottom: 25px;
-                            display: flex;
-                            align-items: center;
+                            text-align: left;
                         }
                         .field-label {
                             font-weight: bold;
-                            width: 180px;
-                            font-size: 16px;
                             color: #2c3e50;
-                            letter-spacing: 0.5px;
+                            margin-bottom: 5px;
                         }
                         .field-value {
-                            flex: 1;
                             border-bottom: 2px solid #3498db;
-                            padding-bottom: 4px;
-                            font-size: 16px;
+                            display: inline-block;
+                            min-width: 350px;
+                            padding-bottom: 2px;
+                            text-align: left;
                         }
                         .signature-section {
-                            display: flex;
-                            margin-top: 15px;
+                            margin-top: 20px;
                         }
                         .highlight-date {
                             color: #e74c3c;
                             font-weight: bold;
-                            text-decoration: underline;
-                            padding: 0 10px;
                         }
                         @font-face {
                             font-family: 'Cursive Font';

@@ -6,6 +6,7 @@ const homeAnnualInput = document.getElementById('home-annual');
 const emptyState = document.getElementById('empty-state');
 const resultsContent = document.getElementById('results-content');
 const additionalInfo = document.getElementById('additional-info');
+const howToUseSection = document.getElementById('how-to-use');
 
 // Result Elements
 const resultAutoMonthly = document.getElementById('result-auto-monthly');
@@ -128,11 +129,18 @@ function setupCalculateButton() {
         detailHomeTax.textContent = formatCurrency(homeMonthlyTax);
         detailHomeInterest.textContent = formatCurrency(homeMonthlyInterest);
         
-        // 显示结果部分和附加信息
-        resultsContent.classList.remove('hidden');
+        // 显示结果区域，隐藏空状态
         emptyState.classList.add('hidden');
-        copyBtn.classList.remove('hidden');
+        resultsContent.classList.remove('hidden');
         additionalInfo.classList.remove('hidden');
+        
+        // 显示复制按钮
+        copyBtn.classList.remove('hidden');
+        
+        // 隐藏"How to use this calculator"部分
+        if (howToUseSection) {
+            howToUseSection.style.display = 'none';
+        }
     });
 }
 
