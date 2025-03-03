@@ -7,7 +7,15 @@
     <meta name="keywords" content="privacy policy, insurance calculator, data protection, cookie policy">
     <meta name="author" content="Insurance Short Rate Calculator">
     <title>Privacy Policy | Insurance Short Rate Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <link rel="stylesheet" href="../../common/styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -15,6 +23,9 @@
     <header>
         <h1>Privacy Policy</h1>
         <p>How we collect, use, and protect your information</p>
+        <nav class="site-nav">
+            <a href="../home-page/insurance-cancellation-penalty-short-rate-calculator.html" class="nav-link"><i class="fas fa-home"></i> Back to Home</a>
+        </nav>
     </header>
 
     <main>
@@ -175,16 +186,20 @@
         <p>&copy; <span id="current-year"></span> Insurance Short Rate Calculator. All rights reserved.</p>
     </footer>
 
+    <script src="../../common/cookie-consent.js"></script>
     <script>
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
         
         // Set last updated date
-        document.getElementById('last-updated-date').textContent = new Date().toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
+        const lastUpdatedElement = document.getElementById('last-updated-date');
+        if (lastUpdatedElement) {
+            lastUpdatedElement.textContent = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
     </script>
 </body>
 </html> 

@@ -16,7 +16,7 @@ function createConsentBanner() {
         <div class="cookie-content">
             <p>This website uses cookies to enhance your experience and to display personalized ads through Google AdSense. 
                By clicking "Accept", you consent to the use of cookies. 
-               <a href="pages/Privacy/privacy-policy.html">Learn more about our Privacy Policy</a>.</p>
+               <a href="/pages/Privacy/privacy-policy.html">Learn more about our Privacy Policy</a>.</p>
             <div class="cookie-buttons">
                 <button id="cookie-accept" class="cookie-button accept">Accept</button>
                 <button id="cookie-decline" class="cookie-button decline">Decline</button>
