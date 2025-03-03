@@ -1,0 +1,18 @@
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器文件
+.vscode/
+.idea/
+*.sublime-*
+
+# 临时文件
+*.log
+*.tmp
+*.bak
+
+# 其他
+node_modules/
+.env 
