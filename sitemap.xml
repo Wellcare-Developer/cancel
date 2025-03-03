@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://insurance-cancellation.com/insurance-cancellation-penalty-short-rate-calculator.html</loc>
-    <lastmod>2024-03-02</lastmod>
+    <loc>https://insurance-cancellation.com/</loc>
+    <lastmod>2024-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://insurance-cancellation.com/insurance-monthly-payment-calculator.html</loc>
-    <lastmod>2024-03-02</lastmod>
+    <loc>https://insurance-cancellation.com/pages/home-page/insurance-cancellation-penalty-short-rate-calculator.html</loc>
+    <lastmod>2024-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://insurance-cancellation.com/pages/shortrate-calculator/insurance-short-rate-calculator.html</loc>
+    <lastmod>2024-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://insurance-cancellation.com/insurance-cancellation-letter-generator.html</loc>
-    <lastmod>2024-03-02</lastmod>
+    <loc>https://insurance-cancellation.com/pages/letter-generator/insurance-cancellation-letter-generator.html</loc>
+    <lastmod>2024-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://insurance-cancellation.com/insurance-short-rate-calculator.html</loc>
-    <lastmod>2024-03-02</lastmod>
+    <loc>https://insurance-cancellation.com/pages/monthly-payment/insurance-monthly-payment-calculator.html</loc>
+    <lastmod>2024-03-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://insurance-cancellation.com/cancellation-letter.html</loc>
-    <lastmod>2024-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://insurance-cancellation.com/privacy-policy.html</loc>
-    <lastmod>2024-03-01</lastmod>
+    <loc>https://insurance-cancellation.com/pages/Privacy/privacy-policy.html</loc>
+    <lastmod>2024-03-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://insurance-cancellation.com/test.html</loc>
+    <lastmod>2024-03-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.1</priority>
   </url>
 </urlset> 

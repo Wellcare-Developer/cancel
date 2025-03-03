@@ -120,47 +120,46 @@ document.addEventListener('DOMContentLoaded', function() {
         // Generate electronic signature
         const signature = generateSignature(namedInsured);
 
-        // Generate letter content in a simple form format
+        // Generate letter content in a new format matching the provided image
         const letter = `
-            <div class="cancellation-form">
-                <div class="form-logo">
-                    <h2>CANCELLATION REQUEST FORM</h2>
+            <div class="cancellation-form" style="font-family: Arial, sans-serif; max-width: 650px; margin: 0 auto; padding: 20px;">
+                <h1 style="text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 40px; text-transform: uppercase; color: #e74c3c; letter-spacing: 1px;">CANCELLATION REQUEST</h1>
+                
+                <div class="form-fields" style="margin-bottom: 30px;">
+                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                        <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Insurance Company:</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${insurer}</div>
+                    </div>
+                    
+                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                        <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Insured:</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${namedInsured}</div>
+                    </div>
+                    
+                    <div class="form-field" style="margin-bottom: 25px; text-align: center;">
+                        <div class="field-label" style="font-weight: bold; color: #2c3e50; margin-bottom: 5px;">Policy Number:</div>
+                        <div class="field-value" style="border-bottom: 2px solid #3498db; display: inline-block; min-width: 250px; padding-bottom: 2px; text-align: center;">${policyNumber}</div>
+                    </div>
                 </div>
                 
-                <div class="form-fields">
-                    <div class="form-field">
-                        <span class="field-label">Request Cancellation Date:</span>
-                        <span class="field-value">${formattedCancelDate} @12:01 AM</span>
-                    </div>
+                <div style="text-align: left; margin-top: 40px; line-height: 1.8;">
+                    <p>To Whom It May Concern,</p>
                     
-                    <div class="form-field">
-                        <span class="field-label">Named Insured:</span>
-                        <span class="field-value">${namedInsured}</span>
-                    </div>
+                    <p style="margin-top: 20px;">Please be advised that the undersigned insured(s) would like to cancel the above captioned policy effective 
+                    <span style="color: #e74c3c; font-weight: bold;">${formattedCancelDate}</span> 12:01 a.m.</p>
                     
-                    <div class="form-field">
-                        <span class="field-label">Insurer:</span>
-                        <span class="field-value">${insurer}</span>
-                    </div>
+                    <p style="margin-top: 20px;">Please kindly return the unearned premium, if any, to the above address.</p>
                     
-                    <div class="form-field">
-                        <span class="field-label">Policy Number:</span>
-                        <span class="field-value">${policyNumber}</span>
-                    </div>
+                    <p style="margin-top: 30px;">Thank you for your attention.</p>
                     
-                    <div class="form-field">
-                        <span class="field-label">Reason for Cancellation:</span>
-                        <span class="field-value">${reasonText}</span>
-                    </div>
-
-                    <div class="form-field signature-field">
-                        <div class="signature-container">
-                            <div class="signature-column">
-                                <div class="signature-note">Electronic Signature</div>
-                                <div class="signature">${signature}</div>
-                                <div class="signature-date">Date: ${formattedDate}</div>
-                            </div>
-                        </div>
+                    <p style="margin-top: 20px;">Regards,</p>
+                </div>
+                
+                <div class="signature-section" style="margin-top: 20px;">
+                    <div style="border: 1px solid #3498db; border-radius: 5px; padding: 15px; max-width: 320px; position: relative;">
+                        <div style="position: absolute; top: -10px; left: 15px; background: white; padding: 0 10px; font-size: 12px; color: #7f8c8d;">Signed electronically by</div>
+                        <div style="text-align: center; padding: 10px 0; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-size: 28px; color: #2c3e50;">${signature}</div>
+                        <div style="text-align: center; font-size: 12px; color: #7f8c8d;">on ${formattedDate}</div>
                     </div>
                 </div>
             </div>
@@ -177,26 +176,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create a signature based on the name
         if (!name) return '';
         
-        // All signatures use cursive style with random variations for a more natural look
-        const randomRotation = Math.floor(Math.random() * 3) - 1; // Random rotation between -1 and 1 degrees
-        const randomSize = Math.floor(Math.random() * 4) + 24; // Random size between 24-27px
+        // Add some random variation to make the signature look more natural
+        const randomRotation = Math.floor(Math.random() * 5) - 2; // Random rotation between -2 and 2 degrees
+        const randomSize = Math.floor(Math.random() * 6) + 24; // Random size between 24-29px
         
-        // Slightly adjust style based on name length
-        let signatureHTML;
-        
-        if (name.length < 10) {
-            // For shorter names, use larger font and more tilt
-            signatureHTML = `<div class="signature-style handwritten" 
-                style="font-size: ${randomSize + 2}px; transform: rotate(${randomRotation - 1}deg);">
-                ${name}
-            </div>`;
-        } else {
-            // For longer names, use standard cursive style
-            signatureHTML = `<div class="signature-style handwritten" 
-                style="font-size: ${randomSize}px; transform: rotate(${randomRotation}deg);">
-                ${name}
-            </div>`;
-        }
+        // Create a cursive style signature with slight randomization
+        const signatureHTML = `<span style="font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; 
+                                     font-size: ${randomSize}px; 
+                                     transform: rotate(${randomRotation}deg); 
+                                     display: inline-block;
+                                     color: #000080;
+                                     text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);">${name}</span>`;
         
         return signatureHTML;
     }
@@ -222,130 +212,70 @@ document.addEventListener('DOMContentLoaded', function() {
         printWindow.document.write(`
             <html>
                 <head>
-                    <title>Insurance Cancellation Form</title>
+                    <title>Insurance Cancellation Request</title>
                     <style>
+                        @media print {
+                            @page {
+                                margin: 0.5in;
+                            }
+                            body {
+                                -webkit-print-color-adjust: exact !important;
+                                print-color-adjust: exact !important;
+                                color-adjust: exact !important;
+                            }
+                        }
                         body {
                             font-family: Arial, sans-serif;
-                            padding: 20px;
-                        }
-                        .cancellation-form {
-                            max-width: 800px;
+                            line-height: 1.6;
+                            color: #000;
+                            max-width: 8.5in;
                             margin: 0 auto;
+                            padding: 0.5in;
                         }
-                        .form-logo {
+                        h1 {
                             text-align: center;
-                            margin-bottom: 40px;
-                        }
-                        .form-logo h2 {
-                            color: #e74c3c;
-                            font-size: 24px;
+                            font-size: 28px;
                             font-weight: bold;
-                            letter-spacing: 1px;
-                        }
-                        .form-fields {
-                            display: flex;
-                            flex-direction: column;
-                            gap: 20px;
+                            margin-bottom: 40px;
+                            text-transform: uppercase;
+                            color: #e74c3c;
+                            letter-spacing: 2px;
+                            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
                         }
                         .form-field {
-                            display: flex;
-                            flex-direction: column;
-                            font-size: 16px;
-                            line-height: 1.5;
-                        }
-                        .field-label {
-                            font-weight: bold;
-                            color: #333;
-                            margin-bottom: 5px;
-                        }
-                        .field-value {
-                            border-bottom: 1px solid #ccc;
-                            padding-bottom: 5px;
-                            color: #555;
-                        }
-                        .signature-container {
-                            margin-top: 40px;
-                            padding: 20px 25px;
-                            border-top: 1px dashed #ccc;
-                            background-color: #f9f9f9;
-                            border-radius: 5px;
-                        }
-                        .signature-column {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: flex-start;
-                        }
-                        .signature-note {
-                            font-size: 12px;
-                            color: #777;
-                            margin-bottom: 8px;
-                            font-style: italic;
-                        }
-                        .signature {
-                            margin-bottom: 15px;
-                            min-height: 40px;
+                            margin-bottom: 25px;
                             display: flex;
                             align-items: center;
                         }
-                        .signature-date {
-                            font-size: 14px;
-                            color: #555;
-                            align-self: flex-start;
-                            font-style: italic;
-                            margin-left: 10px;
+                        .field-label {
+                            font-weight: bold;
+                            width: 180px;
+                            font-size: 16px;
+                            color: #2c3e50;
+                            letter-spacing: 0.5px;
                         }
-                        .signature-style {
-                            padding: 5px 0;
-                            display: inline-block;
+                        .field-value {
+                            flex: 1;
+                            border-bottom: 2px solid #3498db;
+                            padding-bottom: 4px;
+                            font-size: 16px;
                         }
-                        .handwritten {
-                            font-family: 'Brush Script MT', 'Dancing Script', cursive;
-                            font-size: 26px;
-                            color: #000;
-                            text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
-                            line-height: 1.2;
-                            letter-spacing: 1px;
-                            position: relative;
-                            display: inline-block;
-                            padding: 0 5px;
+                        .signature-section {
+                            display: flex;
+                            margin-top: 15px;
                         }
-                        .handwritten::after {
-                            content: '';
-                            position: absolute;
-                            bottom: -2px;
-                            left: 0;
-                            width: 100%;
-                            height: 1px;
-                            background: rgba(0,0,0,0.3);
-                            transform: scaleX(0.95) rotate(-0.5deg);
-                        }
-                        .cursive {
-                            font-family: 'Brush Script MT', cursive;
-                            font-size: 24px;
-                            color: #000;
-                            transform: rotate(-2deg);
-                            text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-                        }
-                        .initials-underline {
-                            font-family: 'Arial', sans-serif;
-                            font-size: 20px;
+                        .highlight-date {
+                            color: #e74c3c;
                             font-weight: bold;
                             text-decoration: underline;
-                            color: #000;
-                            letter-spacing: 2px;
+                            padding: 0 10px;
                         }
-                        .full-name-flourish {
-                            font-family: 'Times New Roman', serif;
-                            font-size: 20px;
-                            font-style: italic;
-                            color: #000;
-                            border-bottom: 1px solid #000;
-                            padding-bottom: 3px;
-                        }
-                        @media print {
-                            body {
-                                padding: 0;
-                            }
+                        @font-face {
+                            font-family: 'Cursive Font';
+                            src: local('Brush Script MT'), 
+                                 local('Segoe Script'), 
+                                 local('Bradley Hand'), 
+                                 local('Comic Sans MS');
                         }
                     </style>
                 </head>
@@ -358,7 +288,7 @@ document.addEventListener('DOMContentLoaded', function() {
         printWindow.document.close();
         printWindow.focus();
         
-        // Print after a short delay to ensure content is loaded
+        // Add a slight delay to ensure content is loaded before printing
         setTimeout(() => {
             printWindow.print();
             printWindow.close();
