@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Test Page</title>
+    
+    <!-- 最基本的favicon引用 -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <!-- 完整的favicon引用 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #3498db;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .file-list {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .instructions {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Favicon Test Page</h1>
+    <p>This page is designed to test if your favicon is correctly displayed in the browser tab.</p>
+    
+    <div class="test-section">
+        <h2>Favicon Files Check</h2>
+        <p>The following favicon files should be in your website's root directory:</p>
+        <div class="file-list">
+            <ul>
+                <li>favicon.ico</li>
+                <li>favicon-16x16.png</li>
+                <li>favicon-32x32.png</li>
+                <li>apple-touch-icon.png</li>
+                <li>android-chrome-192x192.png</li>
+                <li>android-chrome-512x512.png</li>
+                <li>site.webmanifest</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="instructions">
+        <h2>Troubleshooting Instructions</h2>
+        <ol>
+            <li><strong>Check if favicon appears in this tab</strong> - Look at your browser tab now. Do you see your custom favicon?</li>
+            <li><strong>Clear browser cache</strong> - Press Ctrl+F5 (Windows) or Cmd+Shift+R (Mac) to force refresh.</li>
+            <li><strong>Check file paths</strong> - Make sure all favicon files are in the website root directory.</li>
+            <li><strong>Verify file formats</strong> - Ensure favicon.ico is a valid ICO file.</li>
+            <li><strong>Try different browsers</strong> - Test in Chrome, Firefox, Safari, etc.</li>
+        </ol>
+    </div>
+    
+    <p><a href="/">Return to Homepage</a></p>
+</body>
+</html> 

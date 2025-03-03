@@ -16,7 +16,7 @@ function createConsentBanner() {
         <div class="cookie-content">
             <p>This website uses cookies to enhance your experience and to display personalized ads through Google AdSense. 
                By clicking "Accept", you consent to the use of cookies. 
-               <a href="/pages/Privacy/privacy-policy.html">Learn more about our Privacy Policy</a>.</p>
+               <a href="pages/Privacy/privacy-policy.html" id="privacy-policy-link">Learn more about our Privacy Policy</a>.</p>
             <div class="cookie-buttons">
                 <button id="cookie-accept" class="cookie-button accept">Accept</button>
                 <button id="cookie-decline" class="cookie-button decline">Decline</button>
@@ -26,6 +26,33 @@ function createConsentBanner() {
     
     // Append banner to body
     document.body.appendChild(banner);
+    
+    // 动态调整隐私政策链接
+    const privacyLink = document.getElementById('privacy-policy-link');
+    if (privacyLink) {
+        // 检查当前URL是否是本地文件
+        const isLocalFile = window.location.protocol === 'file:';
+        
+        if (isLocalFile) {
+            // 如果是本地文件，使用相对路径
+            // 根据当前页面的深度调整路径
+            const pathDepth = (window.location.pathname.match(/\//g) || []).length;
+            let relativePath = '';
+            
+            if (pathDepth <= 2) {
+                relativePath = 'pages/Privacy/privacy-policy.html';
+            } else {
+                // 对于更深层次的页面，添加适当数量的../
+                const upDirs = '../'.repeat(pathDepth - 2);
+                relativePath = upDirs + 'pages/Privacy/privacy-policy.html';
+            }
+            
+            privacyLink.href = relativePath;
+        } else {
+            // 如果是服务器，使用根路径
+            privacyLink.href = '/pages/Privacy/privacy-policy.html';
+        }
+    }
     
     // Add event listeners to buttons
     document.getElementById('cookie-accept').addEventListener('click', function() {
