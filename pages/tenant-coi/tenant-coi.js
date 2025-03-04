@@ -17,8 +17,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add print button event listener
     printBtn.addEventListener('click', printCertificate);
     
-    // Add copy button event listener
-    copyBtn.addEventListener('click', copyCertificateContent);
+    // 修改复制按钮为返回表单按钮
+    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Confirmation</span>';
+    copyBtn.addEventListener('click', returnToForm);
 });
 
 // Validate form and generate certificate
@@ -135,9 +136,83 @@ function formatCurrency(amount) {
 
 // Generate certificate
 function generateCertificate() {
-    // Hide empty state, show certificate content
+    // 获取DOM元素
+    const inputsSection = document.querySelector('.calculator-inputs');
+    const resultsSection = document.querySelector('.calculator-results');
+    const calculatorContainer = document.querySelector('.calculator-container');
+    
+    // 隐藏输入表单
+    inputsSection.style.display = 'none';
+    
+    // 调整结果区域样式，使其占满整个容器
+    resultsSection.style.cssText = `
+        flex: 1;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 20px;
+        margin: 0 auto;
+    `;
+    
+    // 调整容器样式
+    calculatorContainer.style.cssText = `
+        display: block;
+        width: 100%;
+    `;
+    
+    // 隐藏空状态，显示证书内容
     emptyState.classList.add('hidden');
     certificateContent.classList.remove('hidden');
+    
+    // 更新按钮文本，确保显示正确
+    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Confirmation</span>';
+    
+    // 添加样式使证书内容更美观
+    const style = document.createElement('style');
+    style.textContent = `
+        .certificate-preview {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .secondary-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-button:hover {
+            background-color: #3182ce;
+        }
+        
+        @media print {
+            .certificate-preview {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
     
     // Create certificate HTML
     const certificateHTML = `
@@ -229,6 +304,23 @@ function generateCertificate() {
     
     // Update certificate preview
     certificatePreview.innerHTML = certificateHTML;
+    
+    // 调换按钮位置
+    const downloadOptions = document.querySelector('.download-options');
+    downloadOptions.innerHTML = `
+        <button id="copy-btn" class="secondary-button">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+            <span>Get New Confirmation</span>
+        </button>
+        <button id="print-btn" class="secondary-button">
+            <i class="fas fa-print"></i>
+            <span>Generate PDF / Print Form</span>
+        </button>
+    `;
+    
+    // 重新添加事件监听器
+    document.getElementById('print-btn').addEventListener('click', printCertificate);
+    document.getElementById('copy-btn').addEventListener('click', returnToForm);
     
     // Scroll to certificate section
     certificateContent.scrollIntoView({ behavior: 'smooth' });
@@ -350,6 +442,35 @@ function printCertificate() {
                         margin: 0;
                     }
                     
+                    .calculator-inputs {
+                        display: none !important;
+                    }
+                    
+                    .calculator-results {
+                        flex: 1 0 100% !important;
+                        max-width: 100% !important;
+                        width: 100% !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
+                    
+                    .calculator-container {
+                        display: block !important;
+                        width: 100% !important;
+                    }
+                    
+                    .certificate-preview {
+                        border: none !important;
+                        box-shadow: none !important;
+                        padding: 0 !important;
+                        margin: 0 !important;
+                        max-width: 100% !important;
+                    }
+                    
+                    .results-header, .download-options {
+                        display: none !important;
+                    }
+                    
                     @page {
                         margin: 1.5cm;
                     }
@@ -392,32 +513,33 @@ function printCertificate() {
     }, 1000);
 }
 
-// Copy certificate content
-function copyCertificateContent() {
-    try {
-        // Create a range selection
-        const range = document.createRange();
-        range.selectNode(certificatePreview);
-        
-        // Clear current selection
-        window.getSelection().removeAllRanges();
-        
-        // Select certificate content
-        window.getSelection().addRange(range);
-        
-        // Copy to clipboard
-        document.execCommand('copy');
-        
-        // Clear selection
-        window.getSelection().removeAllRanges();
-        
-        // Show success message
-        alert('Certificate content copied to clipboard');
-    } catch (err) {
-        // If copy fails, prompt user to copy manually
-        alert('Automatic copy failed, please select and copy the content manually');
-        console.error('Copy failed:', err);
-    }
+// 返回表单页面
+function returnToForm() {
+    // 获取DOM元素
+    const inputsSection = document.querySelector('.calculator-inputs');
+    const resultsSection = document.querySelector('.calculator-results');
+    const calculatorContainer = document.querySelector('.calculator-container');
+    
+    // 显示输入表单
+    inputsSection.style.display = 'block';
+    
+    // 重置容器样式为默认的flex布局
+    calculatorContainer.style.cssText = `
+        display: flex;
+        width: 100%;
+    `;
+    
+    // 重置结果区域样式
+    resultsSection.style.cssText = `
+        flex: 1;
+    `;
+    
+    // 隐藏证书内容，显示空状态
+    certificateContent.classList.add('hidden');
+    emptyState.classList.remove('hidden');
+    
+    // 滚动到表单顶部
+    inputsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Signature generation function
