@@ -1867,4 +1867,133 @@ footer a:hover {
     body, html {
         background-color: white !important;
     }
+}
+
+/* 添加移动端优化样式 */
+@media (max-width: 768px) {
+  /* 通用优化 */
+  .page-layout {
+    padding: 0 10px;
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  /* 输入区域优化 */
+  .input-group.step-container {
+    padding: 15px;
+  }
+
+  .step-indicator {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .step-number {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  /* 计算器页面优化 */
+  .calculator-flex-container {
+    flex-direction: column;
+  }
+
+  .calculator-input-section,
+  .calculator-results-section {
+    width: 100%;
+    padding: 0;
+  }
+
+  /* 结果表格优化 */
+  .result-row {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  /* 工具卡片优化 */
+  .tools-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+
+  .tool-card {
+    padding: 20px !important;
+  }
+
+  /* 日期选择器优化 */
+  .date-inputs {
+    flex-direction: column;
+  }
+
+  .date-input-group {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  /* 按钮优化 */
+  .action-button {
+    font-size: 16px;
+    padding: 12px 20px;
+    width: 100%;
+  }
+
+  /* 隐藏侧边栏广告 */
+  .ad-sidebar {
+    display: none;
+  }
+
+  /* 文章内容优化 */
+  .article-content {
+    font-size: 15px;
+    line-height: 1.6;
+    
+    h3 {
+      font-size: 18px;
+    }
+    
+    h4 {
+      font-size: 16px;
+    }
+  }
+
+  /* 输入框优化 */
+  .highlighted-input {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  /* How to Use模块优化 */
+  #how-to-use-content {
+    font-size: 14px;
+    padding: 15px;
+  }
+}
+
+/* 针对小屏幕手机优化 */
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 24px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  .tool-button {
+    font-size: 14px !important;
+    padding: 10px 15px !important;
+  }
+
+  .result-value {
+    font-size: 14px;
+  }
 } 
