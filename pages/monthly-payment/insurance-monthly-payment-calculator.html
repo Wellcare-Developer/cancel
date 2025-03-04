@@ -20,6 +20,8 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     
     <link rel="stylesheet" href="../../common/styles.css">
+    <link rel="stylesheet" href="../../common/header-nav.css">
+    <link rel="stylesheet" href="../../common/how-to-use-styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -244,75 +246,5 @@
     <script src="monthly-payment-calculator.js"></script>
     <script src="../../common/cookie-consent.js"></script>
     <script src="../../common/how-to-use.js"></script>
-    
-    <style>
-        /* 移除原有按钮样式 */
-        .toggle-button {
-            all: unset; /* 清除所有默认按钮样式 */
-        }
-
-        /* 修改文字链接样式 */
-        .text-link {
-            color: #3498db;
-            cursor: pointer;
-            font-size: 14px;
-            transition: color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none; /* 移除整体下划线 */
-        }
-
-        /* 只在文字部分显示下划线 */
-        .text-link span {
-            text-decoration: underline;
-        }
-
-        .text-link:hover {
-            color: #2980b9;
-        }
-
-        .text-link:hover span {
-            text-decoration: none;
-        }
-
-        /* 调整容器对齐方式 */
-        .toggle-container {
-            margin-bottom: 20px;
-            text-align: left; /* 确保左对齐 */
-            justify-content: flex-start; /* 新增 */
-            display: flex; /* 新增 */
-        }
-
-        /* 调整容器间距 */
-        .input-instructions {
-            margin-bottom: 30px;  /* 增加底部间距 */
-        }
-
-        /* 调整第一个输入容器顶部间距 */
-        .input-group.step-container:first-child {
-            margin-top: 30px;  /* 增加顶部间距 */
-        }
-
-        /* 展开状态下的说明框间距 */
-        #how-to-use-content {
-            margin: 15px 0 25px;  /* 上15px 下25px */
-        }
-
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .input-instructions {
-                margin-bottom: 20px;
-            }
-            
-            .input-group.step-container:first-child {
-                margin-top: 20px;
-            }
-            
-            #how-to-use-content {
-                margin: 10px 0 20px;
-            }
-        }
-    </style>
 </body>
 </html> 

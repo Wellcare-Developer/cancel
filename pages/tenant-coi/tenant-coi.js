@@ -169,6 +169,19 @@ function generateCertificate() {
     // 添加样式使证书内容更美观
     const style = document.createElement('style');
     style.textContent = `
+        :root {
+            --certificate-section-gap: 15px;
+            --certificate-row-gap: 8px;
+            --coverage-top-margin: 40px;
+            --coverage-bottom-margin: 20px;
+            --coverage-title-top-margin: 25px;
+            --coverage-title-bottom-margin: 15px;
+            --footer-top-margin: 40px;
+            --footer-padding: 15px 0;
+            --certificate-max-width: 900px;
+            /* 签名样式变量已移至signature-styles.css */
+        }
+        
         .certificate-preview {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
@@ -176,7 +189,39 @@ function generateCertificate() {
             background-color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin: 20px auto;
-            max-width: 900px;
+            max-width: var(--certificate-max-width);
+        }
+        
+        .certificate-section {
+            margin-bottom: var(--certificate-section-gap);
+        }
+        
+        .certificate-row {
+            display: flex;
+            margin-bottom: var(--certificate-row-gap);
+        }
+        
+        .coverage-section {
+            margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
+        }
+        
+        .coverage-section h3 {
+            margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            display: inline-block;
+            border-bottom: 1px solid #000000;
+            width: 50%;
+        }
+        
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: var(--footer-top-margin);
+            padding: var(--footer-padding);
         }
         
         .results-header {
@@ -211,6 +256,8 @@ function generateCertificate() {
                 margin: 0;
             }
         }
+        
+        /* 签名框样式已移至signature-styles.css */
     `;
     document.head.appendChild(style);
     
@@ -228,7 +275,9 @@ function generateCertificate() {
         </div>
         
         <div class="certificate-body">
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section">
+                <p class="certificate-note" style="margin-bottom: 15px;">This binder is valid for 365 days from the effective date.<br>Terms and conditions are to be governed by actual policy issued by the insurer.</p>
+                
                 <div class="certificate-row">
                     <div class="certificate-label">Insured:</div>
                     <div class="certificate-value">${formData.insuredName}</div>
@@ -243,7 +292,7 @@ function generateCertificate() {
                 </div>
             </div>
             
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section">
                 <div class="certificate-row">
                     <div class="certificate-label">Insurer:</div>
                     <div class="certificate-value">${formData.insurer}</div>
@@ -254,7 +303,7 @@ function generateCertificate() {
                 </div>
             </div>
             
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section">
                 <div class="certificate-row">
                     <div class="certificate-label">Effective Date:</div>
                     <div class="certificate-value">${formData.effectiveDate}</div>
@@ -265,8 +314,8 @@ function generateCertificate() {
                 </div>
             </div>
             
-            <div class="certificate-section coverage-section" style="margin: 80px 0 30px;">
-                <h3 style="margin: 50px 0 15px; font-size: 16px; color: #2c3e50; font-weight: 600; padding-bottom: 8px; display: inline-block; border-bottom: 1px solid #000000; width: 50%;">Insurance Coverage</h3>
+            <div class="certificate-section coverage-section">
+                <h3>Insurance Coverage</h3>
                 <div class="certificate-row">
                     <div class="certificate-label">Liability:</div>
                     <div class="certificate-value">${formatCurrency(formData.liability)}</div>
@@ -281,19 +330,15 @@ function generateCertificate() {
                 </div>
             </div>
             
-            <div class="certificate-section">
-                <p class="certificate-note">This binder is valid for 365 days from the effective date. Terms and conditions are to be governed by actual policy issued by the insurer.</p>
-            </div>
-            
-            <div class="certificate-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 60px; padding: 20px 0;">
+            <div class="certificate-footer">
                 <div class="certificate-date" style="font-size: 14px; color: #7f8c8d; min-width: 200px;">
                     Signed Date: ${new Date().toLocaleDateString('en-US')}
                 </div>
                 
-                <div class="certificate-signature" style="min-width: 320px; text-align: right; margin-bottom: -20px;">
-                    <div style="border: 1px solid #3498db; border-radius: 5px; padding: 20px 30px; display: inline-block; position: relative; background: #f8f9fa; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; min-width: 260px;">
-                        <div style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; font-size: 12px; color: #7f8c8d;">Signed electronically by</div>
-                        <div style="padding: 15px 0; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-size: 32px; color: #2c3e50; line-height: 1.2; min-width: 240px; text-align: center;">
+                <div class="certificate-signature">
+                    <div class="signature-box">
+                        <div class="signature-label">Signed electronically by</div>
+                        <div class="signature-content">
                             ${generateSignature(formData.signatureName)}
                         </div>
                     </div>
@@ -340,13 +385,27 @@ function printCertificate() {
         <html>
         <head>
             <title>Certificate of Insurance - ${formData.insuredName}</title>
+            <link rel="stylesheet" href="../../common/signature-styles.css">
             <style>
+                :root {
+                    --certificate-section-gap: 15px;
+                    --certificate-row-gap: 8px;
+                    --coverage-top-margin: 40px;
+                    --coverage-bottom-margin: 20px;
+                    --coverage-title-top-margin: 25px;
+                    --coverage-title-bottom-margin: 15px;
+                    --footer-top-margin: 40px;
+                    --footer-padding: 15px 0;
+                    --certificate-max-width: 900px;
+                    /* 签名样式变量已移至signature-styles.css */
+                }
+                
                 body {
                     font-family: Arial, sans-serif;
-                    line-height: 1.6;
+                    line-height: 1.5;
                     color: #333;
                     margin: 0;
-                    padding: 20px;
+                    padding: 15px;
                 }
                 
                 .certificate-header {
@@ -381,12 +440,12 @@ function printCertificate() {
                 }
                 
                 .certificate-section {
-                    margin-bottom: 20px;
+                    margin-bottom: var(--certificate-section-gap);
                 }
                 
                 .certificate-row {
                     display: flex;
-                    margin-bottom: 10px;
+                    margin-bottom: var(--certificate-row-gap);
                 }
                 
                 .certificate-label {
@@ -398,13 +457,17 @@ function printCertificate() {
                 }
                 
                 .certificate-value {
-                    color: #2c3e50;
-                    font-weight: 500;
+                    min-width: 200px;
                     font-size: 14px;
+                    color: #7f8c8d;
+                }
+                
+                .coverage-section {
+                    margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
                 }
                 
                 .coverage-section h3 {
-                    margin: 80px 0 15px;
+                    margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
                     font-size: 16px;
                     font-weight: 600;
                     color: #2c3e50;
@@ -425,16 +488,17 @@ function printCertificate() {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-end;
-                    margin-top: 60px;
+                    margin-top: var(--footer-top-margin);
+                    padding: var(--footer-padding);
                 }
                 
                 .certificate-date {
                     min-width: 200px;
+                    font-size: 14px;
+                    color: #7f8c8d;
                 }
                 
-                .certificate-signature {
-                    min-width: 320px;
-                }
+                /* .certificate-signature 样式已移至signature-styles.css */
                 
                 @media print {
                     body {
@@ -472,7 +536,7 @@ function printCertificate() {
                     }
                     
                     @page {
-                        margin: 1.5cm;
+                        margin: 1cm;
                     }
                 }
 
@@ -500,17 +564,63 @@ function printCertificate() {
         </html>
     `);
     
-    // Wait for images to load before printing
-    printWindow.document.addEventListener('load', function() {
-        printWindow.print();
-        // printWindow.close();
-    }, true);
+    printWindow.document.close();
     
-    // If load event doesn't trigger, set timeout
-    setTimeout(function() {
+    // Properly handle image loading before printing
+    const handlePrint = () => {
+        printWindow.focus(); // Focus ensures better printing support across browsers
         printWindow.print();
-        // printWindow.close();
-    }, 1000);
+    };
+    
+    // 检查打印窗口中是否有图片
+    const images = printWindow.document.querySelectorAll('img');
+    
+    if (images.length === 0) {
+        // 没有图片，直接打印
+        handlePrint();
+    } else {
+        let loadedImages = 0;
+        const totalImages = images.length;
+        
+        // 预加载所有图片
+        images.forEach(img => {
+            // 如果图片已经加载完成
+            if (img.complete) {
+                loadedImages++;
+                // 当所有图片都加载完成时打印
+                if (loadedImages === totalImages) {
+                    handlePrint();
+                }
+            } else {
+                // 添加图片加载事件
+                img.addEventListener('load', () => {
+                    loadedImages++;
+                    // 当所有图片都加载完成时打印
+                    if (loadedImages === totalImages) {
+                        handlePrint();
+                    }
+                });
+                
+                // 添加图片加载错误处理
+                img.addEventListener('error', () => {
+                    loadedImages++;
+                    console.error('Image failed to load:', img.src);
+                    // 即使图片加载失败也继续打印
+                    if (loadedImages === totalImages) {
+                        handlePrint();
+                    }
+                });
+            }
+        });
+        
+        // 添加超时保护，避免无限等待
+        setTimeout(() => {
+            if (loadedImages < totalImages) {
+                console.warn('Not all images loaded after timeout, printing anyway');
+                handlePrint();
+            }
+        }, 3000); // 3秒超时
+    }
 }
 
 // 返回表单页面
@@ -547,14 +657,7 @@ function generateSignature(name) {
     if (!name) return '';
     
     const randomRotation = Math.floor(Math.random() * 5) - 2;
-    const randomSize = Math.floor(Math.random() * 6) + 20;
+    const rotationClass = `rotate-${randomRotation < 0 ? 'neg-' : 'pos-'}${Math.abs(randomRotation)}`;
     
-    return `<span style="font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; 
-                     font-size: ${randomSize}px; 
-                     transform: rotate(${randomRotation}deg); 
-                     display: inline-block;
-                     color: #000080;
-                     text-align: center;
-                     width: 100%;
-                     text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);">${name}</span>`;
+    return `<span class="dynamic-signature ${rotationClass}">${name}</span>`;
 } 

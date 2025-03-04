@@ -37,40 +37,23 @@ body {
     flex-direction: column;
 }
 
-/* Container Styles */
-header {
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 2rem 0;
-    margin-bottom: 2rem;
-}
-
-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-header p {
-    color: var(--grey-500);
-}
-
+/* 主内容区域 */
 main {
-    flex: 1;
-    padding: 2rem 1rem;
-    max-width: 100%;
-    margin: 0 auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
     width: 100%;
+    padding: 20px 0;
+    background-color: var(--background-secondary);
 }
 
+/* 页脚样式 */
 footer {
+    background-color: var(--grey-800);
+    color: var(--grey-200);
     text-align: center;
-    padding: 1.5rem;
-    color: var(--grey-500);
-    font-size: 0.875rem;
-    border-top: 1px solid var(--grey-200);
-    margin-top: 2rem;
-    background-color: white;
+    padding: 20px;
+    margin-top: auto;
 }
 
 /* Page Layout */
@@ -876,14 +859,15 @@ button {
     font-size: 1rem;
 }
 
-/* Tool Introduction */
+/* 导航样式已移至header-nav.css */
+
+/* 工具介绍 */
 .tool-intro {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    padding: 0.75rem 1.5rem;
-    margin-bottom: 1.5rem;
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    text-align: center;
+    padding: 0 20px;
 }
 
 .tool-intro h2 {
@@ -951,122 +935,10 @@ button {
     color: white;
 }
 
-/* Logo styles */
-.logo-image {
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* Logo样式 - 已移至header-nav.css */
 
-.logo-text {
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
-    position: relative;
-}
-
-/* Electronic signature styles - optimized */
-.signature-field {
-    margin-top: 50px;
-}
-
-.signature-container {
-    margin-top: 30px;
-    padding: 20px 25px;
-    border-top: 1px dashed #ccc;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.signature-column {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.signature-note {
-    font-size: 12px;
-    color: #777;
-    margin-bottom: 8px;
-    font-style: italic;
-}
-
-.signature {
-    margin-bottom: 15px;
-    min-height: 40px;
-    display: flex;
-    align-items: center;
-}
-
-.signature-date {
-    font-size: 14px;
-    color: #555;
-    align-self: flex-start;
-    font-style: italic;
-    margin-left: 10px;
-}
-
-.signature-style {
-    padding: 5px 0;
-    display: inline-block;
-}
-
-/* New handwritten signature styles */
-.handwritten {
-    font-family: 'Brush Script MT', 'Dancing Script', cursive;
-    font-size: 26px;
-    color: #000;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
-    line-height: 1.2;
-    letter-spacing: 1px;
-    position: relative;
-    display: inline-block;
-    padding: 0 5px;
-}
-
-.handwritten::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(0,0,0,0.3);
-    transform: scaleX(0.95) rotate(-0.5deg);
-}
-
-/* Keeping old signature styles for compatibility */
-.cursive {
-    font-family: 'Brush Script MT', cursive;
-    font-size: 24px;
-    color: #000;
-    transform: rotate(-2deg);
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
-}
-
-.initials-underline {
-    font-family: 'Arial', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    text-decoration: underline;
-    color: #000;
-    letter-spacing: 2px;
-}
-
-.full-name-flourish {
-    font-family: 'Times New Roman', serif;
-    font-size: 20px;
-    font-style: italic;
-    color: #000;
-    border-bottom: 1px solid #000;
-    padding-bottom: 3px;
-}
-
-/* Insurance Company Input Styles */
 #insurer {
-    margin-top: 10px;
+    width: 100%;
 }
 
 /* Privacy Policy Styles */
@@ -1379,15 +1251,7 @@ footer a:hover {
     color: #555;
 }
 
-/* Letter preview styles */
-.letter-preview {
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-    padding: 2rem;
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-}
+/* Letter preview styles - 已移至pdf-form.css */
 
 /* 月付计算器并排布局样式 */
 .calculator-flex-container {
@@ -1400,42 +1264,6 @@ footer a:hover {
 .calculator-input-section {
     flex: 1;
     min-width: 300px;
-}
-
-.calculator-input-section .info-box {
-    margin-bottom: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    border: 1px solid #e9ecef;
-}
-
-.calculator-input-section .info-box h4 {
-    color: #2c3e50;
-    margin-bottom: 0.75rem;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: center;
-}
-
-.calculator-input-section .info-box h4 i {
-    margin-right: 0.5rem;
-    color: #3498db;
-}
-
-.calculator-input-section .info-box ul {
-    margin: 0;
-    padding-left: 1.5rem;
-}
-
-.calculator-input-section .info-box li {
-    color: #555;
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
-}
-
-.calculator-input-section .info-box li:last-child {
-    margin-bottom: 0;
 }
 
 .calculator-results-section {
@@ -1524,36 +1352,6 @@ footer a:hover {
 .insurance-monthly-payment .calculator-results-section {
     flex: 1;
     min-width: 300px;
-}
-
-.insurance-monthly-payment .info-box {
-    background-color: #f8f9fa;
-    border-left: 4px solid #4a90e2;
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    border-radius: 4px;
-}
-
-.insurance-monthly-payment .info-box h4 {
-    color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 0.75rem;
-    font-size: 1.1rem;
-}
-
-.insurance-monthly-payment .info-box ul {
-    margin: 0;
-    padding-left: 1.5rem;
-}
-
-.insurance-monthly-payment .info-box li {
-    margin-bottom: 0.5rem;
-    color: #555;
-    line-height: 1.5;
-}
-
-.insurance-monthly-payment .info-box li:last-child {
-    margin-bottom: 0;
 }
 
 /* 步骤容器样式优化 - 仅适用于月付计算器 */
@@ -1716,109 +1514,9 @@ footer a:hover {
     font-size: 0.9rem;
 }
 
-/* 证明预览样式 */
-.certificate-preview {
-    background-color: white;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    margin-bottom: 20px;
-}
+/* 证明预览样式 - 已移至pdf-form.css */
 
-.certificate-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #2c3e50;
-    padding-bottom: 10px;
-}
-
-.certificate-logo {
-    max-width: 200px;
-}
-
-.logo-image {
-    max-width: 100%;
-    height: auto;
-}
-
-.certificate-title {
-    text-align: right;
-}
-
-.certificate-title h2 {
-    margin: 0;
-    color: #2c3e50;
-    font-size: 1.5rem;
-}
-
-.certificate-title h3 {
-    margin: 5px 0 0;
-    color: #7f8c8d;
-    font-size: 1.1rem;
-}
-
-.certificate-body {
-    font-size: 0.9rem;
-}
-
-.certificate-section {
-    margin-bottom: 20px;
-}
-
-.certificate-row {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.certificate-label {
-    font-weight: bold;
-    width: 200px;
-    flex-shrink: 0;
-}
-
-.certificate-value {
-    flex-grow: 1;
-}
-
-.coverage-section h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #2c3e50;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-}
-
-.certificate-note {
-    font-size: 0.8rem;
-    font-style: italic;
-    color: #7f8c8d;
-    margin: 5px 0;
-}
-
-.certificate-footer {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.certificate-date {
-    font-size: 0.9rem;
-}
-
-.signature-line {
-    width: 200px;
-    border-bottom: 1px solid #333;
-    margin-bottom: 5px;
-}
-
-.signature-name {
-    font-size: 0.9rem;
-    text-align: center;
-}
-
+/* 打印样式 - 已移至pdf-form.css */
 @media (max-width: 768px) {
     .certificate-header {
         flex-direction: column;
@@ -1845,265 +1543,25 @@ footer a:hover {
     }
 }
 
-/* 打印样式 */
-@media print {
-    header, footer, .ad-sidebar, .ad-banner, .site-nav, 
-    .calculator-inputs, .featured-article, .download-options {
-        display: none !important;
-    }
-    
-    .calculator-results {
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    .certificate-preview {
-        border: none;
-        box-shadow: none;
-        padding: 0;
-    }
-    
-    body, html {
-        background-color: white !important;
-    }
-}
-
-/* 添加移动端优化样式 */
-@media (max-width: 768px) {
-  /* 通用优化 */
-  .page-layout {
-    padding: 0 10px;
-  }
-
-  .site-nav {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-    max-width: 300px;
-    margin: 1rem auto 0;
-  }
-
-  .nav-link {
-    width: 100%;
-    justify-content: center;
-    padding: 12px 1rem;
-    font-size: 15px;
-    background-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .nav-link i {
-    font-size: 16px;
-  }
-
-  /* 输入区域优化 */
-  .input-group.step-container {
-    padding: 15px;
-  }
-
-  .step-indicator {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .step-number {
-    margin-right: 0;
-    margin-bottom: 8px;
-  }
-
-  /* 计算器页面优化 */
-  .calculator-flex-container {
-    flex-direction: column;
-  }
-
-  .calculator-input-section,
-  .calculator-results-section {
-    width: 100%;
-    padding: 0;
-  }
-
-  /* 结果表格优化 */
-  .result-row {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 12px;
-  }
-
-  /* 工具卡片优化 */
-  .tools-grid {
-    grid-template-columns: 1fr !important;
-    gap: 15px !important;
-  }
-
-  .tool-card {
-    padding: 20px !important;
-  }
-
-  /* 日期选择器优化 */
-  .date-inputs {
-    flex-direction: column;
-  }
-
-  .date-input-group {
-    width: 100%;
-    margin-bottom: 15px;
-  }
-
-  /* 按钮优化 */
-  .action-button {
-    font-size: 16px;
-    padding: 12px 20px;
-    width: 100%;
-  }
-
-  /* 隐藏侧边栏广告 */
-  .ad-sidebar {
-    display: none;
-  }
-
-  /* 文章内容优化 */
-  .article-content {
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  
-  .article-content h3 {
-    font-size: 18px;
-  }
-  
-  .article-content h4 {
-    font-size: 16px;
-  }
-
-  /* 输入框优化 */
-  .highlighted-input {
-    font-size: 16px;
-    padding: 12px 15px;
-  }
-
-  /* How to Use模块优化 */
-  #how-to-use-content {
-    font-size: 14px;
-    padding: 15px;
-  }
-}
-
-/* 针对小屏幕手机优化 */
 @media (max-width: 480px) {
-  header h1 {
-    font-size: 24px;
-  }
-
-  header p {
-    font-size: 14px;
-  }
-
-  .tool-button {
-    font-size: 14px !important;
-    padding: 10px 15px !important;
-  }
-
-  .result-value {
-    font-size: 14px;
-  }
-
-  .site-nav {
-    max-width: 100%;
-  }
-  
-  .nav-link {
-    padding: 14px 1rem;
-  }
-}
-
-/* 统一的How to Use模块样式 */
-.input-instructions {
-    margin-bottom: 30px;
-}
-
-.toggle-container {
-    margin-bottom: 10px;
-    text-align: left;
-    display: flex;
-    align-items: center;
-}
-
-.text-link {
-    color: #3498db;
-    cursor: pointer;
-    font-size: 14px;
-    transition: color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    text-decoration: none;
-}
-
-.text-link span {
-    text-decoration: underline;
-}
-
-.text-link:hover {
-    color: #2980b9;
-}
-
-.text-link:hover span {
-    text-decoration: none;
-}
-
-.info-box {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 15px 0;
-    border-left: 4px solid #3498db;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.info-box ul {
-    padding-left: 25px;
-    margin-bottom: 15px;
-    list-style-type: none;
-}
-
-.info-box li {
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: #555;
-    line-height: 1.5;
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-}
-
-.info-box li i {
-    color: #3498db;
-    font-size: 14px;
-    margin-top: 3px;
-    flex-shrink: 0;
-}
-
-.disclaimer-note {
-    background: #f8f9fa;
-    border-left: 3px solid #e74c3c;
-    padding: 15px;
-    border-radius: 6px;
-    margin-top: 15px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-
-.disclaimer-note i {
-    color: #e74c3c;
-    margin-top: 2px;
-}
-
-.disclaimer-note p {
-    margin: 0;
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
+    .risk-address-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .checkbox-wrapper {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .form-title {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 15px;
+    }
 }
 
 /* 动画效果 */
@@ -2119,4 +1577,103 @@ footer a:hover {
 
 .hidden {
     display: none;
-} 
+}
+
+/* 表单组件通用样式已移至coi-form.css文件 */
+
+/* 证书预览样式 - 已移至pdf-form.css */
+
+/* 打印样式 - 已移至pdf-form.css */
+@media print {
+    header, footer, .ad-sidebar, .ad-banner, .site-nav, 
+    .calculator-inputs, .featured-article, .download-options {
+        display: none !important;
+    }
+    
+    .calculator-results {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .calculator-container {
+        display: block !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    
+    .certificate-preview {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .results-header {
+        display: none !important;
+    }
+    
+    body, html {
+        background-color: white !important;
+    }
+}
+
+/* 响应式调整 - 表单控件 */
+@media (max-width: 768px) {
+    .two-columns, .three-columns {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .form-field {
+        width: 100%;
+    }
+    
+    .certificate-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .certificate-title {
+        text-align: left;
+        margin-top: 10px;
+    }
+    
+    .certificate-row {
+        flex-direction: column;
+    }
+    
+    .certificate-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .certificate-footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .risk-address-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+    
+    .checkbox-wrapper {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .form-title {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 15px;
+    }
+}

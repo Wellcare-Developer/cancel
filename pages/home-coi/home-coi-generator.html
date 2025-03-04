@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tenant Certificate of Insurance (COI) Generator - Generate professional insurance certificates easily">
-    <meta name="keywords" content="tenant insurance, certificate of insurance, COI generator, insurance certificate">
+    <meta name="description" content="Home Insurance Certificate of Insurance Generator - Create professional home insurance certificates easily">
+    <meta name="keywords" content="home insurance certificate, insurance certificate generator, proof of insurance, home insurance">
     <meta name="author" content="Insurance Tools">
-    <title>Tenant Certificate of Insurance Generator</title>
+    <title>Home Insurance Certificate Generator</title>
     
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -30,12 +30,13 @@
 </head>
 <body>
     <header>
-        <h1>Tenant Certificate of Insurance Generator</h1>
-        <p>Generate professional Certificate of Insurance documents for tenants</p>
+        <h1>Home Insurance Certificate Generator</h1>
+        <p>Generate a professional certificate of insurance for your home policy</p>
         <nav class="site-nav">
             <a href="../home-page/insurance-cancellation-penalty-short-rate-calculator.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
             <a href="../shortrate-calculator/insurance-short-rate-calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Short Rate Calculator</a>
-            <a href="../monthly-payment/insurance-monthly-payment-calculator.html" class="nav-link"><i class="fas fa-money-bill-wave"></i> Monthly Payment</a>
+            <a href="../letter-generator/insurance-cancellation-letter-generator.html" class="nav-link"><i class="fas fa-file-alt"></i> Cancellation Letter</a>
+            <a href="../tenant-coi/tenant-coi-generator.html" class="nav-link"><i class="fas fa-file-contract"></i> Tenant COI</a>
         </nav>
     </header>
 
@@ -55,21 +56,21 @@
                         <!-- Input form -->
                         <div class="input-section">
                             <h3 class="form-title">Certificate Information</h3>
-                            <p class="form-description">Complete all fields below to generate a professional tenant insurance certificate.</p>
+                            <p class="form-description">Complete all fields below to generate a professional home insurance certificate.</p>
                             
                             <!-- Personal Information Section -->
                             <div class="form-section">
                                 <h4 class="section-title">Personal Information</h4>
                                 <div class="form-row">
                                     <div class="form-field">
-                                        <label for="insured-name">Insured Name</label>
-                                        <input type="text" id="insured-name" class="form-input" placeholder="Full name of insured">
+                                        <label for="named-insured">Named Insured</label>
+                                        <input type="text" id="named-insured" class="form-input" placeholder="Full name of insured">
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-field">
-                                        <label for="insured-location">Insured Location</label>
-                                        <input type="text" id="insured-location" class="form-input" placeholder="Residential address">
+                                        <label for="property-address">Property Address</label>
+                                        <input type="text" id="property-address" class="form-input" placeholder="Property address">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -80,11 +81,18 @@
                                                 <label class="checkbox-container">
                                                     <input type="checkbox" id="same-address">
                                                     <span class="checkmark"></span>
-                                                    <span class="checkbox-label">Use same as Insured Location</span>
+                                                    <span class="checkbox-label">Use same as Property Address</span>
                                                 </label>
                                             </div>
                                         </div>
                                         <input type="text" id="risk-address" class="form-input" placeholder="Address covered by insurance">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="mortgagee">Mortgagee Information</label>
+                                        <textarea id="mortgagee" class="form-input" placeholder="Enter mortgagee name and address (if applicable)" rows="3"></textarea>
+                                        <p class="input-hint">First line for mortgagee name, following lines for address</p>
                                     </div>
                                 </div>
                             </div>
@@ -131,38 +139,45 @@
                             <!-- Coverage Information Section -->
                             <div class="form-section">
                                 <h4 class="section-title">Coverage Information</h4>
-                                <div class="form-row three-columns">
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="building-value">Building Value</label>
+                                        <input type="text" id="building-value" class="form-input" placeholder="Enter building value">
+                                    </div>
+                                </div>
+                                <div class="form-row two-columns">
                                     <div class="form-field">
                                         <label for="liability-select">Liability</label>
                                         <select id="liability-select" class="form-input">
                                             <option value="" disabled>Select liability amount</option>
                                             <option value="1000000">$1,000,000</option>
                                             <option value="2000000" selected>$2,000,000</option>
+                                            <option value="3000000">$3,000,000</option>
+                                            <option value="5000000">$5,000,000</option>
                                             <option value="other">Other amount...</option>
                                         </select>
                                         <input type="text" id="liability" class="form-input hidden mt-2" placeholder="Enter liability amount">
                                     </div>
                                     <div class="form-field">
-                                        <label for="content-value-select">Content Value</label>
-                                        <select id="content-value-select" class="form-input">
-                                            <option value="" disabled>Select content value</option>
-                                            <option value="30000" selected>$30,000</option>
-                                            <option value="50000">$50,000</option>
-                                            <option value="other">Other amount...</option>
-                                        </select>
-                                        <input type="text" id="content-value" class="form-input hidden mt-2" placeholder="Enter content value">
-                                    </div>
-                                    <div class="form-field">
                                         <label for="deductible-select">Deductible</label>
                                         <select id="deductible-select" class="form-input">
                                             <option value="" disabled>Select deductible</option>
+                                            <option value="500">$500</option>
                                             <option value="1000" selected>$1,000</option>
-                                            <option value="2000">$2,000</option>
                                             <option value="2500">$2,500</option>
                                             <option value="5000">$5,000</option>
                                             <option value="other">Other amount...</option>
                                         </select>
                                         <input type="text" id="deductible" class="form-input hidden mt-2" placeholder="Enter deductible amount">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field checkbox-wrapper">
+                                        <label class="checkbox-container">
+                                            <input type="checkbox" id="guaranteed-replacement">
+                                            <span class="checkmark"></span>
+                                            <span class="checkbox-label">Guaranteed Building Replacement Cost</span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -218,70 +233,71 @@
                 
                 <!-- SEO Content Section -->
                 <section class="featured-article">
-                    <h2>The Importance of Tenant Certificate of Insurance</h2>
+                    <h2>Understanding Home Insurance Certificates</h2>
                     <article class="article-content">
-                        <h3>What is a Tenant Certificate of Insurance (COI)?</h3>
+                        <h3>What is a Home Insurance Certificate?</h3>
                         
-                        <p>A Tenant Certificate of Insurance (COI) is an important document that proves you, as a tenant, have purchased insurance coverage. This document is typically provided by your insurance company and is used to demonstrate to landlords or property management companies that you have adequate insurance coverage.</p>
+                        <p>A home insurance certificate (also known as a Certificate of Insurance or COI) is a document that provides proof of insurance coverage for your home. It summarizes key information about your insurance policy, including coverage amounts, policy dates, and the parties insured. This document is often requested by mortgage lenders, banks, or other interested parties who need verification of your insurance coverage.</p>
                         
-                        <h4>Why Do Tenants Need a Certificate of Insurance?</h4>
+                        <h4>When You Might Need a Home Insurance Certificate</h4>
                         
-                        <p>A Tenant Certificate of Insurance is important for several reasons:</p>
+                        <p>There are several situations where you might need to provide a home insurance certificate:</p>
                         
                         <ul>
-                            <li><strong>Meeting Lease Requirements:</strong> Many landlords and property management companies require tenants to provide proof of insurance as part of the lease agreement.</li>
-                            <li><strong>Protecting Personal Property:</strong> It proves that your personal belongings are protected in case of fire, theft, or other unexpected events.</li>
-                            <li><strong>Liability Protection:</strong> It demonstrates that you have liability insurance to provide coverage in case of accidental injury or property damage.</li>
-                            <li><strong>Expedited Claims:</strong> Having a certificate of insurance can speed up the claims process when needed.</li>
+                            <li><strong>Mortgage applications:</strong> When applying for a mortgage, lenders typically require proof of insurance.</li>
+                            <li><strong>Mortgage renewals:</strong> When renewing your mortgage, your lender may request an updated certificate.</li>
+                            <li><strong>Refinancing:</strong> When refinancing your home, proof of adequate insurance is usually required.</li>
+                            <li><strong>Property transfers:</strong> When buying or selling a home, insurance verification may be needed.</li>
+                            <li><strong>Home equity loans:</strong> When taking out a home equity loan or line of credit.</li>
                         </ul>
                         
-                        <p>Our Certificate of Insurance generator helps you create a professional document that includes all necessary information to meet your landlord's or property management company's requirements.</p>
+                        <p>Our home insurance certificate generator creates a professionally formatted document that includes all the necessary information typically required by mortgage lenders and other financial institutions.</p>
+                        
+                        <h4>Key Elements of a Home Insurance Certificate</h4>
+                        
+                        <p>A comprehensive home insurance certificate should include the following key elements:</p>
+                        
+                        <ul>
+                            <li><strong>Named insured:</strong> The name(s) of the policyholder(s)</li>
+                            <li><strong>Property address:</strong> The location of the insured property</li>
+                            <li><strong>Policy information:</strong> Policy number and effective dates</li>
+                            <li><strong>Coverage details:</strong> Building value, liability limits, and deductible amounts</li>
+                            <li><strong>Mortgagee information:</strong> Details of the mortgage lender, if applicable</li>
+                            <li><strong>Insurance company information:</strong> Name and contact details of the insurer</li>
+                        </ul>
+                        
+                        <p>Our generator automatically includes all these elements in a professionally formatted certificate based on the information you provide.</p>
                         
                         <div class="article-callout">
-                            <p><strong>Want to learn more about tenant insurance?</strong> Check out our <a href="#">Tenant Insurance Guide</a> for more details.</p>
+                            <p><strong>Need to cancel your insurance policy?</strong> Use our <a href="../shortrate-calculator/insurance-short-rate-calculator.html">Short Rate Calculator</a> to estimate your refund or try our <a href="../letter-generator/insurance-cancellation-letter-generator.html">Cancellation Letter Generator</a> to create a professional cancellation request.</p>
                         </div>
                         
-                        <h4>What Key Information Should a Tenant Certificate of Insurance Include?</h4>
-                        
-                        <p>A complete Tenant Certificate of Insurance should include the following key information:</p>
-                        
-                        <ul>
-                            <li><strong>Insured Information:</strong> Your full name and address</li>
-                            <li><strong>Risk Address:</strong> The address of the insured rental property</li>
-                            <li><strong>Insurance Company Information:</strong> The name and contact information of the insurance company</li>
-                            <li><strong>Policy Details:</strong> Policy number, effective date, and expiry date</li>
-                            <li><strong>Coverage Information:</strong> Liability limits, contents insurance amount, and deductible</li>
-                            <li><strong>Additional Insured:</strong> If the landlord is listed as an additional insured, this should also be noted in the certificate</li>
-                        </ul>
-                        
-                        <p>Our generator automatically includes all these elements based on the information you provide, creating a professionally formatted certificate of insurance.</p>
-                        
-                        <h4>Frequently Asked Questions About Tenant Certificates of Insurance</h4>
+                        <h4>Frequently Asked Questions About Home Insurance Certificates</h4>
                         
                         <div class="faq-section">
                             <div class="faq-item">
-                                <h5>How do I obtain a Certificate of Insurance?</h5>
-                                <p>Typically, you can contact your insurance company or insurance agent directly to request an official certificate of insurance. Many insurance companies also provide online portals where you can download or request certificates. Our generator can help you create a temporary document, but official documents should be obtained from your insurance company.</p>
+                                <h5>How do I get an official certificate of insurance for my home?</h5>
+                                <p>To obtain an official certificate, contact your insurance company or agent directly. They can provide you with an official document that verifies your coverage. The certificate generated by our tool is for informational purposes only and may not be accepted as official documentation by all institutions.</p>
                             </div>
                             
                             <div class="faq-item">
-                                <h5>Can my landlord request to be listed as an additional insured?</h5>
-                                <p>Yes, many landlords request to be listed as additional insured on tenant insurance policies. This provides the landlord with additional protection if they are sued because of your actions. You will need to contact your insurance company to add your landlord as an additional insured.</p>
+                                <h5>What is the difference between a home insurance policy and a certificate?</h5>
+                                <p>A home insurance policy is a comprehensive contract that details all terms, conditions, exclusions, and coverage provided by your insurance. A certificate of insurance is a summary document that provides proof of insurance and outlines key information such as coverage amounts and policy dates. The certificate is much shorter and contains only essential information.</p>
                             </div>
                             
                             <div class="faq-item">
-                                <h5>How often does a Certificate of Insurance need to be updated?</h5>
-                                <p>You should obtain a new certificate of insurance whenever your insurance policy is renewed or changes. Typically, this means updating it once a year when your policy renews. If you change insurance companies or make significant modifications to your policy, you should also obtain a new certificate.</p>
+                                <h5>What does "Guaranteed Building Replacement Cost" mean?</h5>
+                                <p>Guaranteed Building Replacement Cost is a valuable coverage option that ensures your home will be rebuilt to its original specifications even if the cost exceeds your policy limits. This provides protection against inflation, increased construction costs, or unforeseen expenses during rebuilding. It's particularly valuable for older homes or in areas where construction costs are rising rapidly.</p>
                             </div>
                             
                             <div class="faq-item">
-                                <h5>What happens if I don't have tenant insurance?</h5>
-                                <p>If your lease agreement requires you to maintain tenant insurance, not having insurance could result in a breach of your lease. Additionally, without insurance, your personal property would not be protected in the event of fire, theft, or other disasters, and you could be personally liable for damages caused to others. Tenant insurance is typically inexpensive but provides important protection.</p>
+                                <h5>How often should I update my home insurance certificate?</h5>
+                                <p>You should update your home insurance certificate whenever there are significant changes to your policy, such as coverage amounts, policy renewal, change of insurance provider, or major home renovations that affect your home's value. Most mortgage lenders require an updated certificate annually or when your policy renews.</p>
                             </div>
                             
                             <div class="faq-item">
-                                <h5>What's the difference between tenant insurance and homeowner's insurance?</h5>
-                                <p>Homeowner's insurance typically covers the building structure, personal property, and liability insurance. Tenant insurance primarily covers the tenant's personal property and liability insurance, but not the building itself, which is covered by the landlord's insurance. Tenant insurance is usually much less expensive than homeowner's insurance because it doesn't include coverage for the building.</p>
+                                <h5>Why do mortgage lenders require home insurance certificates?</h5>
+                                <p>Mortgage lenders require home insurance certificates because they have a financial interest in your property. The certificate verifies that your home is adequately insured, protecting their investment in case of damage or destruction. Most lenders require that they be listed as a mortgagee on your policy, which ensures they're notified of any policy changes or cancellations.</p>
                             </div>
                         </div>
                     </article>
@@ -360,17 +376,6 @@
             }
         });
 
-        // Show/hide other content value input
-        document.getElementById('content-value-select').addEventListener('change', function() {
-            const otherInput = document.getElementById('content-value');
-            otherInput.classList.toggle('hidden', this.value !== 'other');
-            if(this.value !== 'other') {
-                otherInput.value = this.value; // 自动填充选择的值
-            } else {
-                otherInput.value = ''; // 清空输入框
-            }
-        });
-
         // Show/hide other deductible input
         document.getElementById('deductible-select').addEventListener('change', function() {
             const otherInput = document.getElementById('deductible');
@@ -382,24 +387,21 @@
             }
         });
 
-        // Set current year in footer
-        document.getElementById('current-year').textContent = new Date().getFullYear();
-        
         // Same address checkbox functionality
         document.getElementById('same-address').addEventListener('change', function() {
-            const insuredLocation = document.getElementById('insured-location');
+            const propertyAddress = document.getElementById('property-address');
             const riskAddress = document.getElementById('risk-address');
             
             if(this.checked) {
-                riskAddress.value = insuredLocation.value;
+                riskAddress.value = propertyAddress.value;
                 riskAddress.disabled = true;
             } else {
                 riskAddress.disabled = false;
             }
         });
         
-        // Update risk address when insured location changes if checkbox is checked
-        document.getElementById('insured-location').addEventListener('input', function() {
+        // Update risk address when property address changes if checkbox is checked
+        document.getElementById('property-address').addEventListener('input', function() {
             const sameAddress = document.getElementById('same-address');
             const riskAddress = document.getElementById('risk-address');
             
@@ -408,21 +410,24 @@
             }
         });
 
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         // 在DOMContentLoaded事件中添加初始化代码
         document.addEventListener('DOMContentLoaded', function() {
             // 初始化默认值
             document.getElementById('liability-select').value = '2000000';
-            document.getElementById('content-value-select').value = '30000';
             document.getElementById('deductible-select').value = '1000';
             
             // 触发所有相关事件
-            ['liability-select', 'content-value-select', 'deductible-select'].forEach(id => {
+            ['liability-select', 'deductible-select'].forEach(id => {
                 const element = document.getElementById(id);
                 element.dispatchEvent(new Event('change'));
             });
         });
     </script>
-    <script src="tenant-coi.js"></script>
+    <script src="home-coi.js"></script>
     <script src="../../common/cookie-consent.js"></script>
+    <script src="../../common/how-to-use.js"></script>
 </body>
 </html> 

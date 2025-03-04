@@ -1,0 +1,214 @@
+/* PDF和文档预览相关样式 */
+
+/* 信件预览样式 */
+.letter-preview {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    padding: 2rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* 证书预览通用样式 */
+.certificate-preview {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 25px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    max-width: 900px;
+}
+
+/* 证书头部样式 */
+.certificate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 10px;
+}
+
+.certificate-logo {
+    max-width: 200px;
+}
+
+.logo-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.certificate-title {
+    text-align: right;
+}
+
+.certificate-title h2 {
+    margin: 0;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.certificate-title h3 {
+    margin: 5px 0 0;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* 证书内容样式 */
+.certificate-body {
+    font-size: 0.9rem;
+}
+
+.certificate-section {
+    margin-bottom: 20px;
+}
+
+.certificate-row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.certificate-label {
+    font-weight: bold;
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.certificate-value {
+    flex-grow: 1;
+}
+
+.coverage-section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #2c3e50;
+    padding-bottom: 8px;
+    display: inline-block;
+    border-bottom: 1px solid #000000;
+    width: 50%;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.certificate-note {
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #7f8c8d;
+    margin: 5px 0;
+}
+
+/* 证书底部样式 */
+.certificate-footer {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.certificate-date {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* 下载选项样式 */
+.download-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.secondary-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.secondary-button i {
+    font-size: 16px;
+    color: #0284c7;
+}
+
+.secondary-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* 打印样式 */
+@media print {
+    header, footer, .ad-sidebar, .ad-banner, .site-nav, 
+    .calculator-inputs, .featured-article, .download-options {
+        display: none !important;
+    }
+    
+    .calculator-results {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .calculator-container {
+        display: block !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+    
+    .certificate-preview {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .results-header {
+        display: none !important;
+    }
+    
+    body, html {
+        background-color: white !important;
+    }
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+    .certificate-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .certificate-title {
+        text-align: left;
+        margin-top: 10px;
+    }
+    
+    .certificate-row {
+        flex-direction: column;
+    }
+    
+    .certificate-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .certificate-footer {
+        flex-direction: column;
+        gap: 20px;
+    }
+} 

@@ -18,16 +18,123 @@ document.addEventListener('DOMContentLoaded', function() {
     printBtn.addEventListener('click', printCertificate);
     
     // 修改复制按钮为返回表单按钮
-    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Confirmation</span>';
+    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Certificate</span>';
     copyBtn.addEventListener('click', returnToForm);
+    
+    // Initialize date pickers
+    initDatePickers();
+    
+    // Same address checkbox functionality
+    document.getElementById('same-address').addEventListener('change', function() {
+        const propertyAddress = document.getElementById('property-address');
+        const riskAddress = document.getElementById('risk-address');
+        
+        if(this.checked) {
+            riskAddress.value = propertyAddress.value;
+            riskAddress.disabled = true;
+        } else {
+            riskAddress.disabled = false;
+        }
+    });
+    
+    // Update risk address when property address changes if checkbox is checked
+    document.getElementById('property-address').addEventListener('input', function() {
+        const sameAddress = document.getElementById('same-address');
+        const riskAddress = document.getElementById('risk-address');
+        
+        if(sameAddress.checked) {
+            riskAddress.value = this.value;
+        }
+    });
+    
+    // Show/hide other insurer input
+    document.getElementById('insurer-select').addEventListener('change', function() {
+        const otherInsurer = document.getElementById('insurer');
+        otherInsurer.classList.toggle('hidden', this.value !== 'other');
+    });
+
+    // Show/hide other liability input
+    document.getElementById('liability-select').addEventListener('change', function() {
+        const otherInput = document.getElementById('liability');
+        otherInput.classList.toggle('hidden', this.value !== 'other');
+        if(this.value !== 'other') {
+            otherInput.value = this.value;
+        } else {
+            otherInput.value = '';
+        }
+    });
+
+    // Show/hide other deductible input
+    document.getElementById('deductible-select').addEventListener('change', function() {
+        const otherInput = document.getElementById('deductible');
+        otherInput.classList.toggle('hidden', this.value !== 'other');
+        if(this.value !== 'other') {
+            otherInput.value = this.value;
+        } else {
+            otherInput.value = '';
+        }
+    });
+    
+    // Set current year in footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // 初始化默认值
+    document.getElementById('liability-select').value = '2000000';
+    document.getElementById('deductible-select').value = '1000';
+    
+    // 触发所有相关事件
+    ['liability-select', 'deductible-select'].forEach(id => {
+        const element = document.getElementById(id);
+        element.dispatchEvent(new Event('change'));
+    });
 });
+
+// Initialize date pickers
+function initDatePickers() {
+    // Flatpickr configuration for effective date
+    const effectiveDatePicker = flatpickr("#effective-date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        altInput: true,
+        altFormat: "F j, Y",
+        disableMobile: true,
+        position: 'auto',
+        static: true,
+        appendTo: document.body,
+        onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length > 0) {
+                // Calculate expiry date (1 year from effective date)
+                const expiryDate = new Date(selectedDates[0]);
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                
+                // Update expiry date picker
+                expiryDatePicker.setDate(expiryDate);
+            }
+        }
+    });
+    
+    // Flatpickr configuration for expiry date
+    const expiryDatePicker = flatpickr("#expiry-date", {
+        dateFormat: "Y-m-d",
+        allowInput: true,
+        altInput: true,
+        altFormat: "F j, Y",
+        disableMobile: true,
+        position: 'auto',
+        static: true,
+        appendTo: document.body
+    });
+}
 
 // Validate form and generate certificate
 function validateAndGenerateCertificate() {
     // Get all input values
-    const insuredName = document.getElementById('insured-name').value.trim();
-    const insuredLocation = document.getElementById('insured-location').value.trim();
+    const namedInsured = document.getElementById('named-insured').value.trim();
+    const propertyAddress = document.getElementById('property-address').value.trim();
     const riskAddress = document.getElementById('risk-address').value.trim();
+    const mortgageeText = document.getElementById('mortgagee').value.trim();
+    const mortgageeInfo = parseMortgageeInfo(mortgageeText);
+    
     const effectiveDate = document.getElementById('effective-date').value.trim();
     const expiryDate = document.getElementById('expiry-date').value.trim();
     
@@ -42,30 +149,29 @@ function validateAndGenerateCertificate() {
     }
     
     const policyNumber = document.getElementById('policy-number').value.trim();
+    const buildingValue = document.getElementById('building-value').value.trim();
     const liability = document.getElementById('liability-select').value === 'other' 
         ? document.getElementById('liability').value.trim()
         : document.getElementById('liability-select').value;
-    const contentValue = document.getElementById('content-value-select').value === 'other'
-        ? document.getElementById('content-value').value.trim()
-        : document.getElementById('content-value-select').value;
     const deductible = document.getElementById('deductible-select').value === 'other'
         ? document.getElementById('deductible').value.trim()
         : document.getElementById('deductible-select').value;
+    
+    const guaranteedReplacement = document.getElementById('guaranteed-replacement').checked;
     
     // Get signature
     const signatureName = document.getElementById('signature-name').value.trim();
     
     // Validate required fields
     const requiredFields = [
-        { value: insuredName, name: 'Insured Name' },
-        { value: insuredLocation, name: 'Insured Location' },
+        { value: namedInsured, name: 'Named Insured' },
+        { value: propertyAddress, name: 'Property Address' },
         { value: riskAddress, name: 'Risk Address' },
         { value: effectiveDate, name: 'Effective Date' },
         { value: expiryDate, name: 'Expiry Date' },
         { value: insurer, name: 'Insurer' },
         { value: policyNumber, name: 'Policy Number' },
         { value: liability, name: 'Liability' },
-        { value: contentValue, name: 'Content Value' },
         { value: deductible, name: 'Deductible' },
         { value: signatureName, name: 'Authorized Signature Name' }
     ];
@@ -99,21 +205,36 @@ function validateAndGenerateCertificate() {
     
     // Save form data
     formData = {
-        insuredName,
-        insuredLocation,
+        namedInsured,
+        propertyAddress,
         riskAddress,
+        mortgageeInfo,
         effectiveDate: formatDate(effectiveDateTime),
         expiryDate: formatDate(expiryDateTime),
         insurer,
         policyNumber,
+        buildingValue,
         liability,
-        contentValue,
         deductible,
+        guaranteedReplacement,
         signatureName
     };
     
     // Generate certificate
     generateCertificate();
+}
+
+// Parse mortgagee information
+function parseMortgageeInfo(mortgageeText) {
+    if (!mortgageeText) return { name: '', address: '' };
+    
+    const lines = mortgageeText.trim().split('\n');
+    if (lines.length === 0) return { name: '', address: '' };
+    
+    const name = lines[0].trim();
+    const address = lines.slice(1).join(', ').trim();
+    
+    return { name, address };
 }
 
 // Format date to more readable format
@@ -125,7 +246,7 @@ function formatDate(date) {
 // Format currency
 function formatCurrency(amount) {
     if (!amount) return '';
-    const number = parseInt(amount.replace(/[^0-9]/g, ''));
+    const number = parseInt(amount.toString().replace(/[^0-9]/g, ''));
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -164,7 +285,7 @@ function generateCertificate() {
     certificateContent.classList.remove('hidden');
     
     // 更新按钮文本，确保显示正确
-    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Confirmation</span>';
+    copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Certificate</span>';
     
     // 添加样式使证书内容更美观
     const style = document.createElement('style');
@@ -180,14 +301,6 @@ function generateCertificate() {
             --footer-padding: 15px 0;
             --certificate-max-width: 900px;
             /* 签名样式变量已移至signature-styles.css */
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.5;
-            color: #333;
-            margin: 0;
-            padding: 15px;
         }
         
         .certificate-preview {
@@ -232,16 +345,6 @@ function generateCertificate() {
             padding: var(--footer-padding);
         }
         
-        .certificate-date {
-            min-width: 200px;
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        /* .certificate-signature 样式已移至signature-styles.css */
-        
-        /* 签名框样式已移至signature-styles.css */
-        
         .results-header {
             text-align: center;
             margin-bottom: 20px;
@@ -266,14 +369,7 @@ function generateCertificate() {
             background-color: #3182ce;
         }
         
-        @media print {
-            .certificate-preview {
-                border: none;
-                box-shadow: none;
-                padding: 0;
-                margin: 0;
-            }
-        }
+        /* 签名框样式已移至signature-styles.css */
     `;
     document.head.appendChild(style);
     
@@ -281,34 +377,48 @@ function generateCertificate() {
     const certificateHTML = `
         <div class="certificate-header">
             <div class="certificate-logo">
-                <img src="cropped-cropped-cropped-well-care-log1-e1622044439563.jpg" alt="Well Care Insurance Logo" class="logo-image">
+                <img src="../tenant-coi/BrokerTeamInsurance_BT20-Colored.png" alt="Insurance Logo" class="logo-image">
             </div>
             <div class="certificate-title">
-                <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">TENANT INSURANCE CONFIRMATION</h2>
-                <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">200 Town Centre Blvd Unit 101, Markham, ON L3R 8G5</h3>
+                <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">HOME INSURANCE CONFIRMATION</h2>
+                <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">9560 MARKHAM RD UNIT 117, MARKHAM ON L6E 0V1</h3>
                 <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">TEL: (905) 472-5666</h3>
             </div>
         </div>
         
         <div class="certificate-body">
-            <div class="certificate-section" style="margin-bottom: 25px;">
-                <p class="certificate-note" style="margin-bottom: 15px;">This binder is valid for 365 days from the effective date.<br>Terms and conditions are to be governed by actual policy issued by the insurer.</p>
-                
+            <div class="certificate-section">
+                <p class="certificate-note" style="margin-bottom: 15px;">
+                This binder is valid for 365 days from the effective date.
+                <br>Terms and conditions are to be governed by actual policy issued by the insurer.
+                </p>
                 <div class="certificate-row">
-                    <div class="certificate-label">Insured:</div>
-                    <div class="certificate-value">${formData.insuredName}</div>
+                    <div class="certificate-label">Named Insured:</div>
+                    <div class="certificate-value">${formData.namedInsured}</div>
                 </div>
                 <div class="certificate-row">
-                    <div class="certificate-label">Insured Location:</div>
-                    <div class="certificate-value">${formData.insuredLocation}</div>
+                    <div class="certificate-label">Property Address:</div>
+                    <div class="certificate-value">${formData.propertyAddress}</div>
                 </div>
                 <div class="certificate-row">
                     <div class="certificate-label">Risk Address:</div>
                     <div class="certificate-value">${formData.riskAddress}</div>
                 </div>
+                ${formData.mortgageeInfo.name ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">Mortgagee:</div>
+                    <div class="certificate-value">${formData.mortgageeInfo.name}</div>
+                </div>
+                ` : ''}
+                ${formData.mortgageeInfo.address ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">Mortgagee Address:</div>
+                    <div class="certificate-value">${formData.mortgageeInfo.address}</div>
+                </div>
+                ` : ''}
             </div>
             
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section">
                 <div class="certificate-row">
                     <div class="certificate-label">Insurer:</div>
                     <div class="certificate-value">${formData.insurer}</div>
@@ -319,7 +429,7 @@ function generateCertificate() {
                 </div>
             </div>
             
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section">
                 <div class="certificate-row">
                     <div class="certificate-label">Effective Date:</div>
                     <div class="certificate-value">${formData.effectiveDate}</div>
@@ -332,22 +442,34 @@ function generateCertificate() {
             
             <div class="certificate-section coverage-section">
                 <h3>Insurance Coverage</h3>
+                
+                ${formData.buildingValue ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">Building Value:</div>
+                    <div class="certificate-value">${formatCurrency(formData.buildingValue)}</div>
+                </div>
+                ` : ''}
+                
                 <div class="certificate-row">
                     <div class="certificate-label">Liability:</div>
                     <div class="certificate-value">${formatCurrency(formData.liability)}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Content Value:</div>
-                    <div class="certificate-value">${formatCurrency(formData.contentValue)}</div>
-                </div>
+                
                 <div class="certificate-row">
                     <div class="certificate-label">Deductible:</div>
                     <div class="certificate-value">${formatCurrency(formData.deductible)}</div>
                 </div>
+                
+                ${formData.guaranteedReplacement ? `
+                <div class="certificate-row" style="margin-top: 10px;">
+                    <div class="certificate-label">Additional Coverage:</div>
+                    <div class="certificate-value">Guaranteed Building Replacement Cost</div>
+                </div>
+                ` : ''}
             </div>
             
             <div class="certificate-footer">
-                <div class="certificate-date">
+                <div class="certificate-date" style="font-size: 14px; color: #7f8c8d; min-width: 200px;">
                     Signed Date: ${new Date().toLocaleDateString('en-US')}
                 </div>
                 
@@ -371,7 +493,7 @@ function generateCertificate() {
     downloadOptions.innerHTML = `
         <button id="copy-btn" class="secondary-button">
             <i class="fa-solid fa-arrow-rotate-left"></i>
-            <span>Get New Confirmation</span>
+            <span>Get New Certificate</span>
         </button>
         <button id="print-btn" class="secondary-button">
             <i class="fas fa-print"></i>
@@ -400,15 +522,28 @@ function printCertificate() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Certificate of Insurance - ${formData.insuredName}</title>
+            <title>HOME INSURANCE CONFIRMATION - ${formData.namedInsured}</title>
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <style>
+                :root {
+                    --certificate-section-gap: 15px;
+                    --certificate-row-gap: 8px;
+                    --coverage-top-margin: 40px;
+                    --coverage-bottom-margin: 20px;
+                    --coverage-title-top-margin: 25px;
+                    --coverage-title-bottom-margin: 15px;
+                    --footer-top-margin: 40px;
+                    --footer-padding: 15px 0;
+                    --certificate-max-width: 900px;
+                    /* 签名样式变量已移至signature-styles.css */
+                }
+                
                 body {
                     font-family: Arial, sans-serif;
-                    line-height: 1.6;
+                    line-height: 1.5;
                     color: #333;
                     margin: 0;
-                    padding: 20px;
+                    padding: 15px;
                 }
                 
                 .certificate-header {
@@ -422,8 +557,7 @@ function printCertificate() {
                 
                 .logo-image {
                     max-width: 200px;
-                    max-height: 100px;
-                    object-fit: contain;
+                    max-height: 80px;
                 }
                 
                 .certificate-title {
@@ -444,12 +578,12 @@ function printCertificate() {
                 }
                 
                 .certificate-section {
-                    margin-bottom: 20px;
+                    margin-bottom: var(--certificate-section-gap);
                 }
                 
                 .certificate-row {
                     display: flex;
-                    margin-bottom: 10px;
+                    margin-bottom: var(--certificate-row-gap);
                 }
                 
                 .certificate-label {
@@ -466,8 +600,12 @@ function printCertificate() {
                     font-size: 14px;
                 }
                 
+                .coverage-section {
+                    margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
+                }
+                
                 .coverage-section h3 {
-                    margin: 80px 0 15px;
+                    margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
                     font-size: 16px;
                     font-weight: 600;
                     color: #2c3e50;
@@ -488,14 +626,23 @@ function printCertificate() {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-end;
-                    margin-top: 60px;
+                    margin-top: var(--footer-top-margin);
+                    padding: var(--footer-padding);
                 }
                 
                 .certificate-date {
                     min-width: 200px;
+                    font-size: 14px;
+                    color: #7f8c8d;
                 }
                 
                 /* .certificate-signature 样式已移至signature-styles.css */
+                
+                /* .signature-box 样式已移至signature-styles.css */
+                
+                /* .signature-label 样式已移至signature-styles.css */
+                
+                /* .signature-content 样式已移至signature-styles.css */
                 
                 @media print {
                     body {
@@ -533,7 +680,7 @@ function printCertificate() {
                     }
                     
                     @page {
-                        margin: 1.5cm;
+                        margin: 1cm;
                     }
                 }
 
@@ -543,10 +690,6 @@ function printCertificate() {
                          local('Segoe Script'), 
                          local('Bradley Hand'), 
                          local('Comic Sans MS');
-                }
-
-                .signature-section {
-                    margin-top: 20px;
                 }
 
                 /* .certificate-signature 样式已移至signature-styles.css */
@@ -654,4 +797,4 @@ function generateSignature(name) {
     const rotationClass = `rotate-${randomRotation < 0 ? 'neg-' : 'pos-'}${Math.abs(randomRotation)}`;
     
     return `<span class="dynamic-signature ${rotationClass}">${name}</span>`;
-} 
+}

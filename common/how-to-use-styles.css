@@ -1,0 +1,121 @@
+/* 如何使用样式 - 优化简化版 */
+
+/* 基础容器 */
+.input-instructions {
+    margin-bottom: 20px;
+}
+
+/* 切换按钮容器 */
+.toggle-container {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* 文本链接 */
+.text-link {
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.text-link i {
+    color: #3498db;
+}
+
+.text-link:hover {
+    color: #2980b9;
+}
+
+.text-link span {
+    text-decoration: underline;
+}
+
+.text-link:hover span {
+    text-decoration: none;
+}
+
+/* 信息框 */
+.info-box {
+    background-color: #f8f9fa;
+    border-left: 3px solid #3498db;
+    padding: 15px;
+    margin: 10px 0 20px;
+    border-radius: 0 4px 4px 0;
+    font-size: 14px;
+}
+
+/* 列表样式 */
+.info-box ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.info-box li {
+    margin-bottom: 8px;
+    color: #555;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+}
+
+.info-box li i {
+    color: #3498db;
+    margin-right: 8px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+/* 免责声明 */
+.disclaimer-note {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: flex-start;
+}
+
+.disclaimer-note i {
+    color: #e74c3c;
+    margin-right: 8px;
+    margin-top: 3px;
+}
+
+.disclaimer-note p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* 计算器页面特定样式 */
+.calculator-input-section .info-box {
+    margin-bottom: 20px;
+}
+
+/* 内容容器 */
+#how-to-use-content {
+    margin-bottom: 20px;
+}
+
+/* 输入容器间距 */
+.input-group.step-container:first-child {
+    margin-top: 20px;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .info-box {
+        padding: 12px;
+    }
+    
+    .info-box li {
+        margin-bottom: 10px;
+    }
+    
+    .input-group.step-container:first-child {
+        margin-top: 15px;
+    }
+} 

@@ -1,0 +1,230 @@
+/* 签字相关样式 */
+.signature-field {
+    margin-top: 50px;
+}
+
+.signature-container {
+    margin-top: 30px;
+    padding: 20px 25px;
+    border-top: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.signature-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.signature-note {
+    font-size: 12px;
+    color: #777;
+    margin-bottom: 8px;
+    font-style: italic;
+}
+
+.signature {
+    margin-bottom: 15px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.signature-date {
+    font-size: 14px;
+    color: #555;
+    align-self: flex-start;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+/* 证书签名容器 - 用于PDF打印页面 */
+.certificate-signature {
+    min-width: 300px;
+    text-align: right;
+    margin-bottom: -15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    margin-top: 20px;
+    margin-right: 5px;
+}
+
+/* 从JS文件中提取的通用签名样式 */
+.dynamic-signature {
+    display: inline-block;
+    color: #000080;
+    text-align: center;
+    width: 100%;
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
+    transform-origin: center;
+    transition: transform 0.2s ease;
+}
+
+/* 随机旋转效果类 - 程序中随机应用这些类 */
+.rotate-neg-2 { transform: rotate(-2deg); }
+.rotate-neg-1 { transform: rotate(-1deg); }
+.rotate-0 { transform: rotate(0deg); }
+.rotate-pos-1 { transform: rotate(1deg); }
+.rotate-pos-2 { transform: rotate(2deg); }
+
+.signature-style {
+    padding: 5px 0;
+    display: inline-block;
+}
+
+/* 手写签名样式 */
+.handwritten {
+    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+    font-size: 26px;
+    color: #000;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+    line-height: 1.2;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+.handwritten::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(0,0,0,0.3);
+    transform: scaleX(0.95) rotate(-0.5deg);
+}
+
+/* 兼容性保留的旧签名样式 */
+.cursive {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 24px;
+    color: #000;
+    transform: rotate(-2deg);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+.initials-underline {
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    color: #000;
+    letter-spacing: 2px;
+}
+
+.full-name-flourish {
+    font-family: 'Times New Roman', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #000;
+    border-bottom: 1px solid #000;
+    padding-bottom: 3px;
+}
+
+/* 证书签名样式 */
+.signature-line {
+    width: 200px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 5px;
+}
+
+.signature-name {
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.signature-section {
+    margin: 20px 0;
+}
+
+/* 优化的签名样式变体 */
+.signature-style {
+    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+    font-size: 26px;
+    color: var(--primary-color, #000080);
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+    line-height: 1.2;
+    display: inline-block;
+    padding: 0 5px;
+}
+
+/* 电子签名框样式 */
+:root {
+    --signature-box-width: 280px;
+    --signature-box-min-width: 260px;
+    --signature-box-padding: 18px 25px;
+    --signature-box-border: 1px solid #3498db;
+    --signature-box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --signature-label-top: -10px;
+    --signature-padding: 12px 0;
+    --signature-font-size: 28px;
+    --signature-color: #000080;
+    --signature-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);
+}
+
+.signature-box {
+    border: var(--signature-box-border);
+    background-color: #fff;
+    padding: var(--signature-box-padding);
+    position: relative;
+    box-shadow: var(--signature-box-shadow);
+    border-radius: 4px;
+    min-width: var(--signature-box-min-width);
+    width: var(--signature-box-width);
+    margin-bottom: 5px;
+}
+
+.signature-label {
+    position: absolute;
+    top: var(--signature-label-top);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #fff;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+.signature-content {
+    padding: var(--signature-padding);
+    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+    font-size: var(--signature-font-size);
+    color: #333;
+    text-align: center;
+}
+
+/* 新增签名悬停效果 */
+.dynamic-signature:hover {
+    transform: scale(1.05);
+}
+
+/* 打印样式优化 */
+@media print {
+    .signature-container {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+    
+    .signature-content, 
+    .dynamic-signature,
+    .handwritten {
+        color: #000 !important;
+        text-shadow: none !important;
+    }
+    
+    .signature-box {
+        border-color: #999;
+        box-shadow: none;
+    }
+    
+    .certificate-signature {
+        margin-top: 30px;
+    }
+} 
