@@ -88,8 +88,15 @@
 
                         <!-- 右侧结果部分 -->
                         <div class="calculator-results-section">
-                            <!-- 提示说明 - 移到右侧 -->
-                            <div id="how-to-use" class="info-box">
+                            <!-- 切换按钮 -->
+                            <div class="toggle-container">
+                                <button id="toggle-how-to-use" class="toggle-button">
+                                    <i class="fas fa-info-circle"></i> Show How to Use
+                                </button>
+                            </div>
+                            
+                            <!-- 提示说明 - 默认隐藏 -->
+                            <div id="how-to-use" class="info-box" style="display: none;">
                                 <h4><i class="fas fa-info-circle"></i> How to Use This Calculator</h4>
                                 <ul>
                                     <li>Enter the original annual premium amount for your policies</li>
@@ -229,5 +236,72 @@
 
     <script src="monthly-payment-calculator.js"></script>
     <script src="../../common/cookie-consent.js"></script>
+    
+    <style>
+        /* 切换按钮样式 */
+        .toggle-container {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+        
+        .toggle-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .toggle-button:hover {
+            background-color: #2980b9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .toggle-button i {
+            font-size: 16px;
+        }
+        
+        /* How to Use 部分样式增强 */
+        .info-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .info-box h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .info-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .info-box li {
+            margin-bottom: 6px;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .info-box li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
 </body>
 </html> 

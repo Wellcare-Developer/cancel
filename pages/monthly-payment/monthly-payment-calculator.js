@@ -8,6 +8,9 @@ const resultsContent = document.getElementById('results-content');
 const additionalInfo = document.getElementById('additional-info');
 const howToUseSection = document.getElementById('how-to-use');
 
+// Toggle button for How to Use section
+const toggleHowToUseBtn = document.getElementById('toggle-how-to-use');
+
 // Result Elements
 const resultAutoMonthly = document.getElementById('result-auto-monthly');
 const resultHomeMonthly = document.getElementById('result-home-monthly');
@@ -137,10 +140,8 @@ function setupCalculateButton() {
         // 显示复制按钮
         copyBtn.classList.remove('hidden');
         
-        // 隐藏"How to use this calculator"部分
-        if (howToUseSection) {
-            howToUseSection.style.display = 'none';
-        }
+        // 注意：不再自动隐藏"How to use this calculator"部分
+        // 让用户通过切换按钮自行控制显示/隐藏
     });
 }
 
@@ -175,6 +176,25 @@ function setupCopyButton() {
     });
 }
 
+// 设置How to Use切换按钮功能
+function setupToggleHowToUse() {
+    if (!toggleHowToUseBtn || !howToUseSection) return;
+    
+    toggleHowToUseBtn.addEventListener('click', function() {
+        // 检查当前显示状态
+        const isVisible = howToUseSection.style.display !== 'none';
+        
+        // 切换显示状态
+        if (isVisible) {
+            howToUseSection.style.display = 'none';
+            toggleHowToUseBtn.innerHTML = '<i class="fas fa-info-circle"></i> Show How to Use';
+        } else {
+            howToUseSection.style.display = 'block';
+            toggleHowToUseBtn.innerHTML = '<i class="fas fa-times-circle"></i> Hide How to Use';
+        }
+    });
+}
+
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
     // 设置页脚年份
@@ -186,4 +206,5 @@ document.addEventListener('DOMContentLoaded', function() {
     // Setup event listeners
     setupCalculateButton();
     setupCopyButton();
+    setupToggleHowToUse();
 }); 
