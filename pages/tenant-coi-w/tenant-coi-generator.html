@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tenant Certificate of Insurance (COI) Generator - Generate professional insurance certificates easily">
+    <meta name="keywords" content="tenant insurance, certificate of insurance, COI generator, insurance certificate">
+    <meta name="author" content="Insurance Tools">
+    <title>Tenant Certificate of Insurance Generator</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="../../common/styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flatpickr - Date Picker Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <header>
+        <h1>Tenant Certificate of Insurance Generator</h1>
+        <p>Generate professional Certificate of Insurance documents for tenants</p>
+        <nav class="site-nav">
+            <a href="../home-page/insurance-cancellation-penalty-short-rate-calculator.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="../shortrate-calculator/insurance-short-rate-calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Short Rate Calculator</a>
+            <a href="../monthly-payment/insurance-monthly-payment-calculator.html" class="nav-link"><i class="fas fa-money-bill-wave"></i> Monthly Payment</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-layout">
+            <!-- Left sidebar for ads -->
+            <div class="ad-sidebar ad-left">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="home-content">
+                <div class="calculator-container">
+                    <div class="calculator-inputs">
+                        <!-- Input form -->
+                        <div class="input-section">
+                            <h3 class="form-title">Certificate Information</h3>
+                            <p class="form-description">Complete all fields below to generate a professional tenant insurance certificate.</p>
+                            
+                            <!-- Personal Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Personal Information</h4>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="insured-name">Insured Name</label>
+                                        <input type="text" id="insured-name" class="form-input" placeholder="Full name of insured">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="insured-location">Insured Location</label>
+                                        <input type="text" id="insured-location" class="form-input" placeholder="Residential address">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <div class="risk-address-header">
+                                            <label for="risk-address">Risk Address</label>
+                                            <div class="checkbox-wrapper">
+                                                <label class="checkbox-container">
+                                                    <input type="checkbox" id="same-address">
+                                                    <span class="checkmark"></span>
+                                                    <span class="checkbox-label">Use same as Insured Location</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input type="text" id="risk-address" class="form-input" placeholder="Address covered by insurance">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Policy Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Policy Information</h4>
+                                <div class="form-row two-columns">
+                                    <div class="form-field">
+                                        <label for="effective-date">Effective Date</label>
+                                        <input type="text" id="effective-date" class="form-input date-picker" placeholder="Start date">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="expiry-date">Expiry Date</label>
+                                        <input type="text" id="expiry-date" class="form-input date-picker" placeholder="End date">
+                                    </div>
+                                </div>
+                                <div class="form-row two-columns">
+                                    <div class="form-field">
+                                        <label for="insurer-select">Insurer</label>
+                                        <select id="insurer-select" class="form-input">
+                                            <option value="" disabled selected>Select insurance company</option>
+                                            <option value="apollo">Apollo Insurance</option>
+                                            <option value="aviva">Aviva Insurance</option>
+                                            <option value="caa">CAA Insurance</option>
+                                            <option value="economical">Economical Insurance</option>
+                                            <option value="intact">Intact Insurance</option>
+                                            <option value="max">Max Insurance</option>
+                                            <option value="pafco">Pafco Insurance</option>
+                                            <option value="pembridge">Pembridge Insurance</option>
+                                            <option value="travelers">Travelers Insurance</option>
+                                            <option value="wawanesa">Wawanesa Insurance</option>
+                                            <option value="other">Other Insurance Company...</option>
+                                        </select>
+                                        <input type="text" id="insurer" class="form-input hidden" placeholder="Enter insurance company name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="policy-number">Policy Number</label>
+                                        <input type="text" id="policy-number" class="form-input" placeholder="Policy number">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Coverage Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Coverage Information</h4>
+                                <div class="form-row three-columns">
+                                    <div class="form-field">
+                                        <label for="liability-select">Liability</label>
+                                        <select id="liability-select" class="form-input">
+                                            <option value="" disabled>Select liability amount</option>
+                                            <option value="1000000">$1,000,000</option>
+                                            <option value="2000000" selected>$2,000,000</option>
+                                            <option value="other">Other amount...</option>
+                                        </select>
+                                        <input type="text" id="liability" class="form-input hidden mt-2" placeholder="Enter liability amount">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="content-value-select">Content Value</label>
+                                        <select id="content-value-select" class="form-input">
+                                            <option value="" disabled>Select content value</option>
+                                            <option value="30000" selected>$30,000</option>
+                                            <option value="50000">$50,000</option>
+                                            <option value="other">Other amount...</option>
+                                        </select>
+                                        <input type="text" id="content-value" class="form-input hidden mt-2" placeholder="Enter content value">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="deductible-select">Deductible</label>
+                                        <select id="deductible-select" class="form-input">
+                                            <option value="" disabled>Select deductible</option>
+                                            <option value="1000" selected>$1,000</option>
+                                            <option value="2000">$2,000</option>
+                                            <option value="2500">$2,500</option>
+                                            <option value="5000">$5,000</option>
+                                            <option value="other">Other amount...</option>
+                                        </select>
+                                        <input type="text" id="deductible" class="form-input hidden mt-2" placeholder="Enter deductible amount">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signature Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Signature</h4>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="signature-name">Authorized Signature Name</label>
+                                        <input type="text" id="signature-name" class="form-input" placeholder="Enter name for signature">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generate Button -->
+                            <button id="generate-btn" class="action-button">
+                                <i class="fas fa-file-alt"></i> Generate Certificate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Display Section -->
+                    <div class="calculator-results">
+                        <div class="results-header">
+                            <h4>Generated Certificate</h4>
+                        </div>
+
+                        <!-- Empty state message -->
+                        <div id="empty-state" class="empty-state">
+                            <i class="fas fa-arrow-left"></i>
+                            <p>Complete all information on the left and click "Generate Certificate" to see your document.</p>
+                        </div>
+
+                        <!-- Generated certificate content (initially hidden) -->
+                        <div id="certificate-content" class="results-content hidden">
+                            <div class="certificate-preview">
+                                <!-- Certificate will be generated here -->
+                            </div>
+                            <div class="download-options">
+                                <button id="print-btn" class="secondary-button">
+                                    <i class="fas fa-print"></i>
+                                    <span>Generate PDF / Print Form</span>
+                                </button>
+                                <button id="copy-btn" class="secondary-button">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Copy Content</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEO Content Section -->
+                <section class="featured-article">
+                    <h2>The Importance of Tenant Certificate of Insurance</h2>
+                    <article class="article-content">
+                        <h3>What is a Tenant Certificate of Insurance (COI)?</h3>
+                        
+                        <p>A Tenant Certificate of Insurance (COI) is an important document that proves you, as a tenant, have purchased insurance coverage. This document is typically provided by your insurance company and is used to demonstrate to landlords or property management companies that you have adequate insurance coverage.</p>
+                        
+                        <h4>Why Do Tenants Need a Certificate of Insurance?</h4>
+                        
+                        <p>A Tenant Certificate of Insurance is important for several reasons:</p>
+                        
+                        <ul>
+                            <li><strong>Meeting Lease Requirements:</strong> Many landlords and property management companies require tenants to provide proof of insurance as part of the lease agreement.</li>
+                            <li><strong>Protecting Personal Property:</strong> It proves that your personal belongings are protected in case of fire, theft, or other unexpected events.</li>
+                            <li><strong>Liability Protection:</strong> It demonstrates that you have liability insurance to provide coverage in case of accidental injury or property damage.</li>
+                            <li><strong>Expedited Claims:</strong> Having a certificate of insurance can speed up the claims process when needed.</li>
+                        </ul>
+                        
+                        <p>Our Certificate of Insurance generator helps you create a professional document that includes all necessary information to meet your landlord's or property management company's requirements.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Want to learn more about tenant insurance?</strong> Check out our <a href="#">Tenant Insurance Guide</a> for more details.</p>
+                        </div>
+                        
+                        <h4>What Key Information Should a Tenant Certificate of Insurance Include?</h4>
+                        
+                        <p>A complete Tenant Certificate of Insurance should include the following key information:</p>
+                        
+                        <ul>
+                            <li><strong>Insured Information:</strong> Your full name and address</li>
+                            <li><strong>Risk Address:</strong> The address of the insured rental property</li>
+                            <li><strong>Insurance Company Information:</strong> The name and contact information of the insurance company</li>
+                            <li><strong>Policy Details:</strong> Policy number, effective date, and expiry date</li>
+                            <li><strong>Coverage Information:</strong> Liability limits, contents insurance amount, and deductible</li>
+                            <li><strong>Additional Insured:</strong> If the landlord is listed as an additional insured, this should also be noted in the certificate</li>
+                        </ul>
+                        
+                        <p>Our generator automatically includes all these elements based on the information you provide, creating a professionally formatted certificate of insurance.</p>
+                        
+                        <h4>Frequently Asked Questions About Tenant Certificates of Insurance</h4>
+                        
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <h5>How do I obtain a Certificate of Insurance?</h5>
+                                <p>Typically, you can contact your insurance company or insurance agent directly to request an official certificate of insurance. Many insurance companies also provide online portals where you can download or request certificates. Our generator can help you create a temporary document, but official documents should be obtained from your insurance company.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>Can my landlord request to be listed as an additional insured?</h5>
+                                <p>Yes, many landlords request to be listed as additional insured on tenant insurance policies. This provides the landlord with additional protection if they are sued because of your actions. You will need to contact your insurance company to add your landlord as an additional insured.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>How often does a Certificate of Insurance need to be updated?</h5>
+                                <p>You should obtain a new certificate of insurance whenever your insurance policy is renewed or changes. Typically, this means updating it once a year when your policy renews. If you change insurance companies or make significant modifications to your policy, you should also obtain a new certificate.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>What happens if I don't have tenant insurance?</h5>
+                                <p>If your lease agreement requires you to maintain tenant insurance, not having insurance could result in a breach of your lease. Additionally, without insurance, your personal property would not be protected in the event of fire, theft, or other disasters, and you could be personally liable for damages caused to others. Tenant insurance is typically inexpensive but provides important protection.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>What's the difference between tenant insurance and homeowner's insurance?</h5>
+                                <p>Homeowner's insurance typically covers the building structure, personal property, and liability insurance. Tenant insurance primarily covers the tenant's personal property and liability insurance, but not the building itself, which is covered by the landlord's insurance. Tenant insurance is usually much less expensive than homeowner's insurance because it doesn't include coverage for the building.</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+
+            <!-- Right sidebar for ads -->
+            <div class="ad-sidebar ad-right">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+            
+            <!-- Bottom ad banner -->
+            <div class="ad-banner">
+                <div class="ad-placeholder banner">
+                    <p>Advertisement Banner</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Insurance Tools. All rights reserved. | <a href="../Privacy/privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Flatpickr configuration for effective date
+        const effectiveDatePicker = flatpickr("#effective-date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            disableMobile: true,
+            position: 'auto',
+            static: true,
+            appendTo: document.body,
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length > 0) {
+                    // Calculate expiry date (1 year from effective date)
+                    const expiryDate = new Date(selectedDates[0]);
+                    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                    
+                    // Update expiry date picker
+                    expiryDatePicker.setDate(expiryDate);
+                }
+            }
+        });
+        
+        // Flatpickr configuration for expiry date
+        const expiryDatePicker = flatpickr("#expiry-date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            disableMobile: true,
+            position: 'auto',
+            static: true,
+            appendTo: document.body
+        });
+
+        // Show/hide other insurer input
+        document.getElementById('insurer-select').addEventListener('change', function() {
+            const otherInsurer = document.getElementById('insurer');
+            otherInsurer.classList.toggle('hidden', this.value !== 'other');
+        });
+
+        // Show/hide other liability input
+        document.getElementById('liability-select').addEventListener('change', function() {
+            const otherInput = document.getElementById('liability');
+            otherInput.classList.toggle('hidden', this.value !== 'other');
+            if(this.value !== 'other') {
+                otherInput.value = this.value;
+            } else {
+                otherInput.value = ''; // 清空其他输入框
+            }
+        });
+
+        // Show/hide other content value input
+        document.getElementById('content-value-select').addEventListener('change', function() {
+            const otherInput = document.getElementById('content-value');
+            otherInput.classList.toggle('hidden', this.value !== 'other');
+            if(this.value !== 'other') {
+                otherInput.value = this.value; // 自动填充选择的值
+            } else {
+                otherInput.value = ''; // 清空输入框
+            }
+        });
+
+        // Show/hide other deductible input
+        document.getElementById('deductible-select').addEventListener('change', function() {
+            const otherInput = document.getElementById('deductible');
+            otherInput.classList.toggle('hidden', this.value !== 'other');
+            if(this.value !== 'other') {
+                otherInput.value = this.value; // 自动填充选择的值
+            } else {
+                otherInput.value = ''; // 清空输入框
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Same address checkbox functionality
+        document.getElementById('same-address').addEventListener('change', function() {
+            const insuredLocation = document.getElementById('insured-location');
+            const riskAddress = document.getElementById('risk-address');
+            
+            if(this.checked) {
+                riskAddress.value = insuredLocation.value;
+                riskAddress.disabled = true;
+            } else {
+                riskAddress.disabled = false;
+            }
+        });
+        
+        // Update risk address when insured location changes if checkbox is checked
+        document.getElementById('insured-location').addEventListener('input', function() {
+            const sameAddress = document.getElementById('same-address');
+            const riskAddress = document.getElementById('risk-address');
+            
+            if(sameAddress.checked) {
+                riskAddress.value = this.value;
+            }
+        });
+
+        // 在DOMContentLoaded事件中添加初始化代码
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化默认值
+            document.getElementById('liability-select').value = '2000000';
+            document.getElementById('content-value-select').value = '30000';
+            document.getElementById('deductible-select').value = '1000';
+            
+            // 触发所有相关事件
+            ['liability-select', 'content-value-select', 'deductible-select'].forEach(id => {
+                const element = document.getElementById(id);
+                element.dispatchEvent(new Event('change'));
+            });
+        });
+    </script>
+    <script src="tenant-coi.js"></script>
+    <script src="../../common/cookie-consent.js"></script>
+
+    <style>
+    /* Add these styles to the existing CSS */
+    .form-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0 0 5px 0;
+    }
+
+    .form-description {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin: 0 0 20px 0;
+    }
+
+    .form-section {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0 0 12px 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e9ecef;
+    }
+
+    .form-row {
+        margin-bottom: 12px;
+    }
+
+    .form-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .two-columns {
+        display: flex;
+        gap: 12px;
+    }
+
+    .three-columns {
+        display: flex;
+        gap: 12px;
+    }
+
+    .form-field {
+        flex: 1;
+        min-width: 0; /* Prevents flex items from overflowing */
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 14px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .form-input:focus {
+        border-color: #4299e1;
+        box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+        outline: none;
+    }
+
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        color: #4a5568;
+        margin-bottom: 4px;
+    }
+
+    .action-button {
+        background-color: #4299e1;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 16px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 20px;
+        transition: background-color 0.15s ease-in-out;
+    }
+
+    .action-button:hover {
+        background-color: #3182ce;
+    }
+
+    .action-button i {
+        margin-right: 8px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .mt-2 {
+        margin-top: 8px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .two-columns, .three-columns {
+            flex-direction: column;
+            gap: 8px;
+        }
+    }
+
+    /* Styles for the address checkbox feature */
+    .risk-address-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+    
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .checkbox-label {
+        font-size: 14px;
+        color: #4a5568;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+    
+    .input-with-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .address-input {
+        flex: 1;
+    }
+    
+    .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 28px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+    
+    .checkmark {
+        position: absolute;
+        top: 2px;
+        left: 0;
+        height: 18px;
+        width: 18px;
+        background-color: #fff;
+        border: 2px solid #4299e1;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+    
+    .checkbox-container:hover input ~ .checkmark {
+        background-color: #ebf8ff;
+    }
+    
+    .checkbox-container input:checked ~ .checkmark {
+        background-color: #4299e1;
+        border-color: #4299e1;
+    }
+    
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+        left: 5px;
+        top: 2px;
+        width: 4px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+    
+    .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+    
+    .checkbox-label {
+        font-size: 14px;
+        color: #4a5568;
+        font-weight: 500;
+        vertical-align: middle;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 480px) {
+        .risk-address-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
+        }
+        
+        .checkbox-wrapper {
+            width: 100%;
+            justify-content: flex-end;
+        }
+    }
+    </style>
+</body>
+</html> 
