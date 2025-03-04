@@ -178,33 +178,131 @@ function setupCopyButton() {
 
 // 设置How to Use切换按钮功能
 function setupToggleHowToUse() {
-    if (!toggleHowToUseBtn || !howToUseSection) return;
+    // 确保在DOM完全加载后再次尝试获取元素
+    const toggleBtn = document.getElementById('toggle-how-to-use');
+    const howToUseBox = document.getElementById('how-to-use');
     
-    toggleHowToUseBtn.addEventListener('click', function() {
-        // 检查当前显示状态
-        const isVisible = howToUseSection.style.display !== 'none';
-        
-        // 切换显示状态
-        if (isVisible) {
-            howToUseSection.style.display = 'none';
-            toggleHowToUseBtn.innerHTML = '<i class="fas fa-info-circle"></i> Show How to Use';
-        } else {
-            howToUseSection.style.display = 'block';
-            toggleHowToUseBtn.innerHTML = '<i class="fas fa-times-circle"></i> Hide How to Use';
-        }
-    });
+    // 添加调试信息
+    console.log('Toggle button found:', !!toggleBtn);
+    console.log('How to use section found:', !!howToUseBox);
+    
+    // 检查元素是否存在
+    if (!toggleBtn || !howToUseBox) {
+        console.error('Toggle button or How to use section not found in DOM');
+        // 如果元素不存在，尝试延迟再次查找
+        setTimeout(setupToggleHowToUse, 500);
+        return;
+    }
+    
+    // 确保移除任何现有的事件监听器，防止重复绑定
+    toggleBtn.removeEventListener('click', toggleHowToUseHandler);
+    
+    // 添加事件监听器
+    toggleBtn.addEventListener('click', toggleHowToUseHandler);
+    
+    // 确保初始状态正确
+    if (howToUseBox.style.display === '') {
+        howToUseBox.style.display = 'none';
+    }
+    
+    // 更新按钮初始文本
+    updateToggleButtonText();
+    
+    console.log('Toggle functionality setup complete');
+}
+
+// 将事件处理逻辑分离为独立函数，便于移除和添加
+function toggleHowToUseHandler() {
+    const howToUseBox = document.getElementById('how-to-use');
+    if (!howToUseBox) return;
+    
+    // 检查当前显示状态
+    const isVisible = howToUseBox.style.display !== 'none';
+    
+    // 切换显示状态
+    howToUseBox.style.display = isVisible ? 'none' : 'block';
+    
+    // 更新按钮文本
+    updateToggleButtonText();
+}
+
+// 更新按钮文本的函数
+function updateToggleButtonText() {
+    const toggleBtn = document.getElementById('toggle-how-to-use');
+    const howToUseBox = document.getElementById('how-to-use');
+    if (!toggleBtn || !howToUseBox) return;
+    
+    const isVisible = howToUseBox.style.display !== 'none';
+    toggleBtn.innerHTML = isVisible ? 
+        '<i class="fas fa-times-circle"></i> Hide How to Use' : 
+        '<i class="fas fa-info-circle"></i> Show How to Use';
 }
 
 // 页面加载完成后执行
 document.addEventListener('DOMContentLoaded', function() {
-    // 设置页脚年份
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    console.log('DOM Content Loaded');
     
-    // Setup premium inputs
+    try {
+        // 设置页脚年份
+        const yearElement = document.getElementById('current-year');
+        if (yearElement) {
+            yearElement.textContent = new Date().getFullYear();
+        }
+        
+        // 初始化各个功能
+        initializeCalculator();
+    } catch (error) {
+        console.error('初始化过程中发生错误:', error);
+    }
+});
+
+// 确保在window完全加载后也尝试初始化（双重保险）
+window.addEventListener('load', function() {
+    console.log('Window Fully Loaded');
+    
+    try {
+        // 检查是否已经初始化
+        const toggleBtn = document.getElementById('toggle-how-to-use');
+        if (toggleBtn && !toggleBtn._initialized) {
+            console.log('Initializing on window load');
+            initializeCalculator();
+        }
+    } catch (error) {
+        console.error('Window load初始化过程中发生错误:', error);
+    }
+});
+
+// 集中初始化所有功能
+function initializeCalculator() {
+    // 初始化输入框
     setupPremiumInputs();
     
-    // Setup event listeners
+    // 设置事件监听器
     setupCalculateButton();
     setupCopyButton();
-    setupToggleHowToUse();
+    
+    // 最后设置折叠功能（确保DOM已完全加载）
+    setTimeout(setupToggleHowToUse, 100);
+    
+    console.log('Calculator initialization complete');
+}
+
+// 修改后
+const howToUseToggle = document.getElementById('how-to-use-toggle');
+const howToUseContent = document.getElementById('how-to-use-content');
+
+// 更新事件监听器
+howToUseToggle.addEventListener('click', function() {
+    const isVisible = howToUseContent.style.display !== 'none';
+    howToUseContent.style.display = isVisible ? 'none' : 'block';
+    this.innerHTML = isVisible ? 
+        '<i class="fas fa-info-circle"></i> Show Instructions' : 
+        '<i class="fas fa-times-circle"></i> Hide Instructions';
+});
+
+// 添加键盘事件支持
+document.getElementById('how-to-use-toggle').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        this.click();
+    }
 }); 
