@@ -56,14 +56,15 @@
                                         <span>How to Use This Calculator</span>
                                     </span>
                                 </div>
-                                <div id="how-to-use-content" class="info-box" style="display: none;">
+                                <div id="how-to-use-content" class="info-box hidden">
                                     <ul>
-                                        <li>Select your insurance company from the dropdown list</li>
-                                        <li>Enter the original annual premium amount</li>
-                                        <li>Select policy start and cancellation dates</li>
-                                        <li>Click "Calculate Now" to view results</li>
+                                        <li><i class="fas fa-check-circle"></i> Select your insurance company from the dropdown list</li>
+                                        <li><i class="fas fa-check-circle"></i> Enter the original annual premium amount</li>
+                                        <li><i class="fas fa-check-circle"></i> Select policy start and cancellation dates</li>
+                                        <li><i class="fas fa-check-circle"></i> Click "Calculate Now" to view results</li>
                                     </ul>
-                                    <div class="disclaimer-note" style="margin-top:15px; padding:12px; background:#f8f9fa; border-radius:8px;">
+                                    <div class="disclaimer-note">
+                                        <i class="fas fa-exclamation-triangle"></i>
                                         <p><strong>Disclaimer:</strong> This calculator uses standard Canadian short rate tables. Results may vary between insurance companies and provinces. Always confirm with your insurer for exact cancellation fees.</p>
                                     </div>
                                 </div>
@@ -321,6 +322,7 @@
 
     <script src="script.js"></script>
     <script src="../../common/cookie-consent.js"></script>
+    <script src="../../common/how-to-use.js"></script>
     <script>
         const datePickerConfig = {
             dateFormat: "Y-m-d",

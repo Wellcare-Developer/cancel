@@ -468,16 +468,3 @@ document.addEventListener('DOMContentLoaded', function() {
     setupCalculateButton();
     setupCopyButton();
 });
-
-// 在现有JavaScript中添加切换功能
-document.getElementById('how-to-use-toggle').addEventListener('click', function() {
-    const content = document.getElementById('how-to-use-content');
-    content.style.display = content.style.display === 'none' ? 'block' : 'none';
-});
-
-// 添加键盘支持
-document.getElementById('how-to-use-toggle').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' || e.key === ' ') {
-        this.click();
-    }
-});

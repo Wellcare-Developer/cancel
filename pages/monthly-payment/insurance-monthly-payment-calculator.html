@@ -62,13 +62,17 @@
                                             <span>How to Use This Calculator</span>
                                         </span>
                                     </div>
-                                    <div id="how-to-use-content" class="info-box" style="display: none;">
+                                    <div id="how-to-use-content" class="info-box hidden">
                                         <ul>
-                                            <li>Enter the original annual premium amount</li>
-                                            <li>Do not include tax or interest</li>
-                                            <li>System will auto-calculate taxes & interest</li>
-                                            <li>Click "Calculate" to view results</li>
+                                            <li><i class="fas fa-check-circle"></i> Enter the original annual premium amount</li>
+                                            <li><i class="fas fa-check-circle"></i> Do not include tax or interest</li>
+                                            <li><i class="fas fa-check-circle"></i> System will auto-calculate taxes & interest</li>
+                                            <li><i class="fas fa-check-circle"></i> Click "Calculate" to view results</li>
                                         </ul>
+                                        <div class="disclaimer-note">
+                                            <i class="fas fa-exclamation-triangle"></i>
+                                            <p><strong>Note:</strong> All calculations are estimates based on standard rates. Actual amounts may vary.</p>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -239,6 +243,7 @@
 
     <script src="monthly-payment-calculator.js"></script>
     <script src="../../common/cookie-consent.js"></script>
+    <script src="../../common/how-to-use.js"></script>
     
     <style>
         /* 移除原有按钮样式 */

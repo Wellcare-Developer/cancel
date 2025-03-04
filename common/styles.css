@@ -1965,14 +1965,14 @@ footer a:hover {
   .article-content {
     font-size: 15px;
     line-height: 1.6;
-    
-    h3 {
-      font-size: 18px;
-    }
-    
-    h4 {
-      font-size: 16px;
-    }
+  }
+  
+  .article-content h3 {
+    font-size: 18px;
+  }
+  
+  .article-content h4 {
+    font-size: 16px;
   }
 
   /* 输入框优化 */
@@ -2014,4 +2014,109 @@ footer a:hover {
   .nav-link {
     padding: 14px 1rem;
   }
+}
+
+/* 统一的How to Use模块样式 */
+.input-instructions {
+    margin-bottom: 30px;
+}
+
+.toggle-container {
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.text-link {
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+}
+
+.text-link span {
+    text-decoration: underline;
+}
+
+.text-link:hover {
+    color: #2980b9;
+}
+
+.text-link:hover span {
+    text-decoration: none;
+}
+
+.info-box {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #3498db;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.info-box ul {
+    padding-left: 25px;
+    margin-bottom: 15px;
+    list-style-type: none;
+}
+
+.info-box li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.info-box li i {
+    color: #3498db;
+    font-size: 14px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.disclaimer-note {
+    background: #f8f9fa;
+    border-left: 3px solid #e74c3c;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.disclaimer-note i {
+    color: #e74c3c;
+    margin-top: 2px;
+}
+
+.disclaimer-note p {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+}
+
+.hidden {
+    display: none;
 } 

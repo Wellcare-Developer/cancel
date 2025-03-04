@@ -47,6 +47,30 @@
             <div class="home-content">
                 <div class="calculator-container">
                     <div class="calculator-inputs">
+                        <!-- Input instructions -->
+                        <div class="input-instructions">
+                            <div class="toggle-container">
+                                <span id="how-to-use-toggle" class="text-link" role="button" tabindex="0">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>How to Use This Generator</span>
+                                </span>
+                            </div>
+                            <div id="how-to-use-content" class="info-box hidden">
+                                <ul>
+                                    <li><i class="fas fa-check-circle"></i> Complete all required fields in the input section</li>
+                                    <li><i class="fas fa-check-circle"></i> Select insurance company from dropdown or enter manually</li>
+                                    <li><i class="fas fa-check-circle"></i> Specify exact cancellation date using date picker</li>
+                                    <li><i class="fas fa-check-circle"></i> Choose appropriate cancellation reason</li>
+                                    <li><i class="fas fa-check-circle"></i> Click "Generate" to create your letter</li>
+                                    <li><i class="fas fa-check-circle"></i> Print or copy the generated letter</li>
+                                </ul>
+                                <div class="disclaimer-note">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <p><strong>Note:</strong> This tool generates standard cancellation letters. For complex cases, consult your insurance provider.</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Input form -->
                         <div class="input-section">
                             <!-- Step 1: Named Insured -->
@@ -300,5 +324,6 @@
     </script>
     <script src="cancellation-letter.js"></script>
     <script src="../../common/cookie-consent.js"></script>
+    <script src="../../common/how-to-use.js"></script>
 </body>
 </html> 
