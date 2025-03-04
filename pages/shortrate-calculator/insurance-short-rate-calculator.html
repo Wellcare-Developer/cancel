@@ -49,6 +49,26 @@
                     <div class="calculator-inputs">
                         <!-- Input form -->
                         <div class="input-section">
+                            <div class="input-instructions">
+                                <div class="toggle-container">
+                                    <span id="how-to-use-toggle" class="text-link" role="button" tabindex="0">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>How to Use This Calculator</span>
+                                    </span>
+                                </div>
+                                <div id="how-to-use-content" class="info-box" style="display: none;">
+                                    <ul>
+                                        <li>Select your insurance company from the dropdown list</li>
+                                        <li>Enter the original annual premium amount</li>
+                                        <li>Select policy start and cancellation dates</li>
+                                        <li>Click "Calculate Now" to view results</li>
+                                    </ul>
+                                    <div class="disclaimer-note" style="margin-top:15px; padding:12px; background:#f8f9fa; border-radius:8px;">
+                                        <p><strong>Disclaimer:</strong> This calculator uses standard Canadian short rate tables. Results may vary between insurance companies and provinces. Always confirm with your insurer for exact cancellation fees.</p>
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- Step 1: Insurance Company Selection -->
                             <div class="input-group step-container">
                                 <div class="step-indicator">
@@ -68,9 +88,7 @@
                                     <option value="intact">Intact Insurance</option>
                                     <option value="pafco">Pafco Insurance</option>
                                     <option value="wawanesa">Wawanesa Insurance</option>
-                                    <option value="other">Other Company</option>
                                 </select>
-                                <input type="text" id="other-company" class="highlighted-input hidden" placeholder="Enter insurance company name">
                             </div>
 
                             <!-- Step 2: Annual Premium Input -->
@@ -318,5 +336,63 @@
         // Set current year in footer
         document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
+
+    <style>
+        /* 添加在页面底部或公共样式表中 */
+        .input-instructions {
+            margin-bottom: 30px;
+        }
+
+        .text-link {
+            color: #3498db;
+            cursor: pointer;
+            font-size: 14px;
+            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .text-link span {
+            text-decoration: underline;
+        }
+
+        .text-link:hover {
+            color: #2980b9;
+        }
+
+        .text-link:hover span {
+            text-decoration: none;
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .info-box ul {
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .disclaimer-note {
+            border-left: 4px solid #e74c3c;
+            padding-left: 15px;
+        }
+
+        .disclaimer-note p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
 </body>
 </html> 
