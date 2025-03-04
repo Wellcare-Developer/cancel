@@ -1877,13 +1877,23 @@ footer a:hover {
   }
 
   .site-nav {
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: stretch;
     gap: 8px;
+    max-width: 300px;
+    margin: 1rem auto 0;
   }
 
   .nav-link {
-    font-size: 14px;
-    padding: 8px 12px;
+    width: 100%;
+    justify-content: center;
+    padding: 12px 1rem;
+    font-size: 15px;
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-link i {
+    font-size: 16px;
   }
 
   /* 输入区域优化 */
@@ -1995,5 +2005,13 @@ footer a:hover {
 
   .result-value {
     font-size: 14px;
+  }
+
+  .site-nav {
+    max-width: 100%;
+  }
+  
+  .nav-link {
+    padding: 14px 1rem;
   }
 } 
