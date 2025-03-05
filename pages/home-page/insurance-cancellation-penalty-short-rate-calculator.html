@@ -21,6 +21,113 @@
     <link rel="stylesheet" href="../../common/signature-styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* 响应式设计优化 */
+        @media screen and (max-width: 768px) {
+            .page-layout {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .home-content {
+                width: 100%;
+                padding: 15px;
+                box-sizing: border-box;
+            }
+            
+            .ad-sidebar {
+                display: none; /* 在手机端隐藏侧边栏广告 */
+            }
+            
+            .tools-grid {
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 20px !important;
+            }
+            
+            .tool-card {
+                width: 100% !important;
+                margin-bottom: 15px !important;
+                box-sizing: border-box !important;
+            }
+            
+            .site-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-link {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            header h1 {
+                font-size: 24px;
+                text-align: center;
+                padding: 0 10px;
+            }
+            
+            header p {
+                font-size: 16px;
+                text-align: center;
+                padding: 0 10px;
+            }
+            
+            .article-content {
+                padding: 0 !important;
+            }
+            
+            .article-content h3, 
+            .article-content h4 {
+                font-size: 20px;
+            }
+            
+            .article-content p, 
+            .article-content li {
+                font-size: 16px;
+            }
+            
+            .faq-item h5 {
+                font-size: 18px;
+            }
+            
+            .article-callout {
+                padding: 15px !important;
+            }
+            
+            .ad-banner {
+                width: 100%;
+            }
+        }
+        
+        /* 通用响应式改进 */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .tool-card {
+            padding: 25px;
+            border-radius: 12px;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        
+        .article-content {
+            padding: 0 15px;
+        }
+        
+        .faq-section {
+            margin-top: 30px;
+        }
+        
+        .faq-item {
+            margin-bottom: 25px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -50,11 +157,11 @@
                     <div class="disclaimer-box" style="margin-bottom: 30px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
                         <p><strong>Application Scope:</strong> This tool is designed for major Canadian insurance providers including but not limited to Intact, Aviva, and Desjardins. Calculations are based on the short-rate cancellation standards established by the Insurance Bureau of Canada.</p>
                     </div>
-                    <div class="tools-grid" style="grid-template-columns: repeat(2, minmax(300px, 1fr)); gap: 25px;">
-                        <div class="tool-card" style="padding: 25px; border-radius: 12px;">
+                    <div class="tools-grid">
+                        <div class="tool-card">
                             <a href="../shortrate-calculator/insurance-short-rate-calculator.html" 
                                class="tool-button" 
-                               style="margin-bottom: 15px; padding: 12px 20px; font-size: 16px;">
+                               style="margin-bottom: 15px; padding: 12px 20px; font-size: 16px; display: inline-block;">
                                 Use Calculator <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
                             </a>
                             <h3 style="font-size: 20px; margin-bottom: 15px;">
@@ -80,10 +187,10 @@
                             </ul>
                         </div>
 
-                        <div class="tool-card" style="padding: 25px; border-radius: 12px;">
+                        <div class="tool-card">
                             <a href="../letter-generator/insurance-cancellation-letter-generator.html" 
                                class="tool-button" 
-                               style="margin-bottom: 15px; padding: 12px 20px; font-size: 16px;">
+                               style="margin-bottom: 15px; padding: 12px 20px; font-size: 16px; display: inline-block;">
                                 Generate Letter <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
                             </a>
                             <h3 style="font-size: 20px; margin-bottom: 15px;">
