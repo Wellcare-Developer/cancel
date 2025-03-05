@@ -663,14 +663,14 @@ function generateCertificate() {
 
             <div class="certificate-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px;">
                 <div class="signature-section" style="width: 300px;">
-                    <div class="signature-content" style="margin-bottom: 5px;">
+                    <div class="signature-content" style="margin-bottom: 5px; text-align: center;">
                         ${generateSignature(formData.signatureName)}
                     </div>
                     <div style="border-bottom: 1px solid #333; width: 100%;"></div>
-                    <div style="margin-top: 5px; font-size: 14px;">
+                    <div style="margin-top: 5px; font-size: 14px; text-align: center;">
                         <strong style="font-weight: 700; color: #000;">Authorized Representative:</strong> <span style="font-weight: 600;">${formData.signatureName}</span>
                     </div>
-                    <div style="font-size: 12px; color: #666; margin-top: 3px;">
+                    <div style="font-size: 12px; color: #666; margin-top: 3px; text-align: center;">
                         Date: ${new Date().toLocaleDateString()}
                     </div>
                 </div>
@@ -888,7 +888,7 @@ function generateSignature(name) {
     const rotationStyle = `transform: rotate(${randomRotation}deg)`;
     
     return `
-        <div class="signature-style" style="${rotationStyle}">
+        <div class="signature-style" style="${rotationStyle}; text-align: center;">
             <span class="handwritten" style="
                 font-family: 'Brush Script MT', 'Dancing Script', cursive;
                 font-size: 28px;

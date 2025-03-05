@@ -279,86 +279,94 @@ function generateCertificate() {
     
     // Create certificate HTML
     const certificateHTML = `
-        <div class="certificate-header">
-            <div class="certificate-logo">
-                <img src="cropped-cropped-cropped-well-care-log1-e1622044439563.jpg" alt="Well Care Insurance Logo" class="logo-image">
-            </div>
-            <div class="certificate-title">
-                <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">TENANT INSURANCE CONFIRMATION</h2>
-                <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">200 Town Centre Blvd Unit 101, Markham, ON L3R 8G5</h3>
-                <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">TEL: (905) 472-5666</h3>
+        <div class="certificate-header" style="text-align: center; margin-bottom: 20px;">
+            <div class="certificate-logo" style="margin-bottom: 15px;">
+                <img src="../../@photo/wellcare-coi-head.png" alt="Wellcare Insurance Logo" class="logo-image" style="max-width: 100%; height: auto;">
             </div>
         </div>
         
-        <div class="certificate-body">
+        <div class="certificate-body" style="margin-top: 20px; position: relative;">
             <div class="certificate-section" style="margin-bottom: 25px;">
-                <p class="certificate-note" style="margin-bottom: 15px;">This binder is valid for 365 days from the effective date.<br>Terms and conditions are to be governed by actual policy issued by the insurer.</p>
+                <h2 style="text-align: center; font-size: 18px; margin-bottom: 10px; color: #333;">TENANT INSURANCE CONFIRMATION</h2>
+                <p class="certificate-note" style="margin-bottom: 15px; text-align: left; font-style: normal; color: #333; font-size: 14px; line-height: 1.4;">
+                This is to certify that insurance on the property as herein described have been issued to the Insured(s) named below and are in force at this date.
+                </p>
                 
-                <div class="certificate-row">
-                    <div class="certificate-label">Insured:</div>
-                    <div class="certificate-value">${formData.insuredName}</div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Insured:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.insuredName}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Insured Location:</div>
-                    <div class="certificate-value">${formData.insuredLocation}</div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Insured Location:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.insuredLocation}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Risk Address:</div>
-                    <div class="certificate-value">${formData.riskAddress}</div>
-                </div>
-            </div>
-            
-            <div class="certificate-section" style="margin-bottom: 25px;">
-                <div class="certificate-row">
-                    <div class="certificate-label">Insurer:</div>
-                    <div class="certificate-value">${formData.insurer}</div>
-                </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Policy Number:</div>
-                    <div class="certificate-value">${formData.policyNumber}</div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Risk Address:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.riskAddress}</div>
                 </div>
             </div>
             
             <div class="certificate-section" style="margin-bottom: 25px;">
-                <div class="certificate-row">
-                    <div class="certificate-label">Effective Date:</div>
-                    <div class="certificate-value">${formData.effectiveDate}</div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Insurer:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.insurer}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Expiry Date:</div>
-                    <div class="certificate-value">${formData.expiryDate}</div>
-                </div>
-            </div>
-            
-            <div class="certificate-section coverage-section">
-                <h3>Insurance Coverage</h3>
-                <div class="certificate-row">
-                    <div class="certificate-label">Liability:</div>
-                    <div class="certificate-value">${formatCurrency(formData.liability)}</div>
-                </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Content Value:</div>
-                    <div class="certificate-value">${formatCurrency(formData.contentValue)}</div>
-                </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Deductible:</div>
-                    <div class="certificate-value">${formatCurrency(formData.deductible)}</div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Policy Number:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.policyNumber}</div>
                 </div>
             </div>
             
-            <div class="certificate-footer">
-                <div class="certificate-date">
-                    Signed Date: ${new Date().toLocaleDateString('en-US')}
+            <div class="certificate-section" style="margin-bottom: 25px;">
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Effective Date:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.effectiveDate}</div>
                 </div>
-                
-                <div class="certificate-signature">
-                    <div class="signature-box">
-                        <div class="signature-label">Signed electronically by</div>
-                        <div class="signature-content">
-                            ${generateSignature(formData.signatureName)}
-                        </div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Expiry Date:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.expiryDate}</div>
+                </div>
+            </div>
+            
+            <div class="certificate-section coverage-section" style="margin-bottom: 25px;">
+                <h3 style="font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000000; display: inline-block; width: 50%;">Insurance Coverage</h3>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Liability:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.liability)}</div>
+                </div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Content Value:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.contentValue)}</div>
+                </div>
+                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Deductible:</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.deductible)}</div>
+                </div>
+            </div>
+            
+            <div class="certificate-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px;">
+                <div class="signature-section" style="width: 300px;">
+                    <div class="signature-content" style="margin-bottom: 5px; text-align: center;">
+                        ${generateSignature(formData.signatureName)}
+                    </div>
+                    <div style="border-bottom: 1px solid #333; width: 100%;"></div>
+                    <div style="margin-top: 5px; font-size: 14px; text-align: center;">
+                        <strong style="font-weight: 700; color: #000;">Authorized Representative:</strong> <span style="font-weight: 600;">${formData.signatureName}</span>
+                    </div>
+                    <div style="font-size: 12px; color: #666; margin-top: 3px; text-align: center;">
+                        Date: ${new Date().toLocaleDateString()}
                     </div>
                 </div>
+                <div class="wellcare-bot" style="margin-bottom: 10px;">
+                    <img src="../../@photo/wellcare-bot.png" alt="Wellcare Bot" style="width: 230px; height: auto;">
+                </div>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <div style="border-top: 1px solid #999; width: 100%; margin: 10px 0;"></div>
+                <p style="font-size: 11px; color: #666; line-height: 1.4; margin: 0; text-align: center;">
+                The insurance afforded is subject to the terms, conditions and exclusions of the applicable policy. This certificate is issued as a matter of information only and confers no rights on the holder and imposes no liability on Wellcare Insurance Corp.
+                </p>
             </div>
         </div>
     `;
@@ -400,7 +408,7 @@ function printCertificate() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Certificate of Insurance - ${formData.insuredName}</title>
+            <title>Tenant Certificate of Insurance - ${formData.insuredName}</title>
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <style>
                 body {
@@ -411,149 +419,115 @@ function printCertificate() {
                     padding: 20px;
                 }
                 
+                .certificate-preview {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                
                 .certificate-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    text-align: center;
                     margin-bottom: 20px;
-                    border-bottom: 2px solid #2c3e50;
-                    padding-bottom: 10px;
                 }
                 
                 .logo-image {
-                    max-width: 200px;
-                    max-height: 100px;
-                    object-fit: contain;
+                    max-width: 100%;
+                    height: auto;
                 }
                 
-                .certificate-title {
-                    text-align: right;
-                }
-                
-                .certificate-title h2 {
-                    font-size: 20px;
-                    font-weight: 600;
-                    color: #2c3e50;
-                    margin-bottom: 8px;
-                }
-                
-                .certificate-title h3 {
-                    font-size: 14px;
-                    color: #7f8c8d;
-                    margin: 4px 0;
-                }
-                
-                .certificate-section {
-                    margin-bottom: 20px;
+                .certificate-body {
+                    margin-top: 20px;
+                    position: relative;
                 }
                 
                 .certificate-row {
+                    margin-bottom: 4px;
                     display: flex;
-                    margin-bottom: 10px;
+                    align-items: center;
                 }
                 
                 .certificate-label {
+                    width: 180px;
                     font-weight: 600;
                     color: #34495e;
-                    width: 200px;
-                    flex-shrink: 0;
-                    font-size: 14px;
+                    padding-right: 15px;
+                    text-align: right;
                 }
                 
                 .certificate-value {
+                    flex: 1;
                     color: #2c3e50;
                     font-weight: 500;
-                    font-size: 14px;
+                    padding-left: 10px;
                 }
                 
-                .coverage-section h3 {
-                    margin: 80px 0 15px;
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: #2c3e50;
-                    padding-bottom: 8px;
-                    display: inline-block;
-                    border-bottom: 1px solid #000000;
-                    width: 50%;
-                }
-                
-                .certificate-note {
-                    font-size: 12px;
-                    font-style: italic;
-                    color: #7f8c8d;
-                    margin: 5px 0;
+                .certificate-section {
+                    margin-bottom: 25px;
                 }
                 
                 .certificate-footer {
                     display: flex;
                     justify-content: space-between;
                     align-items: flex-end;
-                    margin-top: 60px;
+                    margin-top: 15px;
                 }
                 
-                .certificate-date {
-                    min-width: 200px;
+                .signature-section {
+                    width: 300px;
                 }
                 
-                /* .certificate-signature 样式已移至signature-styles.css */
+                .signature-content {
+                    margin-bottom: 5px;
+                    text-align: center;
+                }
+                
+                .handwritten {
+                    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+                    font-size: 28px;
+                    color: #000080;
+                    text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+                    line-height: 1.2;
+                    letter-spacing: 1px;
+                    position: relative;
+                    display: inline-block;
+                    padding: 0 5px;
+                }
+                
+                .disclaimer {
+                    margin-top: 15px;
+                }
+                
+                .disclaimer-line {
+                    border-top: 1px solid #999;
+                    width: 100%;
+                    margin: 10px 0;
+                }
+                
+                .disclaimer-text {
+                    font-size: 11px;
+                    color: #666;
+                    line-height: 1.4;
+                    margin: 0;
+                    text-align: center;
+                }
                 
                 @media print {
                     body {
                         padding: 0;
-                        margin: 0;
-                    }
-                    
-                    .calculator-inputs {
-                        display: none !important;
-                    }
-                    
-                    .calculator-results {
-                        flex: 1 0 100% !important;
-                        max-width: 100% !important;
-                        width: 100% !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
-                    }
-                    
-                    .calculator-container {
-                        display: block !important;
-                        width: 100% !important;
                     }
                     
                     .certificate-preview {
-                        border: none !important;
-                        box-shadow: none !important;
-                        padding: 0 !important;
-                        margin: 0 !important;
-                        max-width: 100% !important;
-                    }
-                    
-                    .results-header, .download-options {
-                        display: none !important;
-                    }
-                    
-                    @page {
-                        margin: 1.5cm;
+                        padding: 0;
+                        margin: 0;
+                        max-width: 100%;
                     }
                 }
-
-                @font-face {
-                    font-family: 'Cursive Font';
-                    src: local('Brush Script MT'), 
-                         local('Segoe Script'), 
-                         local('Bradley Hand'), 
-                         local('Comic Sans MS');
-                }
-
-                .signature-section {
-                    margin-top: 20px;
-                }
-
-                /* .certificate-signature 样式已移至signature-styles.css */
             </style>
         </head>
         <body>
-            ${certificateHtml}
+            <div class="certificate-preview">
+                ${certificateHtml}
+            </div>
         </body>
         </html>
     `);
@@ -650,8 +624,22 @@ function returnToForm() {
 function generateSignature(name) {
     if (!name) return '';
     
-    const randomRotation = Math.floor(Math.random() * 5) - 2;
-    const rotationClass = `rotate-${randomRotation < 0 ? 'neg-' : 'pos-'}${Math.abs(randomRotation)}`;
+    const randomRotation = Math.floor(Math.random() * 3) - 1; // 减小旋转角度范围
+    const rotationStyle = `transform: rotate(${randomRotation}deg)`;
     
-    return `<span class="dynamic-signature ${rotationClass}">${name}</span>`;
+    return `
+        <div class="signature-style" style="${rotationStyle}; text-align: center;">
+            <span class="handwritten" style="
+                font-family: 'Brush Script MT', 'Dancing Script', cursive;
+                font-size: 28px;
+                color: #000080;
+                text-shadow: 1px 1px 1px rgba(0,0,0,0.15);
+                line-height: 1.2;
+                letter-spacing: 1px;
+                position: relative;
+                display: inline-block;
+                padding: 0 5px;
+            ">${name}</span>
+        </div>
+    `;
 } 
