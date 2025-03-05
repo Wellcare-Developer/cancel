@@ -1,5 +1,7 @@
 // Global variables
 let formData = {};
+let financeType = 'none'; // 默认为none
+let deductibleType = 'all-perils'; // 默认为all-perils
 
 // DOM elements
 const generateBtn = document.getElementById('generate-btn');
@@ -24,26 +26,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize date pickers
     initDatePickers();
     
-    // Same address checkbox functionality
-    document.getElementById('same-address').addEventListener('change', function() {
-        const propertyAddress = document.getElementById('property-address');
-        const riskAddress = document.getElementById('risk-address');
-        
+    // 获取Lessor/Finance Info输入行元素
+    const mortgageeRow = document.getElementById('mortgagee').closest('.form-row');
+    
+    // 初始时隐藏Lessor/Finance输入框（因为默认选择None）
+    mortgageeRow.classList.add('hidden');
+    
+    // 获取保险类型相关元素
+    const allPerilsSection = document.getElementById('all-perils-section');
+    const collisionCompSection = document.getElementById('collision-comp-section');
+    
+    // 处理保险类型选择
+    document.getElementById('all-perils-type').addEventListener('change', function() {
         if(this.checked) {
-            riskAddress.value = propertyAddress.value;
-            riskAddress.disabled = true;
-        } else {
-            riskAddress.disabled = false;
+            deductibleType = 'all-perils';
+            allPerilsSection.classList.remove('hidden');
+            collisionCompSection.classList.add('hidden');
         }
     });
     
-    // Update risk address when property address changes if checkbox is checked
-    document.getElementById('property-address').addEventListener('input', function() {
-        const sameAddress = document.getElementById('same-address');
-        const riskAddress = document.getElementById('risk-address');
-        
-        if(sameAddress.checked) {
-            riskAddress.value = this.value;
+    document.getElementById('collision-comp-type').addEventListener('change', function() {
+        if(this.checked) {
+            deductibleType = 'collision-comp';
+            allPerilsSection.classList.add('hidden');
+            collisionCompSection.classList.remove('hidden');
         }
     });
     
@@ -75,18 +81,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Show/hide other collision deductible input
+    document.getElementById('collision-deductible-select').addEventListener('change', function() {
+        const otherInput = document.getElementById('collision-deductible');
+        otherInput.classList.toggle('hidden', this.value !== 'other');
+        if(this.value !== 'other') {
+            otherInput.value = this.value;
+        } else {
+            otherInput.value = '';
+        }
+    });
+    
+    // Show/hide other comprehensive deductible input
+    document.getElementById('comprehensive-deductible-select').addEventListener('change', function() {
+        const otherInput = document.getElementById('comprehensive-deductible');
+        otherInput.classList.toggle('hidden', this.value !== 'other');
+        if(this.value !== 'other') {
+            otherInput.value = this.value;
+        } else {
+            otherInput.value = '';
+        }
+    });
+    
+    // 处理Lessor/Finance类型切换
+    document.getElementById('none-type').addEventListener('change', function() {
+        if(this.checked) {
+            financeType = 'none';
+            // 隐藏输入行
+            mortgageeRow.classList.add('hidden');
+            document.getElementById('mortgagee').value = ''; // 清空输入框
+        }
+    });
+    
+    document.getElementById('lessor-type').addEventListener('change', function() {
+        if(this.checked) {
+            financeType = 'lessor';
+            document.getElementById('mortgagee-label').textContent = 'Lessor/Finance Info';
+            document.getElementById('mortgagee').placeholder = `Please enter name on the first line, and address on separate lines below. 
+For example:
+ABC Leasing Company
+123 Main Street
+Toronto, ON M5V 1A1`;
+            // 显示输入行
+            mortgageeRow.classList.remove('hidden');
+        }
+    });
+    
+    document.getElementById('finance-type').addEventListener('change', function() {
+        if(this.checked) {
+            financeType = 'finance';
+            document.getElementById('mortgagee-label').textContent = 'Lessor/Finance Info';
+            document.getElementById('mortgagee').placeholder = `Please enter name on the first line, and address on separate lines below. 
+For example:
+ABC Finance Company
+123 Main Street
+Toronto, ON M5V 1A1`;
+            // 显示输入行
+            mortgageeRow.classList.remove('hidden');
+        }
+    });
+    
     // Set current year in footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
     
     // 初始化默认值
     document.getElementById('liability-select').value = '2000000';
     document.getElementById('deductible-select').value = '1000';
+    document.getElementById('collision-deductible-select').value = '1000';
+    document.getElementById('comprehensive-deductible-select').value = '1000';
     
     // 触发所有相关事件
-    ['liability-select', 'deductible-select'].forEach(id => {
+    ['liability-select', 'deductible-select', 'collision-deductible-select', 'comprehensive-deductible-select'].forEach(id => {
         const element = document.getElementById(id);
         element.dispatchEvent(new Event('change'));
     });
+    
+    // 确保默认情况下，mortgagee输入框是隐藏的
+    if (document.getElementById('none-type').checked) {
+        mortgageeRow.classList.add('hidden');
+    }
 });
 
 // Initialize date pickers
@@ -131,17 +204,16 @@ function validateAndGenerateCertificate() {
     // Get all input values
     const namedInsured = document.getElementById('named-insured').value.trim();
     const propertyAddress = document.getElementById('property-address').value.trim();
-    const riskAddress = document.getElementById('risk-address').value.trim();
+    const mortgageeText = document.getElementById('mortgagee').value.trim();
+    let mortgageeInfo = { name: '', address: '' };
     
-    // 获取多个抵押权人信息
-    const mortgageeInfos = [];
-    const mortgageeElements = document.querySelectorAll('.mortgagee-input');
-    mortgageeElements.forEach(el => {
-        const mortgageeText = el.value.trim();
-        if (mortgageeText) {
-            mortgageeInfos.push(parseMortgageeInfo(mortgageeText));
-        }
-    });
+    // 只有当financeType不是'none'时才解析mortgagee信息
+    if(financeType !== 'none' && mortgageeText) {
+        mortgageeInfo = parseMortgageeInfo(mortgageeText);
+    }
+    
+    const vehicleModel = document.getElementById('vehicle-model').value.trim();
+    const vehicleVin = document.getElementById('vehicle-vin').value.trim();
     
     const effectiveDate = document.getElementById('effective-date').value.trim();
     const expiryDate = document.getElementById('expiry-date').value.trim();
@@ -157,32 +229,65 @@ function validateAndGenerateCertificate() {
     }
     
     const policyNumber = document.getElementById('policy-number').value.trim();
-    const buildingValue = document.getElementById('building-value').value.trim();
     const liability = document.getElementById('liability-select').value === 'other' 
         ? document.getElementById('liability').value.trim()
         : document.getElementById('liability-select').value;
-    const deductible = document.getElementById('deductible-select').value === 'other'
-        ? document.getElementById('deductible').value.trim()
-        : document.getElementById('deductible-select').value;
     
-    const guaranteedReplacement = document.getElementById('guaranteed-replacement').checked;
+    // 获取垫底费信息，根据所选类型
+    let deductible = '';
+    let collisionDeductible = '';
+    let comprehensiveDeductible = '';
+    
+    if (deductibleType === 'all-perils') {
+        deductible = document.getElementById('deductible-select').value === 'other'
+            ? document.getElementById('deductible').value.trim()
+            : document.getElementById('deductible-select').value;
+    } else {
+        collisionDeductible = document.getElementById('collision-deductible-select').value === 'other'
+            ? document.getElementById('collision-deductible').value.trim()
+            : document.getElementById('collision-deductible-select').value;
+            
+        comprehensiveDeductible = document.getElementById('comprehensive-deductible-select').value === 'other'
+            ? document.getElementById('comprehensive-deductible').value.trim()
+            : document.getElementById('comprehensive-deductible-select').value;
+    }
     
     // Get signature
     const signatureName = document.getElementById('signature-name').value.trim();
     
-    // Validate required fields
+    // Collect required fields (exclude mortgagee info if financeType is 'none')
     const requiredFields = [
         { value: namedInsured, name: 'Named Insured' },
-        { value: propertyAddress, name: 'Insured Location' },
-        { value: riskAddress, name: 'Risk Address' },
+        { value: propertyAddress, name: 'Mailing Address' },
+        { value: vehicleModel, name: 'Vehicle Model' },
+        { value: vehicleVin, name: 'Vehicle VIN#' },
         { value: effectiveDate, name: 'Effective Date' },
         { value: expiryDate, name: 'Expiry Date' },
         { value: insurer, name: 'Insurer' },
         { value: policyNumber, name: 'Policy Number' },
         { value: liability, name: 'Liability' },
-        { value: deductible, name: 'Deductible' },
         { value: signatureName, name: 'Authorized Signature Name' }
     ];
+    
+    // 根据所选保险类型添加不同的验证字段
+    if (deductibleType === 'all-perils') {
+        requiredFields.push({ value: deductible, name: 'All Perils Deductible' });
+    } else {
+        requiredFields.push({ value: collisionDeductible, name: 'Collision Deductible' });
+        requiredFields.push({ value: comprehensiveDeductible, name: 'Comprehensive Deductible' });
+    }
+    
+    // 如果选择了lessor或finance，则添加mortgagee信息验证
+    if(financeType !== 'none') {
+        if(!mortgageeText) {
+            alert(`Please fill in the Lessor/Finance Info field`);
+            return;
+        }
+        if(!mortgageeInfo.name) {
+            alert(`Please provide a valid name in the Lessor/Finance Info field`);
+            return;
+        }
+    }
     
     // Check for empty fields
     const emptyFields = requiredFields.filter(field => !field.value);
@@ -215,16 +320,19 @@ function validateAndGenerateCertificate() {
     formData = {
         namedInsured,
         propertyAddress,
-        riskAddress,
-        mortgageeInfos,
+        mortgageeInfo,
+        financeType, // 保存金融机构类型
+        deductibleType, // 保存保险类型
+        vehicleModel,
+        vehicleVin,
         effectiveDate: formatDate(effectiveDateTime),
         expiryDate: formatDate(expiryDateTime),
         insurer,
         policyNumber,
-        buildingValue,
         liability,
         deductible,
-        guaranteedReplacement,
+        collisionDeductible,
+        comprehensiveDeductible,
         signatureName
     };
     
@@ -232,7 +340,7 @@ function validateAndGenerateCertificate() {
     generateCertificate();
 }
 
-// Parse mortgagee information
+// Parse mortgagee information (now lessor/finance information)
 function parseMortgageeInfo(mortgageeText) {
     if (!mortgageeText) return { name: '', address: '' };
     
@@ -321,6 +429,24 @@ function generateCertificate() {
             max-width: var(--certificate-max-width);
         }
         
+        .certificate-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .logo-image {
+            max-width: 200px;
+            max-height: 80px;
+        }
+        
+        .certificate-title {
+            text-align: right;
+        }
+        
         .certificate-section {
             margin-bottom: var(--certificate-section-gap);
         }
@@ -330,31 +456,39 @@ function generateCertificate() {
             margin-bottom: var(--certificate-row-gap);
         }
         
+        .certificate-label {
+            font-weight: 600;
+            color: #34495e;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .certificate-value {
+            color: #2c3e50;
+        }
+        
         .coverage-section {
-            margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
+            margin-top: var(--coverage-top-margin);
         }
         
         .coverage-section h3 {
-            margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
-            font-size: 16px;
-            font-weight: 600;
+            margin-bottom: var(--coverage-title-bottom-margin);
             color: #2c3e50;
+            border-bottom: 1px solid #e2e8f0;
             padding-bottom: 8px;
             display: inline-block;
-            border-bottom: 1px solid #000000;
             width: 50%;
         }
         
         .certificate-footer {
+            margin-top: var(--footer-top-margin);
+            padding: var(--footer-padding);
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: var(--footer-top-margin);
-            padding: var(--footer-padding);
         }
         
         .results-header {
-            text-align: center;
             margin-bottom: 20px;
         }
         
@@ -388,7 +522,7 @@ function generateCertificate() {
                 <img src="../../@photo/BrokerTeamInsurance_BT20-Colored.png" alt="Insurance Logo" class="logo-image">
             </div>
             <div class="certificate-title">
-                <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">HOME INSURANCE CONFIRMATION</h2>
+                <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">AUTO INSURANCE CONFIRMATION</h2>
                 <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">9560 MARKHAM RD UNIT 117, MARKHAM ON L6E 0V1</h3>
                 <h3 style="font-size: 14px; color: #7f8c8d; margin: 4px 0;">TEL: (905) 472-5666</h3>
             </div>
@@ -405,37 +539,43 @@ function generateCertificate() {
                     <div class="certificate-value">${formData.namedInsured}</div>
                 </div>
                 <div class="certificate-row">
-                    <div class="certificate-label">Insured Location:</div>
+                    <div class="certificate-label">Mailing Address:</div>
                     <div class="certificate-value">${formData.propertyAddress}</div>
                 </div>
+            </div>
+            
+            <div class="certificate-section vehicle-section">
                 <div class="certificate-row">
-                    <div class="certificate-label">Risk Address:</div>
-                    <div class="certificate-value">${formData.riskAddress}</div>
-                </div>
-                ${formData.mortgageeInfos && formData.mortgageeInfos.length > 0 ? formData.mortgageeInfos.map((mortgageeInfo, index) => `
-                <div class="certificate-row">
-                    <div class="certificate-label">Mortgagee(s):</div>
-                    <div class="certificate-value">${mortgageeInfo.name}</div>
+                    <div class="certificate-label">Vehicle Model:</div>
+                    <div class="certificate-value">${formData.vehicleModel}</div>
                 </div>
                 <div class="certificate-row">
-                    <div class="certificate-label">Mortgagee Address:</div>
-                    <div class="certificate-value">${mortgageeInfo.address}</div>
+                    <div class="certificate-label">Vehicle VIN#:</div>
+                    <div class="certificate-value">${formData.vehicleVin}</div>
                 </div>
-                `).join('') : ''}
+                ${formData.financeType !== 'none' && formData.mortgageeInfo.name ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">${formData.financeType === 'lessor' ? 'Lessor:' : 'lienholder:'}</div>
+                    <div class="certificate-value">${formData.mortgageeInfo.name}</div>
+                </div>
+                ` : ''}
+                ${formData.financeType !== 'none' && formData.mortgageeInfo.address ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">${formData.financeType === 'lessor' ? 'Lessor Address:' : 'lienholder Address:'}</div>
+                    <div class="certificate-value">${formData.mortgageeInfo.address}</div>
+                </div>
+                ` : ''}
             </div>
             
             <div class="certificate-section">
                 <div class="certificate-row">
-                    <div class="certificate-label">Insurer:</div>
+                    <div class="certificate-label">Insurance Company:</div>
                     <div class="certificate-value">${formData.insurer}</div>
                 </div>
                 <div class="certificate-row">
                     <div class="certificate-label">Policy Number:</div>
                     <div class="certificate-value">${formData.policyNumber}</div>
                 </div>
-            </div>
-            
-            <div class="certificate-section">
                 <div class="certificate-row">
                     <div class="certificate-label">Effective Date:</div>
                     <div class="certificate-value">${formData.effectiveDate}</div>
@@ -449,29 +589,30 @@ function generateCertificate() {
             <div class="certificate-section coverage-section">
                 <h3>Insurance Coverage</h3>
                 
-                ${formData.buildingValue ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">Building Value:</div>
-                    <div class="certificate-value">${formatCurrency(formData.buildingValue)}</div>
-                </div>
-                ` : ''}
-                
                 <div class="certificate-row">
                     <div class="certificate-label">Liability:</div>
                     <div class="certificate-value">${formatCurrency(formData.liability)}</div>
                 </div>
                 
+                ${formData.deductibleType === 'all-perils' ? `
                 <div class="certificate-row">
-                    <div class="certificate-label">Deductible:</div>
+                    <div class="certificate-label">All Perils Deductible:</div>
                     <div class="certificate-value">${formatCurrency(formData.deductible)}</div>
                 </div>
-                
-                ${formData.guaranteedReplacement ? `
-                <div class="certificate-row" style="margin-top: 10px;">
-                    <div class="certificate-label">Additional Coverage:</div>
-                    <div class="certificate-value">Guaranteed Building Replacement Cost</div>
+                ` : `
+                ${formData.collisionDeductible ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">Collision Deductible:</div>
+                    <div class="certificate-value">${formatCurrency(formData.collisionDeductible)}</div>
                 </div>
                 ` : ''}
+                ${formData.comprehensiveDeductible ? `
+                <div class="certificate-row">
+                    <div class="certificate-label">Comprehensive Deductible:</div>
+                    <div class="certificate-value">${formatCurrency(formData.comprehensiveDeductible)}</div>
+                </div>
+                ` : ''}
+                `}
             </div>
             
             <div class="certificate-footer">
@@ -528,7 +669,7 @@ function printCertificate() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>HOME INSURANCE CONFIRMATION - ${formData.namedInsured}</title>
+            <title>AUTO INSURANCE CONFIRMATION - ${formData.namedInsured}</title>
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <style>
                 :root {

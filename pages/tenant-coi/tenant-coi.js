@@ -265,7 +265,7 @@ function generateCertificate() {
     const certificateHTML = `
         <div class="certificate-header">
             <div class="certificate-logo">
-                <img src="BrokerTeamInsurance_BT20-Colored.png" alt="Insurance Logo" class="logo-image">
+                <img src="../../@photo/BrokerTeamInsurance_BT20-Colored.png" alt="Insurance Logo" class="logo-image">
             </div>
             <div class="certificate-title">
                 <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">TENANT INSURANCE CONFIRMATION</h2>
