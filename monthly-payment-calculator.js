@@ -80,7 +80,7 @@ function setupCalculateButton() {
 
         // 验证输入
         if (autoAnnual === 0 && homeAnnual === 0) {
-            alert('请至少输入一个保费金额。');
+            alert('Please enter at least one insurance premium amount.');
             return;
         }
 
@@ -150,16 +150,16 @@ function setupCopyButton() {
         const totalMonthly = resultTotalMonthly.textContent;
         
         const summaryText = 
-            `保险月付计算结果摘要:\n` +
-            `汽车保险月付: ${autoMonthly}\n` +
-            `房屋保险月付: ${homeMonthly}\n` +
-            `每月总付款: ${totalMonthly}`;
+            `Insurance Monthly Payment Calculation Results Summary:\n` +
+            `Auto Insurance Monthly Payment: ${autoMonthly}\n` +
+            `Home Insurance Monthly Payment: ${homeMonthly}\n` +
+            `Total Monthly Payment: ${totalMonthly}`;
         
         // Copy to clipboard
         navigator.clipboard.writeText(summaryText).then(function() {
             // Update button text
             const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> 已复制';
+            copyBtn.innerHTML = '<i class="fa-solid fa-check"></i> Copied';
             
             // Reset after 2 seconds
             clearTimeout(copyTimeout);
@@ -167,7 +167,7 @@ function setupCopyButton() {
                 copyBtn.innerHTML = originalHTML;
             }, 2000);
         }).catch(function(err) {
-            console.error('复制文本失败:', err);
+            console.error('Failed to copy text:', err);
         });
     });
 }
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 初始化各个功能
         initializeCalculator();
     } catch (error) {
-        console.error('初始化过程中发生错误:', error);
+        console.error('Initialization error:', error);
     }
 });
 
@@ -201,7 +201,7 @@ window.addEventListener('load', function() {
             initializeCalculator();
         }
     } catch (error) {
-        console.error('Window load初始化过程中发生错误:', error);
+        console.error('Window load initialization error:', error);
     }
 });
 
