@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Home Insurance Certificate of Insurance Generator - Create professional home insurance certificates easily">
+    <meta name="keywords" content="home insurance certificate, insurance certificate generator, proof of insurance, home insurance">
+    <meta name="author" content="Insurance Tools">
+    <title>Home Insurance Certificate Generator</title>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="../../common/styles.css">
+    <link rel="stylesheet" href="../../common/header-nav.css">
+    <link rel="stylesheet" href="../../common/signature-styles.css">
+    <link rel="stylesheet" href="../../common/how-to-use-styles.css">
+    <link rel="stylesheet" href="../../common/coi-form.css">
+    <link rel="stylesheet" href="../../common/pdf-form.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flatpickr - Date Picker Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        /* 抵押权人相关样式 */
+        .mortgagee-item {
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .mortgagee-controls {
+            margin-top: 10px;
+        }
+        
+        .btn-small {
+            background-color: #4299e1;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-small:hover {
+            background-color: #3182ce;
+        }
+        
+        .remove-mortgagee {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #e53e3e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .remove-mortgagee:hover {
+            background-color: #c53030;
+        }
+        
+        #mortgagee-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        /* Mortgagee Info占位符样式 */
+        .mortgagee-input::placeholder {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+        
+        /* Mortgagee Info文本框样式 */
+        .mortgagee-input {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Home Insurance Certificate Generator</h1>
+        <p>Generate a professional certificate of insurance for your home policy</p>
+        <nav class="site-nav">
+            <a href="../home-page/insurance-cancellation-penalty-short-rate-calculator.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="../shortrate-calculator/insurance-short-rate-calculator.html" class="nav-link"><i class="fas fa-calculator"></i> Short Rate Calculator</a>
+            <a href="../letter-generator/insurance-cancellation-letter-generator.html" class="nav-link"><i class="fas fa-file-alt"></i> Cancellation Letter</a>
+            <a href="../tenant-coi/tenant-coi-generator.html" class="nav-link"><i class="fas fa-file-contract"></i> Tenant COI</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-layout">
+            <!-- Left sidebar for ads -->
+            <div class="ad-sidebar ad-left">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="home-content">
+                <div class="calculator-container">
+                    <div class="calculator-inputs">
+                        <!-- Input form -->
+                        <div class="input-section">
+                            <h3 class="form-title">Certificate Information</h3>
+                            <p class="form-description">Complete all fields below to generate a professional home insurance certificate.</p>
+                            
+                            <!-- Personal Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Personal Information</h4>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="named-insured">Named Insured</label>
+                                        <input type="text" id="named-insured" class="form-input" placeholder="Full name of insured">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="property-address">Insured Location</label>
+                                        <input type="text" id="property-address" class="form-input" placeholder="residential address">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <div class="risk-address-header">
+                                            <label for="risk-address">Risk Address</label>
+                                            <div class="checkbox-wrapper">
+                                                <label class="checkbox-container">
+                                                    <input type="checkbox" id="same-address">
+                                                    <span class="checkmark"></span>
+                                                    <span class="checkbox-label">Use same as Insured Location</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <input type="text" id="risk-address" class="form-input" placeholder="Address covered by insurance">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="mortgagee">Mortgagee(s) Information</label>
+                                        <div id="mortgagee-container">
+                                            <div class="mortgagee-item">
+                                                <textarea id="mortgagee-1" class="form-input mortgagee-input" placeholder="Enter mortgagee name and address (if applicable)" rows="3"></textarea>
+                                                <p class="input-hint">First line for mortgagee name, following lines for address</p>
+                                            </div>
+                                        </div>
+                                        <div class="mortgagee-controls">
+                                            <button type="button" id="add-mortgagee" class="btn-small"><i class="fas fa-plus"></i> Add Another Mortgagee</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Policy Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Policy Information</h4>
+                                <div class="form-row two-columns">
+                                    <div class="form-field">
+                                        <label for="effective-date">Effective Date</label>
+                                        <input type="text" id="effective-date" class="form-input date-picker" placeholder="Start date">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="expiry-date">Expiry Date</label>
+                                        <input type="text" id="expiry-date" class="form-input date-picker" placeholder="End date">
+                                    </div>
+                                </div>
+                                <div class="form-row two-columns">
+                                    <div class="form-field">
+                                        <label for="insurer-select">Insurer</label>
+                                        <select id="insurer-select" class="form-input">
+                                            <option value="" disabled selected>Select insurance company</option>
+                                            <option value="apollo">Apollo Insurance</option>
+                                            <option value="aviva">Aviva Insurance</option>
+                                            <option value="caa">CAA Insurance</option>
+                                            <option value="economical">Economical Insurance</option>
+                                            <option value="intact">Intact Insurance</option>
+                                            <option value="max">Max Insurance</option>
+                                            <option value="pafco">Pafco Insurance</option>
+                                            <option value="pembridge">Pembridge Insurance</option>
+                                            <option value="travelers">Travelers Insurance</option>
+                                            <option value="wawanesa">Wawanesa Insurance</option>
+                                            <option value="other">Other Insurance Company...</option>
+                                        </select>
+                                        <input type="text" id="insurer" class="form-input hidden" placeholder="Enter insurance company name">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="policy-number">Policy Number</label>
+                                        <input type="text" id="policy-number" class="form-input" placeholder="Policy number">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Coverage Information Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Coverage Information</h4>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="building-value">Building Value</label>
+                                        <input type="text" id="building-value" class="form-input" placeholder="Enter building value">
+                                    </div>
+                                </div>
+                                <div class="form-row two-columns">
+                                    <div class="form-field">
+                                        <label for="liability-select">Liability</label>
+                                        <select id="liability-select" class="form-input">
+                                            <option value="" disabled>Select liability amount</option>
+                                            <option value="1000000">$1,000,000</option>
+                                            <option value="2000000" selected>$2,000,000</option>
+                                            <option value="3000000">$3,000,000</option>
+                                            <option value="5000000">$5,000,000</option>
+                                            <option value="other">Other amount...</option>
+                                        </select>
+                                        <input type="text" id="liability" class="form-input hidden mt-2" placeholder="Enter liability amount">
+                                    </div>
+                                    <div class="form-field">
+                                        <label for="deductible-select">Deductible</label>
+                                        <select id="deductible-select" class="form-input">
+                                            <option value="" disabled>Select deductible</option>
+                                            <option value="500">$500</option>
+                                            <option value="1000" selected>$1,000</option>
+                                            <option value="2500">$2,500</option>
+                                            <option value="5000">$5,000</option>
+                                            <option value="other">Other amount...</option>
+                                        </select>
+                                        <input type="text" id="deductible" class="form-input hidden mt-2" placeholder="Enter deductible amount">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-field checkbox-wrapper">
+                                        <label class="checkbox-container">
+                                            <input type="checkbox" id="guaranteed-replacement">
+                                            <span class="checkmark"></span>
+                                            <span class="checkbox-label">Guaranteed Building Replacement Cost</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signature Section -->
+                            <div class="form-section">
+                                <h4 class="section-title">Signature</h4>
+                                <div class="form-row">
+                                    <div class="form-field">
+                                        <label for="signature-name">Authorized Signature Name</label>
+                                        <input type="text" id="signature-name" class="form-input" placeholder="Enter name for signature">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Generate Button -->
+                            <button id="generate-btn" class="action-button">
+                                <i class="fas fa-file-alt"></i> Generate Certificate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Display Section -->
+                    <div class="calculator-results">
+                        <div class="results-header">
+                            <h4>Generated Certificate</h4>
+                        </div>
+
+                        <!-- Empty state message -->
+                        <div id="empty-state" class="empty-state">
+                            <i class="fas fa-arrow-left"></i>
+                            <p>Complete all information on the left and click "Generate Certificate" to see your document.</p>
+                        </div>
+
+                        <!-- Generated certificate content (initially hidden) -->
+                        <div id="certificate-content" class="results-content hidden">
+                            <div class="certificate-preview">
+                                <!-- Certificate will be generated here -->
+                            </div>
+                            <div class="download-options">
+                                <button id="print-btn" class="secondary-button">
+                                    <i class="fas fa-print"></i>
+                                    <span>Generate PDF / Print Form</span>
+                                </button>
+                                <button id="copy-btn" class="secondary-button">
+                                    <i class="fa-regular fa-copy"></i>
+                                    <span>Copy Content</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEO Content Section -->
+                <section class="featured-article">
+                    <h2>Understanding Home Insurance Certificates</h2>
+                    <article class="article-content">
+                        <h3>What is a Home Insurance Certificate?</h3>
+                        
+                        <p>A home insurance certificate (also known as a Certificate of Insurance or COI) is a document that provides proof of insurance coverage for your home. It summarizes key information about your insurance policy, including coverage amounts, policy dates, and the parties insured. This document is often requested by mortgage lenders, banks, or other interested parties who need verification of your insurance coverage.</p>
+                        
+                        <h4>When You Might Need a Home Insurance Certificate</h4>
+                        
+                        <p>There are several situations where you might need to provide a home insurance certificate:</p>
+                        
+                        <ul>
+                            <li><strong>Mortgage applications:</strong> When applying for a mortgage, lenders typically require proof of insurance.</li>
+                            <li><strong>Mortgage renewals:</strong> When renewing your mortgage, your lender may request an updated certificate.</li>
+                            <li><strong>Refinancing:</strong> When refinancing your home, proof of adequate insurance is usually required.</li>
+                            <li><strong>Property transfers:</strong> When buying or selling a home, insurance verification may be needed.</li>
+                            <li><strong>Home equity loans:</strong> When taking out a home equity loan or line of credit.</li>
+                        </ul>
+                        
+                        <p>Our home insurance certificate generator creates a professionally formatted document that includes all the necessary information typically required by mortgage lenders and other financial institutions.</p>
+                        
+                        <h4>Key Elements of a Home Insurance Certificate</h4>
+                        
+                        <p>A comprehensive home insurance certificate should include the following key elements:</p>
+                        
+                        <ul>
+                            <li><strong>Named insured:</strong> The name(s) of the policyholder(s)</li>
+                            <li><strong>Insured location:</strong> The location of the insured property</li>
+                            <li><strong>Policy information:</strong> Policy number and effective dates</li>
+                            <li><strong>Coverage details:</strong> Building value, liability limits, and deductible amounts</li>
+                            <li><strong>Mortgagee information:</strong> Details of the mortgage lender, if applicable</li>
+                            <li><strong>Insurance company information:</strong> Name and contact details of the insurer</li>
+                        </ul>
+                        
+                        <p>Our generator automatically includes all these elements in a professionally formatted certificate based on the information you provide.</p>
+                        
+                        <div class="article-callout">
+                            <p><strong>Need to cancel your insurance policy?</strong> Use our <a href="../shortrate-calculator/insurance-short-rate-calculator.html">Short Rate Calculator</a> to estimate your refund or try our <a href="../letter-generator/insurance-cancellation-letter-generator.html">Cancellation Letter Generator</a> to create a professional cancellation request.</p>
+                        </div>
+                        
+                        <h4>Frequently Asked Questions About Home Insurance Certificates</h4>
+                        
+                        <div class="faq-section">
+                            <div class="faq-item">
+                                <h5>How do I get an official certificate of insurance for my home?</h5>
+                                <p>To obtain an official certificate, contact your insurance company or agent directly. They can provide you with an official document that verifies your coverage. The certificate generated by our tool is for informational purposes only and may not be accepted as official documentation by all institutions.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>What is the difference between a home insurance policy and a certificate?</h5>
+                                <p>A home insurance policy is a comprehensive contract that details all terms, conditions, exclusions, and coverage provided by your insurance. A certificate of insurance is a summary document that provides proof of insurance and outlines key information such as coverage amounts and policy dates. The certificate is much shorter and contains only essential information.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>What does "Guaranteed Building Replacement Cost" mean?</h5>
+                                <p>Guaranteed Building Replacement Cost is a valuable coverage option that ensures your home will be rebuilt to its original specifications even if the cost exceeds your policy limits. This provides protection against inflation, increased construction costs, or unforeseen expenses during rebuilding. It's particularly valuable for older homes or in areas where construction costs are rising rapidly.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>How often should I update my home insurance certificate?</h5>
+                                <p>You should update your home insurance certificate whenever there are significant changes to your policy, such as coverage amounts, policy renewal, change of insurance provider, or major home renovations that affect your home's value. Most mortgage lenders require an updated certificate annually or when your policy renews.</p>
+                            </div>
+                            
+                            <div class="faq-item">
+                                <h5>Why do mortgage lenders require home insurance certificates?</h5>
+                                <p>Mortgage lenders require home insurance certificates because they have a financial interest in your property. The certificate verifies that your home is adequately insured, protecting their investment in case of damage or destruction. Most lenders require that they be listed as a mortgagee on your policy, which ensures they're notified of any policy changes or cancellations.</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </div>
+
+            <!-- Right sidebar for ads -->
+            <div class="ad-sidebar ad-right">
+                <div class="ad-placeholder">
+                    <p>Advertisement Space</p>
+                </div>
+            </div>
+            
+            <!-- Bottom ad banner -->
+            <div class="ad-banner">
+                <div class="ad-placeholder banner">
+                    <p>Advertisement Banner</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="current-year"></span> Insurance Tools. All rights reserved. | <a href="../Privacy/privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Flatpickr configuration for effective date
+        const effectiveDatePicker = flatpickr("#effective-date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            disableMobile: true,
+            position: 'auto',
+            static: true,
+            appendTo: document.body,
+            onChange: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length > 0) {
+                    // Calculate expiry date (1 year from effective date)
+                    const expiryDate = new Date(selectedDates[0]);
+                    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                    
+                    // Update expiry date picker
+                    expiryDatePicker.setDate(expiryDate);
+                }
+            }
+        });
+        
+        // Flatpickr configuration for expiry date
+        const expiryDatePicker = flatpickr("#expiry-date", {
+            dateFormat: "Y-m-d",
+            allowInput: true,
+            altInput: true,
+            altFormat: "F j, Y",
+            disableMobile: true,
+            position: 'auto',
+            static: true,
+            appendTo: document.body
+        });
+
+        // Show/hide other insurer input
+        document.getElementById('insurer-select').addEventListener('change', function() {
+            const otherInsurer = document.getElementById('insurer');
+            otherInsurer.classList.toggle('hidden', this.value !== 'other');
+        });
+
+        // Show/hide other liability input
+        document.getElementById('liability-select').addEventListener('change', function() {
+            const otherInput = document.getElementById('liability');
+            otherInput.classList.toggle('hidden', this.value !== 'other');
+            if(this.value !== 'other') {
+                otherInput.value = this.value;
+            } else {
+                otherInput.value = ''; // 清空其他输入框
+            }
+        });
+
+        // Show/hide other deductible input
+        document.getElementById('deductible-select').addEventListener('change', function() {
+            const otherInput = document.getElementById('deductible');
+            otherInput.classList.toggle('hidden', this.value !== 'other');
+            if(this.value !== 'other') {
+                otherInput.value = this.value; // 自动填充选择的值
+            } else {
+                otherInput.value = ''; // 清空输入框
+            }
+        });
+
+        // Same address checkbox functionality
+        document.getElementById('same-address').addEventListener('change', function() {
+            const propertyAddress = document.getElementById('property-address');
+            const riskAddress = document.getElementById('risk-address');
+            
+            if(this.checked) {
+                riskAddress.value = propertyAddress.value;
+                riskAddress.disabled = true;
+            } else {
+                riskAddress.disabled = false;
+            }
+        });
+        
+        // Update risk address when insured location changes if checkbox is checked
+        document.getElementById('property-address').addEventListener('input', function() {
+            const sameAddress = document.getElementById('same-address');
+            const riskAddress = document.getElementById('risk-address');
+            
+            if(sameAddress.checked) {
+                riskAddress.value = this.value;
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // 在DOMContentLoaded事件中添加初始化代码
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化默认值
+            document.getElementById('liability-select').value = '2000000';
+            document.getElementById('deductible-select').value = '1000';
+            
+            // 触发所有相关事件
+            ['liability-select', 'deductible-select'].forEach(id => {
+                const element = document.getElementById(id);
+                element.dispatchEvent(new Event('change'));
+            });
+            
+            // 多抵押权人功能
+            const addMortgageeBtn = document.getElementById('add-mortgagee');
+            const mortgageeContainer = document.getElementById('mortgagee-container');
+            let mortgageeCount = 1;
+            
+            // 添加抵押权人
+            addMortgageeBtn.addEventListener('click', function() {
+                mortgageeCount++;
+                
+                // 最多允许3个抵押权人
+                if (mortgageeCount > 3) {
+                    alert('最多只能添加3个抵押权人');
+                    mortgageeCount = 3;
+                    return;
+                }
+                
+                const mortgageeItem = document.createElement('div');
+                mortgageeItem.className = 'mortgagee-item';
+                mortgageeItem.innerHTML = `
+                    <textarea id="mortgagee-${mortgageeCount}" class="form-input mortgagee-input" 
+                      placeholder="Enter mortgagee name and address (if applicable)" rows="3"></textarea>
+                    <p class="input-hint">First line for mortgagee name, following lines for address</p>
+                    <button type="button" class="remove-mortgagee" data-id="${mortgageeCount}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                mortgageeContainer.appendChild(mortgageeItem);
+                
+                // 为新添加的删除按钮添加事件
+                const removeBtn = mortgageeItem.querySelector('.remove-mortgagee');
+                removeBtn.addEventListener('click', removeMortgagee);
+                
+                // 如果已经达到最大数量，禁用添加按钮
+                if (mortgageeCount >= 3) {
+                    addMortgageeBtn.disabled = true;
+                }
+            });
+            
+            // 删除抵押权人
+            function removeMortgagee(e) {
+                const item = e.currentTarget.closest('.mortgagee-item');
+                mortgageeContainer.removeChild(item);
+                mortgageeCount--;
+                
+                // 移除后重新启用添加按钮
+                addMortgageeBtn.disabled = false;
+            }
+        });
+    </script>
+    <script src="home-coi.js"></script>
+    <script src="../../common/cookie-consent.js"></script>
+    <script src="../../common/how-to-use.js"></script>
+</body>
+</html> 
