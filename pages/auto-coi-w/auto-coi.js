@@ -275,7 +275,7 @@ function validateAndGenerateCertificate() {
     // Collect required fields (exclude mortgagee info if financeType is 'none')
     const requiredFields = [
         { value: namedInsured, name: 'Named Insured' },
-        { value: propertyAddress, name: 'Mailing Address' },
+        { value: propertyAddress, name: 'Insured Location' },
         { value: vehicleModel, name: 'Vehicle Model' },
         { value: vehicleVin, name: 'Vehicle VIN#' },
         { value: effectiveDate, name: 'Effective Date' },

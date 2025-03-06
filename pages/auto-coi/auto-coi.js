@@ -258,7 +258,7 @@ function validateAndGenerateCertificate() {
     // Collect required fields (exclude mortgagee info if financeType is 'none')
     const requiredFields = [
         { value: namedInsured, name: 'Named Insured' },
-        { value: propertyAddress, name: 'Mailing Address' },
+        { value: propertyAddress, name: 'Insured Location' },
         { value: vehicleModel, name: 'Vehicle Model' },
         { value: vehicleVin, name: 'Vehicle VIN#' },
         { value: effectiveDate, name: 'Effective Date' },
@@ -682,7 +682,7 @@ function printCertificate() {
                     --footer-top-margin: 40px;
                     --footer-padding: 15px 0;
                     --certificate-max-width: 900px;
-                    /* 签名样式变量已移至signature-styles.css */
+                    /* 签名样式变量已在signature-styles.css中定义 */
                 }
                 
                 body {
@@ -783,13 +783,7 @@ function printCertificate() {
                     color: #7f8c8d;
                 }
                 
-                /* .certificate-signature 样式已移至signature-styles.css */
-                
-                /* .signature-box 样式已移至signature-styles.css */
-                
-                /* .signature-label 样式已移至signature-styles.css */
-                
-                /* .signature-content 样式已移至signature-styles.css */
+                /* 签名样式已在signature-styles.css中定义 */
                 
                 @media print {
                     body {
@@ -834,12 +828,11 @@ function printCertificate() {
                 @font-face {
                     font-family: 'Cursive Font';
                     src: local('Brush Script MT'), 
+                         local('Dancing Script'), 
                          local('Segoe Script'), 
                          local('Bradley Hand'), 
                          local('Comic Sans MS');
                 }
-
-                /* .certificate-signature 样式已移至signature-styles.css */
             </style>
         </head>
         <body>
@@ -943,5 +936,5 @@ function generateSignature(name) {
     const randomRotation = Math.floor(Math.random() * 5) - 2;
     const rotationClass = `rotate-${randomRotation < 0 ? 'neg-' : 'pos-'}${Math.abs(randomRotation)}`;
     
-    return `<span class="dynamic-signature ${rotationClass}">${name}</span>`;
+    return `<span class="dynamic-signature handwritten ${rotationClass}">${name}</span>`;
 }
