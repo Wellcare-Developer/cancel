@@ -299,16 +299,13 @@ function generateCertificate() {
     const style = document.createElement('style');
     style.textContent = `
         :root {
-            --certificate-section-gap: 15px;
-            --certificate-row-gap: 8px;
-            --coverage-top-margin: 40px;
-            --coverage-bottom-margin: 20px;
-            --coverage-title-top-margin: 25px;
-            --coverage-title-bottom-margin: 15px;
-            --footer-top-margin: 40px;
+            --certificate-section-gap: 10px;
+            --certificate-row-gap: 2px;
+            --coverage-top-margin: 10px;
+            --coverage-bottom-margin: 10px;
+            --footer-top-margin: 20px;
             --footer-padding: 15px 0;
             --certificate-max-width: 900px;
-            /* 签名样式变量已移至signature-styles.css */
         }
         
         .certificate-preview {
@@ -322,7 +319,8 @@ function generateCertificate() {
         }
         
         .certificate-section {
-            margin-bottom: var(--certificate-section-gap);
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
         
         .certificate-row {
@@ -332,17 +330,6 @@ function generateCertificate() {
         
         .coverage-section {
             margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
-        }
-        
-        .coverage-section h3 {
-            margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            padding-bottom: 8px;
-            display: inline-block;
-            border-bottom: 1px solid #000000;
-            width: 50%;
         }
         
         .certificate-footer {
@@ -377,7 +364,31 @@ function generateCertificate() {
             background-color: #3182ce;
         }
         
-        /* 签名框样式已移至signature-styles.css */
+        .signature-section {
+            width: 300px;
+        }
+        
+        .signature-content {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        /* 移除所有可能导致空行的样式 */
+        .certificate-section + .certificate-section {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        /* 确保没有边距导致的空行 */
+        .certificate-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 移除可能的边框和填充 */
+        .certificate-section, .certificate-row {
+            border: none;
+            padding: 0;
+        }
     `;
     document.head.appendChild(style);
     
@@ -390,83 +401,81 @@ function generateCertificate() {
         </div>
         
         <div class="certificate-body" style="margin-top: 20px; position: relative;">
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section" style="margin-bottom: 0;">
                 <h2 style="text-align: center; font-size: 18px; margin-bottom: 10px; color: #333;">HOME INSURANCE CONFIRMATION</h2>
                 <p class="certificate-note" style="margin-bottom: 15px; text-align: left; font-style: normal; color: #333; font-size: 14px; line-height: 1.4;">
                 This is to certify that insurance on the property as herein described have been issued to the Insured(s) named below and are in force at this date.
                 </p>
                 
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Named Insured:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.namedInsured}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Property Address:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.propertyAddress}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Risk Address:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.riskAddress}</div>
                 </div>
             </div>
-            
-            <div class="certificate-section" style="margin-bottom: 25px;">
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+            <div class="certificate-section" style="margin-bottom: 0;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Insurer:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.insurer}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Policy Number:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.policyNumber}</div>
                 </div>
             </div>
-            
-            <div class="certificate-section" style="margin-bottom: 25px;">
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+            <div class="certificate-section" style="margin-bottom: 0;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Effective Date:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.effectiveDate}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Expiry Date:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.expiryDate}</div>
                 </div>
             </div>
-            
-            <div class="certificate-section coverage-section" style="margin-bottom: 25px;">
-                <h3 style="font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000000; display: inline-block; width: 50%;">Insurance Coverage</h3>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+            <div class="certificate-section" style="margin-bottom: 0;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Building Value:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.buildingValue)}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Liability:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.liability)}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Deductible:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.deductible)}</div>
                 </div>
                 ${formData.guaranteedReplacement ? `
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
-                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Guaranteed Replacement:</div>
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Guaranteed Building:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">Yes</div>
+                </div>
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Replacement Cost</div>
+                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;"></div>
                 </div>
                 ` : ''}
             </div>
-            
-            <div class="certificate-section" style="margin-bottom: 25px;">
+            <div class="certificate-section" style="margin-bottom: 0;">
                 ${formData.mortgageeInfos && formData.mortgageeInfos.length > 0 ? formData.mortgageeInfos.map((mortgageeInfo, index) => `
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Mortgagee:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px; white-space: pre-line;">${mortgageeInfo.name}</div>
                 </div>
-                <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
+                <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Mortgagee Address:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${mortgageeInfo.address}</div>
                 </div>
                 `).join('') : ''}
             </div>
-            
             <div class="certificate-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 15px;">
                 <div class="signature-section" style="width: 300px;">
                     <div class="signature-content" style="margin-bottom: 5px; text-align: center;">
@@ -536,7 +545,7 @@ function printCertificate() {
             <style>
                 body {
                     font-family: Arial, sans-serif;
-                    line-height: 1.6;
+                    line-height: 1.4;
                     color: #333;
                     margin: 0;
                     padding: 20px;
@@ -564,7 +573,7 @@ function printCertificate() {
                 }
                 
                 .certificate-row {
-                    margin-bottom: 4px;
+                    margin-bottom: 2px;
                     display: flex;
                     align-items: center;
                 }
@@ -585,7 +594,8 @@ function printCertificate() {
                 }
                 
                 .certificate-section {
-                    margin-bottom: 25px;
+                    margin-bottom: 0;
+                    padding-bottom: 0;
                 }
                 
                 .certificate-footer {
@@ -602,6 +612,23 @@ function printCertificate() {
                 .signature-content {
                     margin-bottom: 5px;
                     text-align: center;
+                }
+                
+                /* 移除所有可能导致空行的样式 */
+                .certificate-section + .certificate-section {
+                    margin-top: 0;
+                    padding-top: 0;
+                }
+                
+                /* 确保没有边距导致的空行 */
+                .certificate-row:last-child {
+                    margin-bottom: 0;
+                }
+                
+                /* 移除可能的边框和填充 */
+                .certificate-section, .certificate-row {
+                    border: none;
+                    padding: 0;
                 }
                 
                 .handwritten {
