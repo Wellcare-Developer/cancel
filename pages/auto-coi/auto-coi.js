@@ -164,38 +164,38 @@ Toronto, ON M5V 1A1`;
 
 // Initialize date pickers
 function initDatePickers() {
-    // Flatpickr configuration for effective date
+    // 简化日期选择器配置，使用字符串格式
     const effectiveDatePicker = flatpickr("#effective-date", {
-        dateFormat: "Y-m-d",
-        allowInput: true,
-        altInput: true,
-        altFormat: "F j, Y",
+        dateFormat: "Y-m-d", // 内部存储格式
+        altInput: true,      // 使用替代输入框显示格式化日期
+        altFormat: "F j, Y", // 用户友好的显示格式
         disableMobile: true,
         position: 'auto',
         static: true,
-        appendTo: document.body,
         onChange: function(selectedDates, dateStr, instance) {
             if (selectedDates.length > 0) {
-                // Calculate expiry date (1 year from effective date)
-                const expiryDate = new Date(selectedDates[0]);
-                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                // 直接使用字符串操作计算到期日期
+                const effectiveDate = dateStr; // 格式: YYYY-MM-DD
+                const [year, month, day] = effectiveDate.split('-').map(Number);
+                const expiryYear = year + 1;
                 
-                // Update expiry date picker
+                // 构建到期日期字符串
+                const expiryDate = `${expiryYear}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                
+                // 设置到期日期
                 expiryDatePicker.setDate(expiryDate);
             }
         }
     });
     
-    // Flatpickr configuration for expiry date
+    // 到期日期选择器
     const expiryDatePicker = flatpickr("#expiry-date", {
         dateFormat: "Y-m-d",
-        allowInput: true,
         altInput: true,
         altFormat: "F j, Y",
         disableMobile: true,
         position: 'auto',
-        static: true,
-        appendTo: document.body
+        static: true
     });
 }
 
@@ -215,8 +215,22 @@ function validateAndGenerateCertificate() {
     const vehicleModel = document.getElementById('vehicle-model').value.trim();
     const vehicleVin = document.getElementById('vehicle-vin').value.trim();
     
-    const effectiveDate = document.getElementById('effective-date').value.trim();
-    const expiryDate = document.getElementById('expiry-date').value.trim();
+    // 获取日期选择器实例
+    const effectiveDateInput = document.getElementById('effective-date');
+    const expiryDateInput = document.getElementById('expiry-date');
+    
+    // 获取日期选择器实例
+    const effectiveDateInstance = effectiveDateInput._flatpickr;
+    const expiryDateInstance = expiryDateInput._flatpickr;
+    
+    // 获取格式化的日期字符串（用于显示）
+    const effectiveDateFormatted = effectiveDateInstance ? 
+        effectiveDateInstance.formatDate(effectiveDateInstance.selectedDates[0], effectiveDateInstance.config.altFormat) : 
+        '';
+    
+    const expiryDateFormatted = expiryDateInstance ? 
+        expiryDateInstance.formatDate(expiryDateInstance.selectedDates[0], expiryDateInstance.config.altFormat) : 
+        '';
     
     // Get insurer
     let insurer = document.getElementById('insurer-select').value;
@@ -255,66 +269,43 @@ function validateAndGenerateCertificate() {
     // Get signature
     const signatureName = document.getElementById('signature-name').value.trim();
     
-    // Collect required fields (exclude mortgagee info if financeType is 'none')
+    // Validate required fields
     const requiredFields = [
-        { value: namedInsured, name: 'Named Insured' },
-        { value: propertyAddress, name: 'Insured Location' },
-        { value: vehicleModel, name: 'Vehicle Model' },
-        { value: vehicleVin, name: 'Vehicle VIN#' },
-        { value: effectiveDate, name: 'Effective Date' },
-        { value: expiryDate, name: 'Expiry Date' },
-        { value: insurer, name: 'Insurer' },
-        { value: policyNumber, name: 'Policy Number' },
-        { value: liability, name: 'Liability' },
-        { value: signatureName, name: 'Authorized Signature Name' }
+        { value: namedInsured, name: '被保险人' },
+        { value: propertyAddress, name: '邮寄地址' },
+        { value: vehicleModel, name: '车辆型号' },
+        { value: vehicleVin, name: '车辆VIN码' },
+        { value: effectiveDateFormatted, name: '生效日期' },
+        { value: expiryDateFormatted, name: '到期日期' },
+        { value: insurer, name: '保险公司' },
+        { value: policyNumber, name: '保单号码' },
+        { value: liability, name: '责任限额' },
+        { value: signatureName, name: '授权签名' }
     ];
     
-    // 根据所选保险类型添加不同的验证字段
-    if (deductibleType === 'all-perils') {
-        requiredFields.push({ value: deductible, name: 'All Perils Deductible' });
-    } else {
-        requiredFields.push({ value: collisionDeductible, name: 'Collision Deductible' });
-        requiredFields.push({ value: comprehensiveDeductible, name: 'Comprehensive Deductible' });
-    }
-    
-    // 如果选择了lessor或finance，则添加mortgagee信息验证
-    if(financeType !== 'none') {
-        if(!mortgageeText) {
-            alert(`Please fill in the Lessor/Finance Info field`);
-            return;
-        }
-        if(!mortgageeInfo.name) {
-            alert(`Please provide a valid name in the Lessor/Finance Info field`);
-            return;
-        }
-    }
-    
-    // Check for empty fields
+    // 检查空字段
     const emptyFields = requiredFields.filter(field => !field.value);
     if (emptyFields.length > 0) {
         const fieldNames = emptyFields.map(field => field.name).join(', ');
-        alert(`Please fill in the following required fields: ${fieldNames}`);
+        alert(`请填写以下必填字段: ${fieldNames}`);
         return;
     }
     
-    // Validate date format and logic
-    const effectiveDateTime = new Date(effectiveDate);
-    const expiryDateTime = new Date(expiryDate);
-    
-    if (isNaN(effectiveDateTime.getTime())) {
-        alert('Please enter a valid effective date');
-        return;
+    // 验证日期逻辑
+    if (effectiveDateInstance && expiryDateInstance) {
+        const effectiveDate = effectiveDateInstance.selectedDates[0];
+        const expiryDate = expiryDateInstance.selectedDates[0];
+        
+        if (effectiveDate >= expiryDate) {
+            alert('到期日期必须晚于生效日期');
+            return;
+        }
     }
     
-    if (isNaN(expiryDateTime.getTime())) {
-        alert('Please enter a valid expiry date');
-        return;
-    }
-    
-    if (effectiveDateTime >= expiryDateTime) {
-        alert('Expiry date must be later than effective date');
-        return;
-    }
+    // 获取当前日期的格式化字符串（用于签名日期）
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const signedDate = today.toLocaleDateString('en-US', options);
     
     // Save form data
     formData = {
@@ -325,15 +316,16 @@ function validateAndGenerateCertificate() {
         deductibleType, // 保存保险类型
         vehicleModel,
         vehicleVin,
-        effectiveDate: formatDate(effectiveDateTime),
-        expiryDate: formatDate(expiryDateTime),
+        effectiveDate: effectiveDateFormatted,
+        expiryDate: expiryDateFormatted,
         insurer,
         policyNumber,
         liability,
         deductible,
         collisionDeductible,
         comprehensiveDeductible,
-        signatureName
+        signatureName,
+        signedDate
     };
     
     // Generate certificate
@@ -351,12 +343,6 @@ function parseMortgageeInfo(mortgageeText) {
     const address = lines.slice(1).join(', ').trim();
     
     return { name, address };
-}
-
-// Format date to more readable format
-function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
 }
 
 // Format currency
@@ -617,7 +603,7 @@ function generateCertificate() {
             
             <div class="certificate-footer">
                 <div class="certificate-date" style="font-size: 14px; color: #7f8c8d; min-width: 200px;">
-                    Signed Date: ${new Date().toLocaleDateString('en-US')}
+                    Signed Date: ${formData.signedDate}
                 </div>
                 
                 <div class="certificate-signature">
@@ -671,167 +657,17 @@ function printCertificate() {
         <head>
             <title>AUTO INSURANCE CONFIRMATION - ${formData.namedInsured}</title>
             <link rel="stylesheet" href="../../common/signature-styles.css">
+            <link rel="stylesheet" href="../../common/pdf-form.css">
             <style>
-                :root {
-                    --certificate-section-gap: 15px;
-                    --certificate-row-gap: 8px;
-                    --coverage-top-margin: 40px;
-                    --coverage-bottom-margin: 20px;
-                    --coverage-title-top-margin: 25px;
-                    --coverage-title-bottom-margin: 15px;
-                    --footer-top-margin: 40px;
-                    --footer-padding: 15px 0;
-                    --certificate-max-width: 900px;
-                    /* 签名样式变量已在signature-styles.css中定义 */
-                }
-                
-                body {
-                    font-family: Arial, sans-serif;
-                    line-height: 1.5;
-                    color: #333;
-                    margin: 0;
-                    padding: 15px;
-                }
-                
-                .certificate-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 20px;
-                    border-bottom: 2px solid #2c3e50;
-                    padding-bottom: 10px;
-                }
-                
-                .logo-image {
-                    max-width: 200px;
-                    max-height: 80px;
-                }
-                
-                .certificate-title {
-                    text-align: right;
-                }
-                
-                .certificate-title h2 {
-                    font-size: 20px;
-                    font-weight: 600;
-                    color: #2c3e50;
-                    margin-bottom: 8px;
-                }
-                
-                .certificate-title h3 {
-                    font-size: 14px;
-                    color: #7f8c8d;
-                    margin: 4px 0;
-                }
-                
-                .certificate-section {
-                    margin-bottom: var(--certificate-section-gap);
-                }
-                
-                .certificate-row {
-                    display: flex;
-                    margin-bottom: var(--certificate-row-gap);
-                }
-                
-                .certificate-label {
-                    font-weight: 600;
-                    color: #34495e;
-                    width: 200px;
-                    flex-shrink: 0;
-                    font-size: 14px;
-                }
-                
-                .certificate-value {
-                    color: #2c3e50;
-                    font-weight: 500;
-                    font-size: 14px;
-                }
-                
-                .coverage-section {
-                    margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
-                }
-                
-                .coverage-section h3 {
-                    margin: var(--coverage-title-top-margin) 0 var(--coverage-title-bottom-margin);
-                    font-size: 16px;
-                    font-weight: 600;
-                    color: #2c3e50;
-                    padding-bottom: 8px;
-                    display: inline-block;
-                    border-bottom: 1px solid #000000;
-                    width: 50%;
-                }
-                
-                .certificate-note {
-                    font-size: 12px;
-                    font-style: italic;
-                    color: #7f8c8d;
-                    margin: 5px 0;
-                }
-                
-                .certificate-footer {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-end;
-                    margin-top: var(--footer-top-margin);
-                    padding: var(--footer-padding);
-                }
-                
-                .certificate-date {
-                    min-width: 200px;
-                    font-size: 14px;
-                    color: #7f8c8d;
-                }
-                
-                /* 签名样式已在signature-styles.css中定义 */
-                
                 @media print {
                     body {
                         padding: 0;
                         margin: 0;
                     }
                     
-                    .calculator-inputs {
-                        display: none !important;
-                    }
-                    
-                    .calculator-results {
-                        flex: 1 0 100% !important;
-                        max-width: 100% !important;
-                        width: 100% !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
-                    }
-                    
-                    .calculator-container {
-                        display: block !important;
-                        width: 100% !important;
-                    }
-                    
-                    .certificate-preview {
-                        border: none !important;
-                        box-shadow: none !important;
-                        padding: 0 !important;
-                        margin: 0 !important;
-                        max-width: 100% !important;
-                    }
-                    
-                    .results-header, .download-options {
-                        display: none !important;
-                    }
-                    
                     @page {
                         margin: 1cm;
                     }
-                }
-
-                @font-face {
-                    font-family: 'Cursive Font';
-                    src: local('Brush Script MT'), 
-                         local('Dancing Script'), 
-                         local('Segoe Script'), 
-                         local('Bradley Hand'), 
-                         local('Comic Sans MS');
                 }
             </style>
         </head>
@@ -843,9 +679,15 @@ function printCertificate() {
     
     printWindow.document.close();
     
-    // Properly handle image loading before printing
-    const handlePrint = () => {
-        printWindow.focus(); // Focus ensures better printing support across browsers
+    // 处理打印
+    handlePrintWithImages(printWindow);
+}
+
+// 处理带图片的打印
+function handlePrintWithImages(printWindow) {
+    // 打印函数
+    const doPrint = () => {
+        printWindow.focus();
         printWindow.print();
     };
     
@@ -854,50 +696,47 @@ function printCertificate() {
     
     if (images.length === 0) {
         // 没有图片，直接打印
-        handlePrint();
-    } else {
-        let loadedImages = 0;
-        const totalImages = images.length;
-        
-        // 预加载所有图片
-        images.forEach(img => {
-            // 如果图片已经加载完成
-            if (img.complete) {
-                loadedImages++;
-                // 当所有图片都加载完成时打印
-                if (loadedImages === totalImages) {
-                    handlePrint();
-                }
-            } else {
-                // 添加图片加载事件
-                img.addEventListener('load', () => {
-                    loadedImages++;
-                    // 当所有图片都加载完成时打印
-                    if (loadedImages === totalImages) {
-                        handlePrint();
-                    }
-                });
-                
-                // 添加图片加载错误处理
-                img.addEventListener('error', () => {
-                    loadedImages++;
-                    console.error('Image failed to load:', img.src);
-                    // 即使图片加载失败也继续打印
-                    if (loadedImages === totalImages) {
-                        handlePrint();
-                    }
-                });
-            }
-        });
-        
-        // 添加超时保护，避免无限等待
-        setTimeout(() => {
-            if (loadedImages < totalImages) {
-                console.warn('Not all images loaded after timeout, printing anyway');
-                handlePrint();
-            }
-        }, 3000); // 3秒超时
+        doPrint();
+        return;
     }
+    
+    // 有图片，等待图片加载完成
+    let loadedImages = 0;
+    const totalImages = images.length;
+    
+    // 设置超时保护
+    const timeoutId = setTimeout(() => {
+        console.warn('图片加载超时，继续打印');
+        doPrint();
+    }, 3000);
+    
+    // 监听图片加载
+    images.forEach(img => {
+        if (img.complete) {
+            loadedImages++;
+            if (loadedImages === totalImages) {
+                clearTimeout(timeoutId);
+                doPrint();
+            }
+        } else {
+            img.addEventListener('load', () => {
+                loadedImages++;
+                if (loadedImages === totalImages) {
+                    clearTimeout(timeoutId);
+                    doPrint();
+                }
+            });
+            
+            img.addEventListener('error', () => {
+                console.error('图片加载失败:', img.src);
+                loadedImages++;
+                if (loadedImages === totalImages) {
+                    clearTimeout(timeoutId);
+                    doPrint();
+                }
+            });
+        }
+    });
 }
 
 // 返回表单页面
