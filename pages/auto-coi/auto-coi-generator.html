@@ -29,6 +29,45 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     
     <style>
+        /* 确保证书行在页面中保持左右排列 */
+        .certificate-row {
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 8px;
+        }
+        
+        .certificate-label {
+            font-weight: 600;
+            color: #34495e;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .certificate-value {
+            flex-grow: 1;
+        }
+        
+        /* 确保证书头部在页面中保持左右排列 */
+        .certificate-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+        }
+        
+        .certificate-logo {
+            max-width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .certificate-title {
+            text-align: right;
+            flex-grow: 1;
+        }
+        
         /* 单选按钮样式 */
         .radio-group {
             display: flex;

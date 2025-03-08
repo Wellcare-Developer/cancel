@@ -520,85 +520,99 @@ function generateCertificate() {
                 This binder is valid for 365 days from the effective date.
                 <br>Terms and conditions are to be governed by actual policy issued by the insurer.
                 </p>
-                <div class="certificate-row">
-                    <div class="certificate-label">Named Insured:</div>
-                    <div class="certificate-value">${formData.namedInsured}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Named Insured:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.namedInsured}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Mailing Address:</div>
-                    <div class="certificate-value">${formData.propertyAddress}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Insured Location:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.propertyAddress}</div>
                 </div>
             </div>
             
             <div class="certificate-section vehicle-section">
-                <div class="certificate-row">
-                    <div class="certificate-label">Vehicle Model:</div>
-                    <div class="certificate-value">${formData.vehicleModel}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Vehicle Model:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.vehicleModel}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Vehicle VIN#:</div>
-                    <div class="certificate-value">${formData.vehicleVin}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Vehicle VIN#:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.vehicleVin}</div>
                 </div>
                 ${formData.financeType !== 'none' && formData.mortgageeInfo.name ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">${formData.financeType === 'lessor' ? 'Lessor:' : 'lienholder:'}</div>
-                    <div class="certificate-value">${formData.mortgageeInfo.name}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">${formData.financeType === 'lessor' ? 'Lessor:' : 'lienholder:'}</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.mortgageeInfo.name}</div>
                 </div>
                 ` : ''}
                 ${formData.financeType !== 'none' && formData.mortgageeInfo.address ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">${formData.financeType === 'lessor' ? 'Lessor Address:' : 'lienholder Address:'}</div>
-                    <div class="certificate-value">${formData.mortgageeInfo.address}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">${formData.financeType === 'lessor' ? 'Lessor Address:' : 'lienholder Address:'}</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.mortgageeInfo.address}</div>
                 </div>
                 ` : ''}
             </div>
             
             <div class="certificate-section">
-                <div class="certificate-row">
-                    <div class="certificate-label">Insurance Company:</div>
-                    <div class="certificate-value">${formData.insurer}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Insurance Company:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.insurer}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Policy Number:</div>
-                    <div class="certificate-value">${formData.policyNumber}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Policy Number:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.policyNumber}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Effective Date:</div>
-                    <div class="certificate-value">${formData.effectiveDate}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Effective Date:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.effectiveDate}</div>
                 </div>
-                <div class="certificate-row">
-                    <div class="certificate-label">Expiry Date:</div>
-                    <div class="certificate-value">${formData.expiryDate}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Expiry Date:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formData.expiryDate}</div>
                 </div>
             </div>
             
             <div class="certificate-section coverage-section">
                 <h3>Insurance Coverage</h3>
                 
-                <div class="certificate-row">
-                    <div class="certificate-label">Liability:</div>
-                    <div class="certificate-value">${formatCurrency(formData.liability)}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Liability:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formatCurrency(formData.liability)}</div>
                 </div>
                 
                 ${formData.deductibleType === 'all-perils' ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">All Perils Deductible:</div>
-                    <div class="certificate-value">${formatCurrency(formData.deductible)}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">All Perils Deductible:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formatCurrency(formData.deductible)}</div>
                 </div>
                 ` : `
                 ${formData.collisionDeductible ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">Collision Deductible:</div>
-                    <div class="certificate-value">${formatCurrency(formData.collisionDeductible)}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Collision Deductible:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formatCurrency(formData.collisionDeductible)}</div>
                 </div>
                 ` : ''}
                 ${formData.comprehensiveDeductible ? `
-                <div class="certificate-row">
-                    <div class="certificate-label">Comprehensive Deductible:</div>
-                    <div class="certificate-value">${formatCurrency(formData.comprehensiveDeductible)}</div>
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Comprehensive Deductible:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">${formatCurrency(formData.comprehensiveDeductible)}</div>
                 </div>
                 ` : ''}
                 `}
+                
+                ${formData.financeType === 'lessor' ? `
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Additional Coverage:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">OPCF 5 - Permission to Rent or Lease</div>
+                </div>
+                ` : ''}
+                
+                ${formData.financeType === 'finance' ? `
+                <div class="certificate-row" style="display: flex; flex-direction: row; margin-bottom: 8px;">
+                    <div class="certificate-label" style="font-weight: 600; color: #34495e; width: 200px; flex-shrink: 0;">Additional Coverage:</div>
+                    <div class="certificate-value" style="flex-grow: 1;">OPCF 23A - Lienholder Protection</div>
+                </div>
+                ` : ''}
             </div>
             
             <div class="certificate-footer">
@@ -659,10 +673,67 @@ function printCertificate() {
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <link rel="stylesheet" href="../../common/pdf-form.css">
             <style>
+                /* 确保在打印时保持左右排列 */
+                .certificate-row {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    margin-bottom: 8px !important;
+                }
+                
+                .certificate-label {
+                    font-weight: 600 !important;
+                    color: #34495e !important;
+                    width: 200px !important;
+                    flex-shrink: 0 !important;
+                }
+                
+                .certificate-value {
+                    flex-grow: 1 !important;
+                }
+                
+                /* 确保证书头部在打印时也保持左右排列 */
+                .certificate-header {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    margin-bottom: 20px !important;
+                    border-bottom: 2px solid #2c3e50 !important;
+                    padding-bottom: 10px !important;
+                }
+                
+                .certificate-logo {
+                    max-width: 200px !important;
+                    flex-shrink: 0 !important;
+                }
+                
+                .certificate-title {
+                    text-align: right !important;
+                    flex-grow: 1 !important;
+                }
+                
                 @media print {
                     body {
                         padding: 0;
                         margin: 0;
+                    }
+                    
+                    /* 确保在打印时保持左右排列 */
+                    .certificate-row {
+                        display: flex !important;
+                        flex-direction: row !important;
+                        margin-bottom: 8px !important;
+                    }
+                    
+                    .certificate-label {
+                        font-weight: 600 !important;
+                        color: #34495e !important;
+                        width: 200px !important;
+                        flex-shrink: 0 !important;
+                    }
+                    
+                    .certificate-value {
+                        flex-grow: 1 !important;
                     }
                     
                     @page {

@@ -26,6 +26,7 @@
 /* 证书头部样式 */
 .certificate-header {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
@@ -35,6 +36,7 @@
 
 .certificate-logo {
     max-width: 200px;
+    flex-shrink: 0;
 }
 
 .logo-image {
@@ -44,6 +46,7 @@
 
 .certificate-title {
     text-align: right;
+    flex-grow: 1;
 }
 
 .certificate-title h2 {
@@ -70,11 +73,13 @@
 
 .certificate-row {
     display: flex;
-    margin-bottom: 10px;
+    flex-direction: row;
+    margin-bottom: 8px;
 }
 
 .certificate-label {
-    font-weight: bold;
+    font-weight: 600;
+    color: #34495e;
     width: 200px;
     flex-shrink: 0;
 }
@@ -189,13 +194,26 @@
 /* 响应式样式 */
 @media (max-width: 768px) {
     .certificate-header {
-        flex-direction: column;
-        align-items: flex-start;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .certificate-logo {
+        max-width: 120px;
     }
     
     .certificate-title {
-        text-align: left;
-        margin-top: 10px;
+        text-align: right;
+        margin-top: 0;
+    }
+    
+    .certificate-title h2 {
+        font-size: 16px;
+    }
+    
+    .certificate-title h3 {
+        font-size: 12px;
     }
     
     .certificate-row {
