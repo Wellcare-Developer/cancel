@@ -186,7 +186,7 @@ function initDatePickers() {
         dateFormat: "Y-m-d",
         allowInput: true,
         altInput: true,
-        altFormat: "F j, Y",
+        altFormat: "F j, Y", // 用户友好的显示格式：例如 March 8, 2023
         disableMobile: true,
         position: 'auto',
         static: true,
@@ -208,7 +208,7 @@ function initDatePickers() {
         dateFormat: "Y-m-d",
         allowInput: true,
         altInput: true,
-        altFormat: "F j, Y",
+        altFormat: "F j, Y", // 用户友好的显示格式：例如 March 8, 2023
         disableMobile: true,
         position: 'auto',
         static: true,
@@ -333,6 +333,14 @@ function validateAndGenerateCertificate() {
         return;
     }
     
+    // 获取当前日期的格式化字符串（用于签名日期）
+    const today = new Date();
+    const signedDate = formatDate(today);
+    
+    // 直接使用原始的日期字符串进行格式化，避免时区问题
+    const formattedEffectiveDate = formatDate(effectiveDate);
+    const formattedExpiryDate = formatDate(expiryDate);
+    
     // Save form data
     formData = {
         namedInsured,
@@ -342,15 +350,17 @@ function validateAndGenerateCertificate() {
         deductibleType, // 保存保险类型
         vehicleModel,
         vehicleVin,
-        effectiveDate: formatDate(effectiveDateTime),
-        expiryDate: formatDate(expiryDateTime),
+        // 使用格式化后的日期字符串
+        effectiveDate: formattedEffectiveDate,
+        expiryDate: formattedExpiryDate,
         insurer,
         policyNumber,
         liability,
         deductible,
         collisionDeductible,
         comprehensiveDeductible,
-        signatureName
+        signatureName,
+        signedDate
     };
     
     // Generate certificate
@@ -372,8 +382,51 @@ function parseMortgageeInfo(mortgageeText) {
 
 // Format date to more readable format
 function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
+    // 直接使用字符串格式化，避免时区问题
+    if (typeof date === 'string') {
+        // 如果已经是格式化的字符串，直接返回
+        if (date.includes(',')) {
+            return date;
+        }
+        
+        // 如果是YYYY-MM-DD格式，解析并格式化
+        const parts = date.split('-');
+        if (parts.length === 3) {
+            const year = parts[0];
+            const month = parseInt(parts[1], 10);
+            const day = parseInt(parts[2], 10);
+            
+            // 月份名称数组
+            const monthNames = [
+                'January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            
+            return `${monthNames[month-1]} ${day}, ${year}`;
+        }
+    }
+    
+    // 如果是Date对象，使用UTC方法避免时区问题
+    if (date instanceof Date) {
+        if (isNaN(date.getTime())) {
+            return '';
+        }
+        
+        // 使用UTC方法获取年月日，避免时区问题
+        const year = date.getUTCFullYear();
+        const month = date.getUTCMonth(); // 0-11
+        const day = date.getUTCDate();
+        
+        // 月份名称数组
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+        
+        return `${monthNames[month]} ${day}, ${year}`;
+    }
+    
+    return '';
 }
 
 // Format currency
@@ -567,7 +620,7 @@ function generateCertificate() {
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.namedInsured}</div>
                 </div>
                 <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
-                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Mailing Address:</div>
+                    <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Insured Location:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.propertyAddress}</div>
                 </div>
             </div>
@@ -583,16 +636,18 @@ function generateCertificate() {
                 </div>
             </div>
             
-            ${formData.mortgageeInfo ? `
+            ${formData.financeType !== 'none' && formData.mortgageeInfo && formData.mortgageeInfo.name ? `
             <div class="certificate-section" style="margin-bottom: 8px;">
                 <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">${formData.financeType === 'lessor' ? 'Lessor:' : 'Finance Company:'}</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.mortgageeInfo.name}</div>
                 </div>
+                ${formData.mortgageeInfo.address ? `
                 <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Address:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.mortgageeInfo.address}</div>
                 </div>
+                ` : ''}
             </div>
             ` : ''}
             
@@ -610,11 +665,11 @@ function generateCertificate() {
             <div class="certificate-section" style="margin-bottom: 8px;">
                 <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Effective Date:</div>
-                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.effectiveDate}</div>
+                    <div class="certificate-value certificate-date-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.effectiveDate}</div>
                 </div>
                 <div class="certificate-row" style="margin-bottom: 4px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Expiry Date:</div>
-                    <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.expiryDate}</div>
+                    <div class="certificate-value certificate-date-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.expiryDate}</div>
                 </div>
             </div>
             
@@ -671,7 +726,7 @@ function generateCertificate() {
                         <strong style="font-weight: 700; color: #000;">Authorized Representative:</strong> <span style="font-weight: 600;">${formData.signatureName}</span>
                     </div>
                     <div style="font-size: 12px; color: #666; margin-top: 3px; text-align: center;">
-                        Date: ${new Date().toLocaleDateString()}
+                        Date: ${formData.signedDate}
                     </div>
                 </div>
                 <div class="wellcare-bot" style="margin-bottom: 10px;">
@@ -726,6 +781,7 @@ function printCertificate() {
         <html>
         <head>
             <title>AUTO INSURANCE CONFIRMATION</title>
+            <link rel="stylesheet" href="css/auto-coi-custom.css">
             <style>
                 body {
                     font-family: Arial, sans-serif;
@@ -736,119 +792,56 @@ function printCertificate() {
                     padding: 20px;
                 }
                 
-                .certificate-body {
-                    position: relative;
-                }
-                
-                .certificate-section {
-                    margin-bottom: 15px;
-                }
-                
-                .certificate-row {
-                    display: flex;
-                    margin-bottom: 4px;
-                }
-                
-                .certificate-footer {
-                    margin-top: 15px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: flex-end;
-                }
-                
                 @media print {
                     body {
                         padding: 0;
                         margin: 0;
                     }
                     
-                    .certificate-header {
-                        margin-bottom: 15px;
-                    }
-                    
-                    .certificate-section {
-                        margin-bottom: 6px;
-                    }
-                    
-                    .certificate-footer {
-                        margin-top: 15px;
-                        page-break-inside: avoid;
-                    }
-                    
-                    .wellcare-bot img {
-                        width: 230px;
-                    }
-                    
                     @page {
-                        margin: 1.5cm;
-                        size: letter;
+                        margin: 1cm;
                     }
+                }
+                
+                /* 确保打印时保持样式一致 */
+                .certificate-row {
+                    display: flex !important;
+                    align-items: center !important;
+                    margin-bottom: 4px !important;
+                }
+                
+                .certificate-label {
+                    width: 180px !important;
+                    font-weight: 600 !important;
+                    color: #34495e !important;
+                    padding-right: 15px !important;
+                    text-align: right !important;
+                }
+                
+                .certificate-value {
+                    flex: 1 !important;
+                    color: #2c3e50 !important;
+                    font-weight: 500 !important;
+                    padding-left: 10px !important;
+                }
+                
+                /* 确保日期在打印时正确显示 */
+                .certificate-date-value {
+                    font-weight: 500 !important;
+                    color: #2c3e50 !important;
                 }
             </style>
         </head>
         <body>
-            ${certificatePreview.innerHTML}
+            ${certificateHtml}
         </body>
         </html>
     `);
     
     printWindow.document.close();
     
-    // Properly handle image loading before printing
-    const handlePrint = () => {
-        printWindow.focus(); // Focus ensures better printing support across browsers
-        printWindow.print();
-    };
-    
-    // 检查打印窗口中是否有图片
-    const images = printWindow.document.querySelectorAll('img');
-    
-    if (images.length === 0) {
-        // 没有图片，直接打印
-        handlePrint();
-    } else {
-        let loadedImages = 0;
-        const totalImages = images.length;
-        
-        // 预加载所有图片
-        images.forEach(img => {
-            // 如果图片已经加载完成
-            if (img.complete) {
-                loadedImages++;
-                // 当所有图片都加载完成时打印
-                if (loadedImages === totalImages) {
-                    handlePrint();
-                }
-            } else {
-                // 添加图片加载事件
-                img.addEventListener('load', () => {
-                    loadedImages++;
-                    // 当所有图片都加载完成时打印
-                    if (loadedImages === totalImages) {
-                        handlePrint();
-                    }
-                });
-                
-                // 添加图片加载错误处理
-                img.addEventListener('error', () => {
-                    loadedImages++;
-                    console.error('Image failed to load:', img.src);
-                    // 即使图片加载失败也继续打印
-                    if (loadedImages === totalImages) {
-                        handlePrint();
-                    }
-                });
-            }
-        });
-        
-        // 添加超时保护，避免无限等待
-        setTimeout(() => {
-            if (loadedImages < totalImages) {
-                console.warn('Not all images loaded after timeout, printing anyway');
-                handlePrint();
-            }
-        }, 3000); // 3秒超时
-    }
+    // 处理打印
+    handlePrintWithImages(printWindow);
 }
 
 // 返回表单页面
@@ -902,4 +895,69 @@ function generateSignature(name) {
             ">${name}</span>
         </div>
     `;
+}
+
+// 添加handlePrintWithImages函数
+function handlePrintWithImages(printWindow) {
+    // 确保窗口已经加载完成
+    if (!printWindow || !printWindow.document) {
+        console.error('Print window not available');
+        return;
+    }
+    
+    // 处理打印
+    const doPrint = () => {
+        printWindow.focus(); // 聚焦窗口
+        setTimeout(() => {
+            printWindow.print(); // 调用打印
+        }, 500); // 短暂延迟确保UI更新
+    };
+    
+    // 检查是否有图片需要加载
+    const images = printWindow.document.querySelectorAll('img');
+    
+    if (images.length === 0) {
+        // 没有图片，直接打印
+        doPrint();
+    } else {
+        // 有图片，等待图片加载完成
+        let loadedImages = 0;
+        const totalImages = images.length;
+        
+        // 为每个图片添加加载事件
+        images.forEach(img => {
+            if (img.complete) {
+                // 图片已加载
+                loadedImages++;
+                if (loadedImages === totalImages) {
+                    doPrint();
+                }
+            } else {
+                // 图片正在加载
+                img.addEventListener('load', () => {
+                    loadedImages++;
+                    if (loadedImages === totalImages) {
+                        doPrint();
+                    }
+                });
+                
+                // 图片加载失败
+                img.addEventListener('error', () => {
+                    loadedImages++;
+                    console.error('Image failed to load:', img.src);
+                    if (loadedImages === totalImages) {
+                        doPrint();
+                    }
+                });
+            }
+        });
+        
+        // 添加超时保护，避免无限等待
+        setTimeout(() => {
+            if (loadedImages < totalImages) {
+                console.warn('Not all images loaded after timeout, printing anyway');
+                doPrint();
+            }
+        }, 3000); // 3秒超时
+    }
 }

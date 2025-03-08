@@ -1,0 +1,29 @@
+/* 自定义样式，解决日期显示问题 */
+
+/* 确保日期选择器显示正确的日期 */
+.flatpickr-input {
+    z-index: 1;
+}
+
+/* 修复日期选择器的样式 */
+.flatpickr-calendar {
+    box-shadow: 0 3px 13px rgba(0, 0, 0, 0.08);
+}
+
+/* 确保日期输入框的样式一致 */
+.date-picker {
+    background-color: #fff !important;
+}
+
+/* 确保日期在证书中正确显示 */
+.certificate-date-value {
+    font-weight: 500 !important;
+    color: #2c3e50 !important;
+}
+
+/* 打印时确保日期正确显示 */
+@media print {
+    .certificate-date-value {
+        color: #000 !important;
+    }
+} 
