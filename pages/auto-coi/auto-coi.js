@@ -470,332 +470,137 @@ function generateCertificate() {
     emptyState.classList.add('hidden');
     certificateContent.classList.remove('hidden');
     
-    // 更新结果标题样式
-    const resultsHeader = document.querySelector('.results-header');
-    if (resultsHeader) {
-        resultsHeader.style.cssText = `
-            text-align: center;
-            margin-bottom: 20px;
-            padding: 10px 0;
-            border-bottom: 1px solid #e2e8f0;
-        `;
-        resultsHeader.querySelector('h4').style.cssText = `
-            font-size: 18px;
-            color: #2d3748;
-            margin: 0;
-        `;
-    }
-    
     // 更新按钮文本，确保显示正确
     copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Certificate</span>';
     
-    // 添加样式使证书内容更美观
-    const style = document.createElement('style');
-    style.textContent = `
-        :root {
-            --certificate-section-gap: 15px;
-            --certificate-row-gap: 8px;
-            --coverage-top-margin: 40px;
-            --coverage-bottom-margin: 20px;
-            --coverage-title-top-margin: 25px;
-            --coverage-title-bottom-margin: 15px;
-            --footer-top-margin: 40px;
-            --footer-padding: 15px 0;
-            --certificate-max-width: 900px;
-            /* 签名样式变量已移至signature-styles.css */
-        }
-        
-        .certificate-preview {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 25px;
-            background-color: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin: 20px auto;
-            max-width: var(--certificate-max-width);
-        }
-        
-        .certificate-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 0;
-        }
-        
-        .logo-image {
-            max-width: 200px;
-            max-height: 80px;
-        }
-        
-        .certificate-title {
-            text-align: right;
-        }
-        
-        .certificate-section {
-            margin-bottom: var(--certificate-section-gap);
-        }
-        
-        .certificate-row {
-            display: flex;
-            margin-bottom: var(--certificate-row-gap);
-        }
-        
-        .certificate-label {
-            font-weight: 600;
-            color: #34495e;
-            width: 200px;
-            flex-shrink: 0;
-        }
-        
-        .certificate-value {
-            color: #2c3e50;
-        }
-        
-        .coverage-section {
-            margin-top: var(--coverage-top-margin);
-        }
-        
-        .coverage-section h3 {
-            margin-bottom: var(--coverage-title-bottom-margin);
-            color: #2c3e50;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 8px;
-            display: inline-block;
-            width: 50%;
-        }
-        
-        .certificate-footer {
-            margin-top: var(--footer-top-margin);
-            padding: var(--footer-padding);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-        }
-        
-        .results-header {
-            margin-bottom: 20px;
-        }
-        
-        .download-options {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .secondary-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .secondary-button:hover {
-            background-color: #3182ce;
-        }
-        
-        /* 签名框样式已移至signature-styles.css */
-        
-        /* 确保责任险金额正确显示 */
-        .certificate-row .certificate-value[style*="text-align: right"] {
-            width: 120px !important;
-            text-align: right !important;
-            flex: 0 0 auto !important;
-        }
-        
-        /* 确保Coverage部分正确显示 */
-        .certificate-value[style*="text-indent: 20px"] {
-            text-indent: 20px !important;
-        }
-        
-        /* 确保Coverage金额靠左对齐 */
-        .certificate-row .certificate-value[style*="width: 100px"] {
-            width: 100px !important;
-            text-align: left !important;
-            flex: 0 0 auto !important;
-        }
-        
-        /* 确保Coverage项目名称对齐 */
-        .certificate-row .certificate-value[style*="width: 200px"] {
-            width: 200px !important;
-            flex: 0 0 auto !important;
-        }
-        
-        /* 确保签名部分正确显示 */
-        .signature-content {
-            text-align: center !important;
-        }
-        
-        .handwritten {
-            font-family: 'Brush Script MT', 'Dancing Script', cursive !important;
-            font-size: 28px !important;
-            color: #000080 !important;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.15) !important;
-            line-height: 1.2 !important;
-            letter-spacing: 1px !important;
-            position: relative !important;
-            display: inline-block !important;
-            padding: 0 5px !important;
-        }
-        
-        .signature-style {
-            text-align: center !important;
-        }
-        
-        .signature-section > div:last-child {
-            text-align: center !important;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Create certificate HTML
+    // 创建证书HTML - 与打印版保持一致的表格布局
     const certificateHTML = `
-        <div class="certificate-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 0;">
-            <div class="certificate-logo" style="width: 40%;">
-                <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo" class="logo-image" style="max-width: 200px; height: auto;">
+        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 20px auto; max-width: 800px;">
+            <!-- 页眉 -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;">
+                <div style="max-width: 50%;">
+                    <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo" style="max-width: 100%; height: auto;">
+                </div>
+                <div style="text-align: right; font-size: 15px; line-height: 1.5; font-weight: 600;">
+                    <p style="margin: 0;">117-9560 MARKHAM RD</p>
+                    <p style="margin: 0;">MARKHAM, ON L6E 0V1</p>
+                    <p style="margin: 0;">Tel: 905.472.5666</p>
+                </div>
             </div>
-            <div class="company-info" style="width: 60%; text-align: right; font-size: 14px; line-height: 1.4;">
-                <p style="margin: 0; font-weight: 500;">117-9560 MARKHAM RD</p>
-                <p style="margin: 0; font-weight: 500;">MARKHAM, ON L6E 0V1</p>
-                <p style="margin: 0; font-weight: 500;">Tel: 905.472.5666</p>
+            
+            <!-- 标题 -->
+            <div style="text-align: center; font-size: 24px; font-weight: bold; margin: 20px 0 15px 0;">AUTO INSURANCE CONFIRMATION</div>
+            
+            <!-- 认证声明 -->
+            <div style="font-size: 13px; line-height: 1.4; margin-bottom: 30px;">
+                This is to certify that insurance on the automobile as herein described have been issued to the Insured(s) named below and are in force at this date.
             </div>
-        </div>
-        
-        <h2 style="text-align: center; font-size: 18px; margin: 20px 0 15px; color: #333; font-weight: 600;">AUTO INSURANCE CONFIRMATION</h2>
-        <div style="border-top: 1px solid #333; width: 100%; margin-bottom: 20px;"></div>
-        
-        <div class="certificate-body" style="position: relative;">
-            <div class="certificate-section" style="margin-bottom: 15px;">
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Insured</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.namedInsured}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Address</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.propertyAddress}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Vehicle</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.vehicleModel}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">VIN</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.vehicleVin}</div>
-                </div>
-                
+            
+            <!-- 表格式内容 -->
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Named Insured:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.namedInsured}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Insured Location:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.propertyAddress}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Vehicle Model:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.vehicleModel}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Vehicle VIN#:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.vehicleVin}</td>
+                </tr>
                 ${formData.financeType !== 'none' && formData.mortgageeInfo && formData.mortgageeInfo.name ? `
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">${formData.financeType === 'lessor' ? 'Lessor' : 'Lienholder'}</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.mortgageeInfo.name}</div>
-                </div>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">${formData.financeType === 'lessor' ? 'Lessor:' : 'Lienholder:'}</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.mortgageeInfo.name}</td>
+                </tr>
                 ${formData.mortgageeInfo.address ? `
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Address</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.mortgageeInfo.address}</div>
-                </div>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Address:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.mortgageeInfo.address}</td>
+                </tr>
                 ` : ''}
                 ` : ''}
-                
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Effective Date</div>
-                    <div class="certificate-value certificate-date-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.effectiveDate}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Expiry Date</div>
-                    <div class="certificate-value certificate-date-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.expiryDate}</div>
-                </div>
-                
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Insurer</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.insurer}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Policy No.</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.policyNumber}</div>
-                </div>
-                
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Coverage</div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px; width: 200px;">Third Party Liability</div>
-                    <div class="certificate-value" style="width: 100px; color: #000; font-weight: normal; text-align: left;">${formatCurrency(formData.liability)}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;"></div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px; width: 200px;">Collision</div>
-                    <div class="certificate-value" style="width: 100px; color: #000; font-weight: normal; text-align: left;">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.collisionDeductible)}</div>
-                </div>
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;"></div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px; width: 200px;">Comprehensive</div>
-                    <div class="certificate-value" style="width: 100px; color: #000; font-weight: normal; text-align: left;">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.comprehensiveDeductible)}</div>
-                </div>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Insurer:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.insurer}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Policy Number:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.policyNumber}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Effective Date:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.effectiveDate}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Expiry Date:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.expiryDate}</td>
+                </tr>
+            </table>
+            
+            <!-- 水平线分隔 -->
+            <div style="height: 1px; background-color: #333; margin: 8px 0; width: 100%;"></div>
+            
+            <!-- 保障信息 -->
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Liability:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formatCurrency(formData.liability)}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Collision Deductible:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.collisionDeductible)}</td>
+                </tr>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Comprehensive Deductible:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.comprehensiveDeductible)}</td>
+                </tr>
                 ${formData.financeType !== 'none' ? `
-                <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;"></div>
-                    <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px; width: 200px;">${formData.financeType === 'lessor' ? 'OPCF5' : 'OPCF23'}</div>
-                    <div class="certificate-value" style="width: 100px; color: #000; font-weight: normal; text-align: left;"></div>
-                </div>
+                <tr>
+                    <td style="width: 35%; text-align: right; padding: 4px 12px 4px 0; font-weight: bold; color: #333;">Coverage Form:</td>
+                    <td style="width: 65%; text-align: left; padding: 4px 0;">${formData.financeType === 'lessor' ? 'OPCF5A' : 'OPCF23A'}</td>
+                </tr>
                 ` : ''}
-            </div>
-
-            <div class="certificate-footer" style="display: flex; justify-content: flex-start; align-items: flex-end; margin-top: 40px;">
-                <div class="signature-section" style="width: 300px;">
-                    <div class="signature-content" style="margin-bottom: 5px; text-align: center;">
-                        ${generateSignature(formData.signatureName)}
-                    </div>
-                    <div style="border-bottom: 1px solid #333; width: 100%;"></div>
-                    <div style="margin-top: 5px; font-size: 14px; text-align: center;">
-                        ${formData.signatureName}<br>
-                        Associate Broker
+            </table>
+            
+            <!-- 签名区域 -->
+            <div style="margin-top: 50px;">
+                <div style="width: 250px; margin-top: 20px;">
+                    <div style="font-family: 'Brush Script MT', 'Dancing Script', cursive; font-size: 24px; color: #000080; margin-bottom: 5px; text-align: center;">${formData.signatureName}</div>
+                    <div style="border-top: 1px solid #333; width: 100%; margin-bottom: 5px;"></div>
+                    <div style="text-align: center; font-size: 12px;">
+                        Authorized Representative<br>
+                        Date: ${new Date().toLocaleDateString()}
                     </div>
                 </div>
             </div>
             
-            <div style="margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 15px;" class="footer-disclaimer">
-                <div style="display: flex; justify-content: space-between; align-items: center;" class="footer-content">
-                    <div style="font-size: 11px; color: #666; line-height: 1.4; max-width: 70%;" class="footer-text">
-                        <p style="margin: 0;">This binder is valid for 365 days from the effective date.</p>
-                        <p style="margin: 5px 0 0;">Terms and conditions are to be governed by actual policy issued by the insurer.</p>
-                    </div>
-                    <div style="text-align: right;" class="footer-logo">
-                        <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance" style="max-width: 120px; height: auto;">
-                    </div>
-                </div>
+            <!-- 页脚声明 -->
+            <div style="margin-top: 20px; font-size: 10px; color: #666; border-top: 1px solid #ccc; padding-top: 5px;">
+                The insurance afforded is subject to the terms, conditions and exclusions of the applicable policy. This certificate is issued as a matter of information only and confers no rights on the holder and imposes no liability on Wellcare Insurance Corp.
             </div>
         </div>
     `;
     
-    // Update certificate preview
+    // 更新证书预览
     certificatePreview.innerHTML = certificateHTML;
-    
-    // 调换按钮位置
-    const downloadOptions = document.querySelector('.download-options');
-    downloadOptions.innerHTML = `
-        <button id="copy-btn" class="secondary-button">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
-            <span>Get New Certificate</span>
-        </button>
-        <button id="print-btn" class="secondary-button">
-            <i class="fas fa-print"></i>
-            <span>Generate PDF / Print Form</span>
-        </button>
-    `;
     
     // 重新添加事件监听器
     document.getElementById('print-btn').addEventListener('click', printCertificate);
     document.getElementById('copy-btn').addEventListener('click', returnToForm);
     
-    // Scroll to certificate section
+    // 滚动到证书部分
     certificateContent.scrollIntoView({ behavior: 'smooth' });
 }
 
 // Print certificate
 function printCertificate() {
-    // 获取证书内容
-    const certificateHtml = certificatePreview.innerHTML;
-    
     // 创建打印窗口
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
@@ -803,21 +608,20 @@ function printCertificate() {
         return;
     }
     
-    // 写入HTML内容
+    // 写入HTML内容 - 优化布局避免分页问题
     printWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Certificate of Insurance</title>
-            <link rel="stylesheet" href="../../common/signature-styles.css">
+            <title>AUTO INSURANCE CONFIRMATION</title>
             <style>
                 body {
                     font-family: Arial, sans-serif;
-                    line-height: 1.6;
+                    line-height: 1.5;
                     color: #333;
-                    max-width: 800px;
-                    margin: 0 auto;
-                    padding: 20px;
+                    max-width: 100%;
+                    margin: 0;
+                    padding: 0;
                 }
                 
                 @media print {
@@ -827,77 +631,99 @@ function printCertificate() {
                     }
                     
                     @page {
-                        margin: 1cm;
+                        margin: 0.7cm;
+                        size: portrait;
                     }
                 }
                 
-                /* 表格式布局样式 */
-                .certificate-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
+                .certificate-container {
+                    padding: 15px;
+                    page-break-inside: avoid;
+                    max-width: 100%;
                 }
                 
-                .certificate-table tr {
-                    vertical-align: top;
-                }
-                
-                .certificate-table td.label {
-                    width: 30%;
-                    text-align: right;
-                    padding: 5px 15px 5px 0;
-                    font-weight: bold;
-                    color: #34495e;
-                }
-                
-                .certificate-table td.value {
-                    width: 70%;
-                    text-align: left;
-                    padding: 5px 0;
-                }
-                
-                /* 标题栏样式 */
-                .header-container {
+                .header {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
                     border-bottom: 1px solid #333;
                     padding-bottom: 10px;
                 }
                 
                 .header-logo {
-                    max-width: 50%;
+                    max-width: 40%;
                 }
                 
                 .header-info {
                     text-align: right;
-                    font-size: 15px;
-                    line-height: 1.5;
+                    font-size: 14px;
+                    line-height: 1.4;
                     font-weight: 600;
                 }
                 
-                /* 标题样式 */
-                .certificate-title {
+                .header-info p {
+                    margin: 0;
+                }
+                
+                .title {
                     text-align: center;
-                    font-size: 18px;
+                    font-size: 24px;
                     font-weight: bold;
-                    margin: 20px 0;
+                    margin: 20px 0 15px 0;
                 }
                 
-                /* 签名区域样式 */
-                .signature-area {
-                    margin-top: 40px;
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: flex-end;
+                .description {
+                    font-size: 13px;
+                    line-height: 1.4;
+                    margin-bottom: 30px;
                 }
                 
-                .signature-box {
-                    border-top: 1px solid #333;
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                
+                table td {
+                    padding: 4px 0;
+                    vertical-align: top;
+                    line-height: 1.3;
+                }
+                
+                td.label {
+                    width: 40%;
+                    text-align: right;
+                    padding-right: 12px;
+                    font-weight: bold;
+                    white-space: nowrap;
+                }
+                
+                td.value {
+                    width: 60%;
+                    text-align: left;
+                }
+                
+                .horizontal-line {
+                    height: 1px;
+                    background-color: #333;
+                    margin: 8px 0;
+                    width: 100%;
+                }
+                
+                .divider {
+                    height: 1px;
+                    background-color: #ccc;
+                    margin: 8px 0;
+                    width: 100%;
+                }
+                
+                .signature-section {
+                    margin-top: 50px;
+                }
+                
+                .signature-container {
                     width: 250px;
-                    text-align: center;
-                    padding-top: 5px;
+                    margin-top: 20px;
                 }
                 
                 .signature-name {
@@ -905,53 +731,58 @@ function printCertificate() {
                     font-size: 24px;
                     color: #000080;
                     margin-bottom: 5px;
-                }
-                
-                .signature-title {
-                    font-size: 14px;
-                }
-                
-                .signature-date {
-                    font-size: 12px;
-                    color: #666;
-                    margin-top: 3px;
-                }
-                
-                /* 页脚样式 */
-                .footer {
-                    margin-top: 40px;
-                    padding-top: 10px;
-                    border-top: 1px solid #333;
-                    font-size: 11px;
-                    color: #666;
                     text-align: center;
                 }
                 
-                /* 确保日期在打印时正确显示 */
-                .date-value {
-                    white-space: nowrap;
+                .signature-line {
+                    border-top: 1px solid #333;
+                    width: 100%;
+                    margin-bottom: 5px;
+                }
+                
+                .signature-info {
+                    text-align: center;
+                    font-size: 12px;
+                }
+                
+                .footer {
+                    margin-top: 20px;
+                    font-size: 10px;
+                    color: #666;
+                    border-top: 1px solid #ccc;
+                    padding-top: 5px;
+                }
+                
+                img {
+                    max-width: 100%;
+                    height: auto;
                 }
             </style>
         </head>
         <body>
             <div class="certificate-container">
                 <!-- 页眉 -->
-                <div class="header-container">
+                <div class="header">
                     <div class="header-logo">
-                        <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo" style="max-width: 100%; height: auto;">
+                        <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo">
                     </div>
                     <div class="header-info">
-                        <p style="margin: 0;">117-9560 MARKHAM RD</p>
-                        <p style="margin: 0;">MARKHAM, ON L6E 0V1</p>
-                        <p style="margin: 0;">Tel: 905.472.5666</p>
+                        <p>117-9560 MARKHAM RD</p>
+                        <p>MARKHAM, ON L6E 0V1</p>
+                        <p>Tel: 905.472.5666</p>
                     </div>
                 </div>
                 
                 <!-- 标题 -->
-                <div class="certificate-title">Certificate of Insurance</div>
+                <div class="title">AUTO INSURANCE CONFIRMATION</div>
                 
-                <!-- 主要内容表格 -->
-                <table class="certificate-table">
+                <!-- 认证声明 -->
+                <div class="description">
+                    This is to certify that insurance on the automobile as herein described have been issued to the Insured(s) named below and are in force at this date.
+                </div>
+                
+                <!-- 表格式内容 -->
+                <table>
                     <tr>
                         <td class="label">Named Insured:</td>
                         <td class="value">${formData.namedInsured}</td>
@@ -990,12 +821,19 @@ function printCertificate() {
                     </tr>
                     <tr>
                         <td class="label">Effective Date:</td>
-                        <td class="value date-value">${formData.effectiveDate}</td>
+                        <td class="value">${formData.effectiveDate}</td>
                     </tr>
                     <tr>
                         <td class="label">Expiry Date:</td>
-                        <td class="value date-value">${formData.expiryDate}</td>
+                        <td class="value">${formData.expiryDate}</td>
                     </tr>
+                </table>
+                
+                <!-- 水平线分隔 -->
+                <div class="horizontal-line"></div>
+                
+                <!-- 保障信息 -->
+                <table>
                     <tr>
                         <td class="label">Liability:</td>
                         <td class="value">${formatCurrency(formData.liability)}</td>
@@ -1005,56 +843,36 @@ function printCertificate() {
                         <td class="value">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.collisionDeductible)}</td>
                     </tr>
                     <tr>
-                        <td class="label">Comprehensive<br>Deductible:</td>
+                        <td class="label">Comprehensive Deductible:</td>
                         <td class="value">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.comprehensiveDeductible)}</td>
                     </tr>
                     ${formData.financeType !== 'none' ? `
                     <tr>
                         <td class="label">Coverage Form:</td>
-                        <td class="value">${formData.financeType === 'lessor' ? 'OPCF5' : 'OPCF23'}</td>
+                        <td class="value">${formData.financeType === 'lessor' ? 'OPCF5A' : 'OPCF23A'}</td>
                     </tr>
                     ` : ''}
                 </table>
                 
                 <!-- 签名区域 -->
-                <div class="signature-area">
-                    <div class="signature-left">
+                <div class="signature-section">
+                    <div class="signature-container">
                         <div class="signature-name">${formData.signatureName}</div>
-                        <div class="signature-box">
-                            <div class="signature-title">Authorized Representative</div>
-                            <div class="signature-date">Date: ${new Date().toLocaleDateString()}</div>
+                        <div class="signature-line"></div>
+                        <div class="signature-info">
+                            Authorized Representative<br>
+                            Date: ${new Date().toLocaleDateString()}
                         </div>
                     </div>
                 </div>
                 
-                <!-- 页脚 -->
+                <!-- 页脚声明 -->
                 <div class="footer">
-                    This binder is valid for 365 days from the effective date.<br>
-                    Terms and conditions are to be governed by actual policy issued by the insurer.
+                    The insurance afforded is subject to the terms, conditions and exclusions of the applicable policy. This certificate is issued as a matter of information only and confers no rights on the holder and imposes no liability on Wellcare Insurance Corp.
                 </div>
             </div>
             
             <script>
-                // 强制设置正确的日期文本
-                window.onload = function() {
-                    // 找到所有日期行
-                    var dateRows = document.querySelectorAll('.date-value');
-                    
-                    // 遍历所有含有日期的单元格
-                    dateRows.forEach(function(cell) {
-                        var cellText = cell.textContent.trim();
-                        
-                        // 查找与"Effective Date"相关的单元格
-                        if (cell.previousElementSibling && cell.previousElementSibling.textContent.includes('Effective Date')) {
-                            cell.textContent = "${formData.effectiveDate}";
-                        } 
-                        // 查找与"Expiry Date"相关的单元格
-                        else if (cell.previousElementSibling && cell.previousElementSibling.textContent.includes('Expiry Date')) {
-                            cell.textContent = "${formData.expiryDate}";
-                        }
-                    });
-                };
-                
                 // 确保所有图片加载完成后再打印
                 document.addEventListener('DOMContentLoaded', function() {
                     var images = document.querySelectorAll('img');
@@ -1063,11 +881,11 @@ function printCertificate() {
                     
                     // 如果没有图片，可以直接打印
                     if (totalImages === 0) {
-                        // 延迟打印以确保DOM完全加载
                         setTimeout(function() {
                             window.focus();
                             window.print();
                         }, 500);
+                        return;
                     }
                     
                     // 为每个图片添加加载事件
@@ -1075,7 +893,6 @@ function printCertificate() {
                         if (img.complete) {
                             loadedImages++;
                             if (loadedImages === totalImages) {
-                                // 所有图片已加载完成，延迟打印
                                 setTimeout(function() {
                                     window.focus();
                                     window.print();
@@ -1085,7 +902,6 @@ function printCertificate() {
                             img.addEventListener('load', function() {
                                 loadedImages++;
                                 if (loadedImages === totalImages) {
-                                    // 所有图片已加载完成，延迟打印
                                     setTimeout(function() {
                                         window.focus();
                                         window.print();
@@ -1095,9 +911,7 @@ function printCertificate() {
                             
                             img.addEventListener('error', function() {
                                 loadedImages++;
-                                console.error('图片加载失败:', img.src);
                                 if (loadedImages === totalImages) {
-                                    // 即使有图片加载失败也继续打印
                                     setTimeout(function() {
                                         window.focus();
                                         window.print();
@@ -1107,14 +921,13 @@ function printCertificate() {
                         }
                     });
                     
-                    // 添加超时保护，避免无限等待
+                    // 添加超时保护
                     setTimeout(function() {
                         if (loadedImages < totalImages) {
-                            console.warn('超时后未加载所有图片，继续打印');
                             window.focus();
                             window.print();
                         }
-                    }, 3000); // 3秒超时
+                    }, 3000);
                 });
             </script>
         </body>
