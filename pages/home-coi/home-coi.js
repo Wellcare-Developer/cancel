@@ -304,11 +304,108 @@ function generateCertificate() {
     // 更新按钮文本，确保显示正确
     copyBtn.innerHTML = '<i class="fa-solid fa-arrow-rotate-left"></i><span>Get New Certificate</span>';
     
+    // 添加样式使证书内容更美观
+    const style = document.createElement('style');
+    style.textContent = `
+        :root {
+            --certificate-section-gap: 10px;
+            --certificate-row-gap: 2px;
+            --coverage-top-margin: 10px;
+            --coverage-bottom-margin: 10px;
+            --footer-top-margin: 20px;
+            --footer-padding: 15px 0;
+            --certificate-max-width: 900px;
+        }
+        
+        .certificate-preview {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            max-width: var(--certificate-max-width);
+        }
+        
+        .certificate-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .certificate-row {
+            display: flex;
+            margin-bottom: var(--certificate-row-gap);
+        }
+        
+        .coverage-section {
+            margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
+        }
+        
+        .certificate-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: var(--footer-top-margin);
+            padding: var(--footer-padding);
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .secondary-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .secondary-button:hover {
+            background-color: #3182ce;
+        }
+        
+        .signature-section {
+            width: 300px;
+        }
+        
+        .signature-content {
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        /* 移除所有可能导致空行的样式 */
+        .certificate-section + .certificate-section {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        
+        /* 确保没有边距导致的空行 */
+        .certificate-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* 移除可能的边框和填充 */
+        .certificate-section, .certificate-row {
+            border: none;
+            padding: 0;
+        }
+    `;
+    document.head.appendChild(style);
+    
     // Create certificate HTML
     const certificateHTML = `
         <div class="certificate-header">
             <div class="certificate-logo">
-                <img src="../../@photo/BrokerTeamInsurance_BT20-Colored.png" alt="Insurance Logo" class="logo-image">
+                <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo" class="logo-image">
             </div>
             <div class="certificate-title">
                 <h2 style="font-size: 20px; color: #2c3e50; font-weight: 600; margin-bottom: 8px;">HOME INSURANCE CONFIRMATION</h2>
@@ -455,6 +552,118 @@ function printCertificate() {
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <link rel="stylesheet" href="../../common/pdf-form.css">
             <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    line-height: 1.4;
+                    color: #333;
+                    margin: 0;
+                    padding: 20px;
+                }
+                
+                .certificate-preview {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }
+                
+                .certificate-header {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                }
+                
+                .certificate-logo {
+                    max-width: 40%;
+                }
+                
+                .certificate-title {
+                    max-width: 60%;
+                    text-align: right;
+                }
+                
+                .logo-image {
+                    max-width: 100%;
+                    height: auto;
+                }
+                
+                .certificate-body {
+                    margin-top: 20px;
+                }
+                
+                .certificate-section {
+                    margin-bottom: 15px;
+                }
+                
+                .certificate-row {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    align-items: flex-start !important;
+                    margin-bottom: 5px !important;
+                }
+                
+                .certificate-label {
+                    width: 180px !important;
+                    font-weight: 600 !important;
+                    color: #34495e !important;
+                    flex-shrink: 0 !important;
+                    display: inline-block !important;
+                }
+                
+                .certificate-value {
+                    flex: 1 !important;
+                    color: #2c3e50 !important;
+                    display: inline-block !important;
+                }
+                
+                .coverage-section h3 {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                    color: #2c3e50;
+                }
+                
+                .certificate-footer {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                    padding-top: 15px;
+                    border-top: 1px solid #e2e8f0;
+                }
+                
+                .signature-box {
+                    margin-top: 10px;
+                }
+                
+                .signature-label {
+                    margin-bottom: 5px;
+                    font-size: 12px;
+                    color: #7f8c8d;
+                }
+                
+                .signature-content {
+                    text-align: center;
+                }
+                
+                .dynamic-signature {
+                    font-family: 'Brush Script MT', cursive;
+                    font-size: 24px;
+                    color: #2c3e50;
+                    display: inline-block;
+                }
+
+                .rotate-neg-1 { transform: rotate(-1deg); }
+                .rotate-neg-2 { transform: rotate(-2deg); }
+                .rotate-pos-1 { transform: rotate(1deg); }
+                .rotate-pos-2 { transform: rotate(2deg); }
+                
+                .certificate-note {
+                    font-style: italic;
+                    color: #7f8c8d;
+                    font-size: 14px;
+                    margin-bottom: 15px;
+                }
+                
                 @media print {
                     body {
                         padding: 0;
@@ -463,6 +672,15 @@ function printCertificate() {
                     
                     @page {
                         margin: 1cm;
+                    }
+                    
+                    /* 确保打印时标题和内容在同一行 */
+                    .certificate-row {
+                        display: flex !important;
+                        flex-direction: row !important;
+                        flex-wrap: nowrap !important;
+                        align-items: flex-start !important;
+                        break-inside: avoid !important;
                     }
                 }
             </style>
