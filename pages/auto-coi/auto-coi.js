@@ -659,7 +659,7 @@ function generateCertificate() {
             <div class="company-info" style="width: 60%; text-align: right; font-size: 14px; line-height: 1.4;">
                 <p style="margin: 0; font-weight: 500;">117-9560 MARKHAM RD</p>
                 <p style="margin: 0; font-weight: 500;">MARKHAM, ON L6E 0V1</p>
-                <p style="margin: 0; font-weight: 500;">Tel: +1 905.472.5666</p>
+                <p style="margin: 0; font-weight: 500;">Tel: 905.472.5666</p>
             </div>
         </div>
         
@@ -687,7 +687,7 @@ function generateCertificate() {
                 
                 ${formData.financeType !== 'none' && formData.mortgageeInfo && formData.mortgageeInfo.name ? `
                 <div class="certificate-row" style="margin-bottom: 8px; display: flex;">
-                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">Lienholder</div>
+                    <div class="certificate-label" style="width: 120px; font-weight: 600; color: #000; text-align: left;">${formData.financeType === 'lessor' ? 'Lessor' : 'Lienholder'}</div>
                     <div class="certificate-value" style="flex: 1; color: #000; font-weight: normal; padding-left: 5px;">${formData.mortgageeInfo.name}</div>
                 </div>
                 ${formData.mortgageeInfo.address ? `
