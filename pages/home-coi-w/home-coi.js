@@ -332,8 +332,9 @@ function generateCertificate() {
         :root {
             --certificate-section-gap: 10px;
             --certificate-row-gap: 2px;
-            --coverage-top-margin: 10px;
-            --coverage-bottom-margin: 10px;
+            --coverage-top-margin: 25px;
+            --coverage-bottom-margin: 15px;
+            --coverage-title-margin: 15px;
             --footer-top-margin: 20px;
             --footer-padding: 15px 0;
             --certificate-max-width: 900px;
@@ -361,6 +362,17 @@ function generateCertificate() {
         
         .coverage-section {
             margin: var(--coverage-top-margin) 0 var(--coverage-bottom-margin);
+        }
+        
+        .coverage-section h3 {
+            margin-bottom: var(--coverage-title-margin);
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            padding-bottom: 8px;
+            display: inline-block;
+            border-bottom: 1px solid #000000;
+            width: 50%;
         }
         
         .certificate-footer {
@@ -471,7 +483,11 @@ function generateCertificate() {
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formData.expiryDate}</div>
                 </div>
             </div>
-            <div class="certificate-section" style="margin-bottom: 0;">
+            
+            <!-- Coverage Section with Title and Underline -->
+            <div class="certificate-section coverage-section" style="margin-top: 25px; margin-bottom: 15px;">
+                <h3 style="font-size: 16px; font-weight: 600; color: #2c3e50; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 1px solid #000000; display: inline-block; width: 50%;">Insurance Coverage</h3>
+                
                 <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
                     <div class="certificate-label" style="width: 180px; font-weight: 600; color: #34495e; padding-right: 15px; text-align: right;">Building Value:</div>
                     <div class="certificate-value" style="flex: 1; color: #2c3e50; font-weight: 500; padding-left: 10px;">${formatCurrency(formData.buildingValue)}</div>
@@ -495,6 +511,7 @@ function generateCertificate() {
                 </div>
                 ` : ''}
             </div>
+            
             <div class="certificate-section" style="margin-bottom: 0;">
                 ${formData.mortgageeInfos && formData.mortgageeInfos.length > 0 ? formData.mortgageeInfos.map((mortgageeInfo, index) => `
                 <div class="certificate-row" style="margin-bottom: 2px; display: flex; align-items: center;">
@@ -590,6 +607,22 @@ function printCertificate() {
                     padding-left: 10px;
                     white-space: normal !important;
                     text-transform: none !important;
+                }
+                
+                /* Coverage section styles */
+                .coverage-section {
+                    margin: 25px 0 15px;
+                }
+                
+                .coverage-section h3 {
+                    margin-bottom: 15px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #2c3e50;
+                    padding-bottom: 8px;
+                    display: inline-block;
+                    border-bottom: 1px solid #000000;
+                    width: 50%;
                 }
                 
                 .certificate-preview {
@@ -735,6 +768,16 @@ function printCertificate() {
                             }
                         }
                     });
+                    
+                    // 确保coverage标题样式正确
+                    var coverageTitle = document.querySelector('.coverage-section h3');
+                    if (coverageTitle) {
+                        coverageTitle.style.borderBottom = '1px solid #000000';
+                        coverageTitle.style.paddingBottom = '8px';
+                        coverageTitle.style.marginBottom = '15px';
+                        coverageTitle.style.display = 'inline-block';
+                        coverageTitle.style.width = '50%';
+                    }
                 };
             </script>
         </body>
