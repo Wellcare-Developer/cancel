@@ -1,5 +1,7 @@
 // Global variables
 let formData = {};
+let originalEffectiveDate = "";
+let originalExpiryDate = "";
 
 // DOM elements
 const generateBtn = document.getElementById('generate-btn');
@@ -102,6 +104,10 @@ function initDatePickers() {
         static: true,
         appendTo: document.body,
         onChange: function(selectedDates, dateStr, instance) {
+            // 保存用户看到的格式化日期文本
+            const formattedDate = instance.altInput.value;
+            originalEffectiveDate = formattedDate;
+            
             if (selectedDates.length > 0) {
                 // Calculate expiry date (1 year from effective date)
                 const expiryDate = new Date(selectedDates[0]);
@@ -109,6 +115,15 @@ function initDatePickers() {
                 
                 // Update expiry date picker
                 expiryDatePicker.setDate(expiryDate);
+                
+                // 重要：更新expiryDate的格式化文本
+                // 确保使用相同的格式
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+                const month = months[expiryDate.getMonth()];
+                const day = expiryDate.getDate();
+                const year = expiryDate.getFullYear();
+                originalExpiryDate = `${month} ${day}, ${year}`;
             }
         }
     });
@@ -122,8 +137,24 @@ function initDatePickers() {
         disableMobile: true,
         position: 'auto',
         static: true,
-        appendTo: document.body
+        appendTo: document.body,
+        onChange: function(selectedDates, dateStr, instance) {
+            // 保存用户看到的格式化日期文本
+            const formattedDate = instance.altInput.value;
+            originalExpiryDate = formattedDate;
+        }
     });
+}
+
+// Format date to more readable format
+function formatDate(date) {
+    // 将日期格式化为"月 日, 年"格式
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    
+    return `${month} ${day}, ${year}`;
 }
 
 // Validate form and generate certificate
@@ -143,6 +174,7 @@ function validateAndGenerateCertificate() {
         }
     });
     
+    // 获取日期原始值用于验证
     const effectiveDate = document.getElementById('effective-date').value.trim();
     const expiryDate = document.getElementById('expiry-date').value.trim();
     
@@ -211,14 +243,19 @@ function validateAndGenerateCertificate() {
         return;
     }
     
+    // 使用全局保存的格式化日期文本，这是最可靠的方式
+    // 如果没有（可能是用户手动输入了日期），则回退到默认的格式化方法
+    const effectiveDateDisplay = originalEffectiveDate || formatDate(effectiveDateTime);
+    const expiryDateDisplay = originalExpiryDate || formatDate(expiryDateTime);
+    
     // Save form data
     formData = {
         namedInsured,
         propertyAddress,
         riskAddress,
         mortgageeInfos,
-        effectiveDate: formatDate(effectiveDateTime),
-        expiryDate: formatDate(expiryDateTime),
+        effectiveDate: effectiveDateDisplay,
+        expiryDate: expiryDateDisplay,
         insurer,
         policyNumber,
         buildingValue,
@@ -243,12 +280,6 @@ function parseMortgageeInfo(mortgageeText) {
     const address = lines.slice(1).join(', ').trim();
     
     return { name, address };
-}
-
-// Format date to more readable format
-function formatDate(date) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
 }
 
 // Format currency
@@ -551,6 +582,16 @@ function printCertificate() {
                     padding: 20px;
                 }
                 
+                /* 确保日期值不会因为CSS而被修改 */
+                .certificate-value {
+                    flex: 1;
+                    color: #2c3e50;
+                    font-weight: 500;
+                    padding-left: 10px;
+                    white-space: normal !important;
+                    text-transform: none !important;
+                }
+                
                 .certificate-preview {
                     max-width: 800px;
                     margin: 0 auto;
@@ -584,13 +625,6 @@ function printCertificate() {
                     color: #34495e;
                     padding-right: 15px;
                     text-align: right;
-                }
-                
-                .certificate-value {
-                    flex: 1;
-                    color: #2c3e50;
-                    font-weight: 500;
-                    padding-left: 10px;
                 }
                 
                 .certificate-section {
@@ -678,6 +712,31 @@ function printCertificate() {
             <div class="certificate-preview">
                 ${certificateHtml}
             </div>
+            <script>
+                // 强制设置正确的日期文本
+                window.onload = function() {
+                    // 找到所有日期行
+                    var dateRows = document.querySelectorAll('.certificate-row');
+                    
+                    // 遍历所有行，查找包含日期标签的行
+                    dateRows.forEach(function(row) {
+                        var label = row.querySelector('.certificate-label');
+                        var value = row.querySelector('.certificate-value');
+                        
+                        if (label && value) {
+                            var labelText = label.textContent.trim();
+                            
+                            // 根据标签设置对应的日期值
+                            if (labelText === 'Effective Date:') {
+                                value.textContent = "${formData.effectiveDate}";
+                            } 
+                            else if (labelText === 'Expiry Date:') {
+                                value.textContent = "${formData.expiryDate}";
+                            }
+                        }
+                    });
+                };
+            </script>
         </body>
         </html>
     `);
@@ -695,7 +754,7 @@ function printCertificate() {
     
     if (images.length === 0) {
         // 没有图片，直接打印
-        handlePrint();
+        setTimeout(handlePrint, 500); // 给脚本执行一些时间
     } else {
         let loadedImages = 0;
         const totalImages = images.length;
@@ -707,7 +766,7 @@ function printCertificate() {
                 loadedImages++;
                 // 当所有图片都加载完成时打印
                 if (loadedImages === totalImages) {
-                    handlePrint();
+                    setTimeout(handlePrint, 500); // 给脚本执行一些时间
                 }
             } else {
                 // 添加图片加载事件
@@ -715,7 +774,7 @@ function printCertificate() {
                     loadedImages++;
                     // 当所有图片都加载完成时打印
                     if (loadedImages === totalImages) {
-                        handlePrint();
+                        setTimeout(handlePrint, 500); // 给脚本执行一些时间
                     }
                 });
                 
@@ -725,7 +784,7 @@ function printCertificate() {
                     console.error('Image failed to load:', img.src);
                     // 即使图片加载失败也继续打印
                     if (loadedImages === totalImages) {
-                        handlePrint();
+                        setTimeout(handlePrint, 500); // 给脚本执行一些时间
                     }
                 });
             }
