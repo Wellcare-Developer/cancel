@@ -808,8 +808,7 @@ function printCertificate() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>AUTO INSURANCE CONFIRMATION</title>
-            <link rel="stylesheet" href="css/auto-coi-custom.css">
+            <title>Certificate of Insurance</title>
             <link rel="stylesheet" href="../../common/signature-styles.css">
             <style>
                 body {
@@ -832,220 +831,297 @@ function printCertificate() {
                     }
                 }
                 
-                /* 确保打印时保持样式一致 */
-                .certificate-header {
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                    margin-bottom: 20px !important;
-                    padding-bottom: 0 !important;
+                /* 表格式布局样式 */
+                .certificate-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
                 }
                 
-                .certificate-logo {
-                    width: 40% !important;
+                .certificate-table tr {
+                    vertical-align: top;
                 }
                 
-                .company-info {
-                    width: 60% !important;
-                    text-align: right !important;
-                    font-size: 14px !important;
-                    line-height: 1.4 !important;
+                .certificate-table td.label {
+                    width: 30%;
+                    text-align: right;
+                    padding: 5px 15px 5px 0;
+                    font-weight: bold;
+                    color: #34495e;
                 }
                 
-                .company-info p {
-                    margin: 0 !important;
-                    font-weight: 500 !important;
+                .certificate-table td.value {
+                    width: 70%;
+                    text-align: left;
+                    padding: 5px 0;
                 }
                 
-                .certificate-row {
-                    display: flex !important;
-                    margin-bottom: 8px !important;
+                /* 标题栏样式 */
+                .header-container {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    border-bottom: 1px solid #333;
+                    padding-bottom: 10px;
                 }
                 
-                .certificate-label {
-                    width: 120px !important;
-                    font-weight: 600 !important;
-                    color: #000 !important;
-                    text-align: left !important;
-                    flex: 0 0 auto !important;
+                .header-logo {
+                    max-width: 50%;
                 }
                 
-                .certificate-value {
-                    flex: 1 !important;
-                    color: #000 !important;
-                    font-weight: normal !important;
-                    padding-left: 5px !important;
+                .header-info {
+                    text-align: right;
+                    font-size: 15px;
+                    line-height: 1.5;
+                    font-weight: 600;
+                }
+                
+                /* 标题样式 */
+                .certificate-title {
+                    text-align: center;
+                    font-size: 18px;
+                    font-weight: bold;
+                    margin: 20px 0;
+                }
+                
+                /* 签名区域样式 */
+                .signature-area {
+                    margin-top: 40px;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-end;
+                }
+                
+                .signature-box {
+                    border-top: 1px solid #333;
+                    width: 250px;
+                    text-align: center;
+                    padding-top: 5px;
+                }
+                
+                .signature-name {
+                    font-family: 'Brush Script MT', 'Dancing Script', cursive;
+                    font-size: 24px;
+                    color: #000080;
+                    margin-bottom: 5px;
+                }
+                
+                .signature-title {
+                    font-size: 14px;
+                }
+                
+                .signature-date {
+                    font-size: 12px;
+                    color: #666;
+                    margin-top: 3px;
+                }
+                
+                /* 页脚样式 */
+                .footer {
+                    margin-top: 40px;
+                    padding-top: 10px;
+                    border-top: 1px solid #333;
+                    font-size: 11px;
+                    color: #666;
+                    text-align: center;
                 }
                 
                 /* 确保日期在打印时正确显示 */
-                .certificate-date-value {
-                    font-weight: normal !important;
-                    color: #000 !important;
-                }
-                
-                /* 确保页脚居左显示 */
-                .certificate-footer {
-                    display: flex !important;
-                    justify-content: flex-start !important;
-                    align-items: flex-end !important;
-                    margin-top: 40px !important;
-                }
-                
-                /* 确保签名部分正确显示 */
-                .signature-content {
-                    text-align: center !important;
-                }
-                
-                .handwritten {
-                    font-family: 'Brush Script MT', 'Dancing Script', cursive !important;
-                    font-size: 28px !important;
-                    color: #000080 !important;
-                    text-shadow: 1px 1px 1px rgba(0,0,0,0.15) !important;
-                    line-height: 1.2 !important;
-                    letter-spacing: 1px !important;
-                    position: relative !important;
-                    display: inline-block !important;
-                    padding: 0 5px !important;
-                }
-                
-                h2 {
-                    text-align: center !important;
-                    font-size: 18px !important;
-                    margin: 20px 0 15px !important;
-                    color: #333 !important;
-                    font-weight: 600 !important;
-                }
-                
-                /* 页脚角标样式 */
-                .footer-disclaimer {
-                    margin-top: 60px !important;
-                    border-top: 1px solid #e2e8f0 !important;
-                    padding-top: 15px !important;
-                }
-                
-                .footer-content {
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    align-items: center !important;
-                }
-                
-                .footer-text {
-                    font-size: 11px !important;
-                    color: #666 !important;
-                    line-height: 1.4 !important;
-                    max-width: 70% !important;
-                }
-                
-                .footer-logo {
-                    text-align: right !important;
-                }
-                
-                .footer-logo img {
-                    max-width: 120px !important;
-                    height: auto !important;
-                }
-                
-                /* 确保责任险金额正确显示 */
-                .certificate-row .certificate-value[style*="text-align: right"] {
-                    width: 120px !important;
-                    text-align: right !important;
-                    flex: 0 0 auto !important;
-                }
-                
-                /* 确保Coverage部分正确显示 */
-                .certificate-value[style*="text-indent: 20px"] {
-                    text-indent: 20px !important;
-                }
-                
-                /* 确保Coverage金额靠左对齐 */
-                .certificate-row .certificate-value[style*="width: 100px"] {
-                    width: 100px !important;
-                    text-align: left !important;
-                    flex: 0 0 auto !important;
-                }
-                
-                /* 确保Coverage项目名称对齐 */
-                .certificate-row .certificate-value[style*="width: 200px"] {
-                    width: 200px !important;
-                    flex: 0 0 auto !important;
+                .date-value {
+                    white-space: nowrap;
                 }
             </style>
         </head>
         <body>
-            ${certificateHtml}
+            <div class="certificate-container">
+                <!-- 页眉 -->
+                <div class="header-container">
+                    <div class="header-logo">
+                        <img src="../../@photo/BrokerTeam-coi-head.png" alt="BrokerTeam Insurance Logo" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="header-info">
+                        <p style="margin: 0;">117-9560 MARKHAM RD</p>
+                        <p style="margin: 0;">MARKHAM, ON L6E 0V1</p>
+                        <p style="margin: 0;">Tel: 905.472.5666</p>
+                    </div>
+                </div>
+                
+                <!-- 标题 -->
+                <div class="certificate-title">Certificate of Insurance</div>
+                
+                <!-- 主要内容表格 -->
+                <table class="certificate-table">
+                    <tr>
+                        <td class="label">Named Insured:</td>
+                        <td class="value">${formData.namedInsured}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Insured Location:</td>
+                        <td class="value">${formData.propertyAddress}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Vehicle Model:</td>
+                        <td class="value">${formData.vehicleModel}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Vehicle VIN#:</td>
+                        <td class="value">${formData.vehicleVin}</td>
+                    </tr>
+                    ${formData.financeType !== 'none' && formData.mortgageeInfo && formData.mortgageeInfo.name ? `
+                    <tr>
+                        <td class="label">${formData.financeType === 'lessor' ? 'Lessor:' : 'Lienholder:'}</td>
+                        <td class="value">${formData.mortgageeInfo.name}</td>
+                    </tr>
+                    ${formData.mortgageeInfo.address ? `
+                    <tr>
+                        <td class="label">Address:</td>
+                        <td class="value">${formData.mortgageeInfo.address}</td>
+                    </tr>
+                    ` : ''}
+                    ` : ''}
+                    <tr>
+                        <td class="label">Insurer:</td>
+                        <td class="value">${formData.insurer}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Policy Number:</td>
+                        <td class="value">${formData.policyNumber}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Effective Date:</td>
+                        <td class="value date-value">${formData.effectiveDate}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Expiry Date:</td>
+                        <td class="value date-value">${formData.expiryDate}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Liability:</td>
+                        <td class="value">${formatCurrency(formData.liability)}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Collision Deductible:</td>
+                        <td class="value">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.collisionDeductible)}</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Comprehensive<br>Deductible:</td>
+                        <td class="value">${formatCurrency(formData.deductibleType === 'all-perils' ? formData.deductible : formData.comprehensiveDeductible)}</td>
+                    </tr>
+                    ${formData.financeType !== 'none' ? `
+                    <tr>
+                        <td class="label">Coverage Form:</td>
+                        <td class="value">${formData.financeType === 'lessor' ? 'OPCF5' : 'OPCF23'}</td>
+                    </tr>
+                    ` : ''}
+                </table>
+                
+                <!-- 签名区域 -->
+                <div class="signature-area">
+                    <div class="signature-left">
+                        <div class="signature-name">${formData.signatureName}</div>
+                        <div class="signature-box">
+                            <div class="signature-title">Authorized Representative</div>
+                            <div class="signature-date">Date: ${new Date().toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 页脚 -->
+                <div class="footer">
+                    This binder is valid for 365 days from the effective date.<br>
+                    Terms and conditions are to be governed by actual policy issued by the insurer.
+                </div>
+            </div>
+            
+            <script>
+                // 强制设置正确的日期文本
+                window.onload = function() {
+                    // 找到所有日期行
+                    var dateRows = document.querySelectorAll('.date-value');
+                    
+                    // 遍历所有含有日期的单元格
+                    dateRows.forEach(function(cell) {
+                        var cellText = cell.textContent.trim();
+                        
+                        // 查找与"Effective Date"相关的单元格
+                        if (cell.previousElementSibling && cell.previousElementSibling.textContent.includes('Effective Date')) {
+                            cell.textContent = "${formData.effectiveDate}";
+                        } 
+                        // 查找与"Expiry Date"相关的单元格
+                        else if (cell.previousElementSibling && cell.previousElementSibling.textContent.includes('Expiry Date')) {
+                            cell.textContent = "${formData.expiryDate}";
+                        }
+                    });
+                };
+                
+                // 确保所有图片加载完成后再打印
+                document.addEventListener('DOMContentLoaded', function() {
+                    var images = document.querySelectorAll('img');
+                    var loadedImages = 0;
+                    var totalImages = images.length;
+                    
+                    // 如果没有图片，可以直接打印
+                    if (totalImages === 0) {
+                        // 延迟打印以确保DOM完全加载
+                        setTimeout(function() {
+                            window.focus();
+                            window.print();
+                        }, 500);
+                    }
+                    
+                    // 为每个图片添加加载事件
+                    images.forEach(function(img) {
+                        if (img.complete) {
+                            loadedImages++;
+                            if (loadedImages === totalImages) {
+                                // 所有图片已加载完成，延迟打印
+                                setTimeout(function() {
+                                    window.focus();
+                                    window.print();
+                                }, 500);
+                            }
+                        } else {
+                            img.addEventListener('load', function() {
+                                loadedImages++;
+                                if (loadedImages === totalImages) {
+                                    // 所有图片已加载完成，延迟打印
+                                    setTimeout(function() {
+                                        window.focus();
+                                        window.print();
+                                    }, 500);
+                                }
+                            });
+                            
+                            img.addEventListener('error', function() {
+                                loadedImages++;
+                                console.error('图片加载失败:', img.src);
+                                if (loadedImages === totalImages) {
+                                    // 即使有图片加载失败也继续打印
+                                    setTimeout(function() {
+                                        window.focus();
+                                        window.print();
+                                    }, 500);
+                                }
+                            });
+                        }
+                    });
+                    
+                    // 添加超时保护，避免无限等待
+                    setTimeout(function() {
+                        if (loadedImages < totalImages) {
+                            console.warn('超时后未加载所有图片，继续打印');
+                            window.focus();
+                            window.print();
+                        }
+                    }, 3000); // 3秒超时
+                });
+            </script>
         </body>
         </html>
     `);
     
     printWindow.document.close();
-    
-    // 处理打印
-    handlePrintWithImages(printWindow);
-}
-
-// 添加handlePrintWithImages函数
-function handlePrintWithImages(printWindow) {
-    // 确保窗口已经加载完成
-    if (!printWindow || !printWindow.document) {
-        console.error('Print window not available');
-        return;
-    }
-
-    // 处理打印
-    const doPrint = () => {
-        printWindow.focus(); // 聚焦窗口
-        setTimeout(() => {
-            printWindow.print(); // 调用打印
-        }, 500); // 短暂延迟确保UI更新
-    };
-    
-    // 检查是否有图片需要加载
-    const images = printWindow.document.querySelectorAll('img');
-    
-    if (images.length === 0) {
-        // 没有图片，直接打印
-        doPrint();
-    } else {
-        // 有图片，等待图片加载完成
-        let loadedImages = 0;
-        const totalImages = images.length;
-        
-        // 为每个图片添加加载事件
-        images.forEach(img => {
-            if (img.complete) {
-                // 图片已加载
-                loadedImages++;
-                if (loadedImages === totalImages) {
-                    doPrint();
-                }
-            } else {
-                // 图片正在加载
-                img.addEventListener('load', () => {
-                    loadedImages++;
-                    if (loadedImages === totalImages) {
-                        doPrint();
-                    }
-                });
-                
-                // 图片加载失败
-                img.addEventListener('error', () => {
-                    loadedImages++;
-                    console.error('Image failed to load:', img.src);
-                    if (loadedImages === totalImages) {
-                        doPrint();
-                    }
-                });
-            }
-        });
-        
-        // 添加超时保护，避免无限等待
-        setTimeout(() => {
-            if (loadedImages < totalImages) {
-                console.warn('Not all images loaded after timeout, printing anyway');
-                doPrint();
-            }
-        }, 3000); // 3秒超时
-    }
 }
 
 // 返回表单页面
