@@ -16,80 +16,50 @@
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     
+    <!-- 移除公共组件引用 -->
     <link rel="stylesheet" href="../../common/styles.css">
-    <link rel="stylesheet" href="../../common/header-nav.css">
+    <!-- <link rel="stylesheet" href="../../common/header-nav.css"> 删除这行 -->
     <link rel="stylesheet" href="../../common/signature-styles.css">
     <link rel="stylesheet" href="../../common/how-to-use-styles.css">
     <link rel="stylesheet" href="../../common/coi-form.css">
     <link rel="stylesheet" href="../../common/pdf-form.css">
+    <link rel="stylesheet" href="../../common/coi-pages.css">
+    
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Flatpickr - Date Picker Library -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
     <style>
-        /* 抵押权人相关样式 */
-        .mortgagee-item {
-            margin-bottom: 10px;
-            position: relative;
-        }
-        
-        .mortgagee-controls {
-            margin-top: 10px;
-        }
-        
-        .btn-small {
-            background-color: #4299e1;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            font-size: 12px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .btn-small:hover {
-            background-color: #3182ce;
-        }
-        
-        .remove-mortgagee {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #e53e3e;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 10px;
+        /* 只保留特有的复选框样式 */
+        .checkbox-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            position: relative;
+            padding-left: 30px;
             cursor: pointer;
+            user-select: none;
         }
-        
-        .remove-mortgagee:hover {
-            background-color: #c53030;
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
         }
-        
-        #mortgagee-container {
-            max-height: 400px;
-            overflow-y: auto;
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ffe5e7;
         }
-        
-        /* Mortgagee Info占位符样式 */
-        .mortgagee-input::placeholder {
-            font-size: 10px;
-            opacity: 0.8;
-        }
-        
-        /* Mortgagee Info文本框样式 */
-        .mortgagee-input {
-            font-size: 10px;
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: rgba(230, 0, 18, 0.7);
         }
     </style>
 </head>
