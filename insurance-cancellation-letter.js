@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const otherReasonTextarea = document.getElementById('other-reason');
     const insurerSelect = document.getElementById('insurer-select');
     const insurerInput = document.getElementById('insurer');
+    const policyTypeSelect = document.getElementById('type-of-policy');
+    const otherPolicyTypeTextarea = document.getElementById('other-policy-type');
+   
 
     // Initialize date picker
     flatpickr("#cancel-date", {
@@ -40,6 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Show/hide other policy type textarea
+    policyTypeSelect.addEventListener('change', function() {
+        if (this.value === 'other') {
+            otherPolicyTypeTextarea.classList.remove('hidden');
+            otherPolicyTypeTextarea.focus();
+        } else {
+            otherPolicyTypeTextarea.classList.add('hidden');
+            otherPolicyTypeTextarea.value = '';
+        }
+    });
+
     generateBtn.addEventListener('click', generateLetter);
     copyBtn.addEventListener('click', copyLetter);
     printBtn.addEventListener('click', printLetter);
@@ -61,9 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const cancelDate = document.getElementById('cancel-date').value;
         const cancelReason = document.getElementById('cancel-reason').value;
         const otherReason = document.getElementById('other-reason').value.trim();
+        
+        // Get policy type
+        let policyType = policyTypeSelect.value;
+        if (policyType === 'other') {
+            policyType = otherPolicyTypeTextarea.value.trim();
+        }
 
         // Validate required fields
-        if (!namedInsured || !insurer || !policyNumber || !cancelDate || !cancelReason) {
+        if (!namedInsured || !insurer || !policyNumber || !cancelDate || !cancelReason || !policyType) {
             alert('Please fill in all required information');
             return;
         }
@@ -112,6 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'cost':
                 reasonText = 'Premium is too high';
                 break;
+            case 'request':
+                reasonText = 'Cancelled as requested by Insured';
+                break;
             case 'other':
                 reasonText = otherReason;
                 break;
@@ -145,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div style="text-align: left; margin-top: 40px; line-height: 1.8;">
                     <p>To Whom It May Concern,</p>
                     
-                    <p style="margin-top: 20px;">Please be advised that the undersigned insured(s) would like to cancel the above captioned policy effective 
+                    <p style="margin-top: 20px;">Please be advised that the undersigned insured(s) would like to cancel the above captioned ${policyType} policy effective 
                     <span style="color: #e74c3c; font-weight: bold;">${formattedCancelDate}</span> 12:01 a.m. 
                     ${reasonText ? `The reason for cancellation is: <span style="font-weight: 500;">${reasonText}</span>.` : ''}</p>
                     
@@ -155,10 +178,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     <p style="margin-top: 20px;">Regards,</p>
                 </div>
+
+                <div>${namedInsured}</div>
                 
                 <div class="signature-section" style="margin-top: 20px;">
                     <div style="border: 1px solid #3498db; border-radius: 5px; padding: 15px; max-width: 320px; position: relative;">
-                        <div style="position: absolute; top: -10px; left: 15px; background: white; padding: 0 10px; font-size: 12px; color: #7f8c8d;">Signed electronically by</div>
+                        <div style="position: absolute; top: -10px; left: 15px; background: white; padding: 0 10px; font-size: 12px; color: #7f8c8d;">Signed electronically, </div>
                         <div style="text-align: center; padding: 10px 0; font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; font-size: 28px; color: #2c3e50;">${signature}</div>
                         <div style="text-align: center; font-size: 12px; color: #7f8c8d;">on ${formattedDate}</div>
                     </div>
@@ -175,21 +200,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function generateSignature(name) {
         // Create a signature based on the name
-        if (!name) return '';
+        // if (!name) return '';
         
-        // Add some random variation to make the signature look more natural
-        const randomRotation = Math.floor(Math.random() * 5) - 2; // Random rotation between -2 and 2 degrees
-        const randomSize = Math.floor(Math.random() * 6) + 24; // Random size between 24-29px
+        // // Add some random variation to make the signature look more natural
+        // const randomRotation = Math.floor(Math.random() * 5) - 2; // Random rotation between -2 and 2 degrees
+        // const randomSize = Math.floor(Math.random() * 6) + 24; // Random size between 24-29px
         
-        // Create a cursive style signature with slight randomization
-        const signatureHTML = `<span style="font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; 
-                                     font-size: ${randomSize}px; 
-                                     transform: rotate(${randomRotation}deg); 
-                                     display: inline-block;
-                                     color: #000080;
-                                     text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);">${name}</span>`;
+        // // Create a cursive style signature with slight randomization
+        // const signatureHTML = `<span style="font-family: 'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive; 
+        //                              font-size: ${randomSize}px; 
+        //                              transform: rotate(${randomRotation}deg); 
+        //                              display: inline-block;
+        //                              color: #000080;
+        //                              text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.2);">${name}</span>`;
         
-        return signatureHTML;
+        // return signatureHTML;
+
+        return '';
     }
 
     function copyLetter() {

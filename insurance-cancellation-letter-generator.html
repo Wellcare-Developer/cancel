@@ -120,10 +120,28 @@
                                 <input type="text" id="policy-number" class="highlighted-input" placeholder="Enter policy number">
                             </div>
 
-                            <!-- Step 4: Cancellation Date -->
                             <div class="input-group step-container">
                                 <div class="step-indicator">
                                     <span class="step-number">4</span>
+                                    <div class="step-content">
+                                        <h5>Type of Policy</h5>
+                                        <p class="hint-text">Select or enter the type of policy</p>
+                                    </div>
+                                </div>
+                                <select id="type-of-policy" class="highlighted-input">
+                                    <option value="" disabled selected>Please select policy type...</option>
+                                    <option value="auto">Auto</option>
+                                    <option value="tenant">Tenant</option>
+                                    <option value="homeowner">Homeowner</option>
+                                    <option value="other">Other Policy</option>
+                                </select>
+                                <textarea id="other-policy-type" class="highlighted-input hidden" placeholder="Please list type of policy..." rows="3"></textarea>
+                            </div>
+
+                            <!-- Step 4: Cancellation Date -->
+                            <div class="input-group step-container">
+                                <div class="step-indicator">
+                                    <span class="step-number">5</span>
                                     <div class="step-content">
                                         <h5>Cancellation Date</h5>
                                         <p class="hint-text">Select your desired policy cancellation date</p>
@@ -135,7 +153,7 @@
                             <!-- Step 5: Cancellation Reason -->
                             <div class="input-group step-container">
                                 <div class="step-indicator">
-                                    <span class="step-number">5</span>
+                                    <span class="step-number">6</span>
                                     <div class="step-content">
                                         <h5>Cancellation Reason</h5>
                                         <p class="hint-text">Select or enter the reason for cancellation</p>
@@ -147,6 +165,7 @@
                                     <option value="replaced">Changed Insurance Company</option>
                                     <option value="moved">Relocated to Different Area</option>
                                     <option value="cost">Premium Too High</option>
+                                    <option value="request">Cancelled as Insured's Request</option>
                                     <option value="other">Other Reason</option>
                                 </select>
                                 <textarea id="other-reason" class="highlighted-input hidden" placeholder="Please explain other reason..." rows="3"></textarea>
